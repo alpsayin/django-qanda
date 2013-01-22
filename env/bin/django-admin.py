@@ -1,4 +1,4 @@
-#!/Users/alpsayin/temp/env/bin/python
+#!/Users/alpsayin/qanda/env/bin/python
 from django.core import management
 
 if __name__ == "__main__":
