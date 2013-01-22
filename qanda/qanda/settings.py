@@ -95,6 +95,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_notify.middleware.NotificationsMiddleware',
 )
 
 ROOT_URLCONF = 'qanda.urls'
@@ -120,6 +121,11 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+TEMPLATE_CONTEXT_PROCESSORS={
+    'django_notify.context_processors.notifications',
+}
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
