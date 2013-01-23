@@ -3,11 +3,16 @@ from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 
 # Create your models here.
+class QandaUserManager(models.Manager):
+	def create_user(self, django_user):
+		newQandaUser=self.create(djangoUser=django_user, deleted=False)
+		return newQandaUser
 
 class QandaUser(models.Model):
 	"""
 		User information regarding the Qanda Application
 	"""
+	objects = QandaUserManager()
 	djangoUser = models.OneToOneField(User, related_name='QandaUser')
 	# answers - foreign key of Answer
 	# questions - foreign key of Question
@@ -20,11 +25,22 @@ class QandaUser(models.Model):
 	def __unicode__(self):
 		return u'%s %s' % (self.djangoUser.first_name, self.djangoUser.last_name)
 
+class QuestionManager(models.Manager):
+	def create_question(self, question_title, qanda_user, question_text):
+		newQuestion = self.create(	title=question_title,
+									text=question_text,
+									author=qanda_user,
+									viewCount=0,
+									closeMessage='',
+									deleted=False,
+									closed=False)
+		return newQuestion
 
 class Question(models.Model):
 	"""
 		Model to hold questions
 	"""
+	objects = QuestionManager()
 	title = models.CharField(max_length=255)
 	text = models.TextField(blank=True);
 	author = models.ForeignKey(QandaUser, related_name='questions')
@@ -43,10 +59,20 @@ class Question(models.Model):
 	def __unicode__(self):
 		return u'%d %s' % (self.pk, self.title)
 
+class AnswerManager(models.Manager):
+	def create_answer(self, question_id, qanda_user, answer_text):
+		newAnswer = self.create(text=answer_text,
+								question=question_id,
+								author=qanda_user,
+								deleted=False
+								)
+		return newAnswer
+
 class Answer(models.Model):
 	"""
 		Model to hold answers to questions
 	"""
+	objects = AnswerManager()
 	text = models.TextField()
 	question = models.ForeignKey(Question, related_name='answers')
 	author = models.ForeignKey(QandaUser, related_name='answers')
@@ -59,6 +85,14 @@ class Answer(models.Model):
 		verbose_name = 'Qanda Answer'
 	def __unicode__(self):
 		return u'%d by %s' % (self.pk, self.author.djangoUser)
+
+class ReplyManager(models.Manager):
+	def create_reply(self, answer_id, qanda_user, reply_text):
+		newReply = self.create(text = reply_text,
+								author = qanda_user,
+								answer = answer_id,
+								deleted = False)
+		return newReply
 
 class Reply(models.Model):
 	"""
