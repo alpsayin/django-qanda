@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -13,6 +14,7 @@ class QandaUser(models.Model):
 	# replies - foreign key of Reply
 	deleted = models.BooleanField()
 	starred = models.ManyToManyField("self", null=True, symmetrical=False, through='UserStars', related_name='starred_by')
+	tags = TaggableManager()
 	class Meta:
 		verbose_name = 'Qanda User'
 	def __unicode__(self):
@@ -24,15 +26,17 @@ class Question(models.Model):
 		Model to hold questions
 	"""
 	title = models.CharField(max_length=255)
-	text = models.TextField();
+	text = models.TextField(blank=True);
 	author = models.ForeignKey(QandaUser, related_name='questions')
 	viewCount = models.IntegerField()
 	uniqueViewCount = models.IntegerField()
-	postDate = models.DateTimeField(auto_now_add=True, auto_now=False)
-	editDate = models.DateTimeField(auto_now_add=True, auto_now=True)
-	closeMessage = models.TextField()
-	closeDate = models.DateTimeField(auto_now_add=False, auto_now=True)
+	postDate = models.DateTimeField(auto_now_add=True)
+	editDate = models.DateTimeField(auto_now=True)
+	closeMessage = models.TextField(blank=True)
+	closeDate = models.DateTimeField(auto_now=True)
 	deleted = models.BooleanField()
+	closed = models.BooleanField()
+	tags = TaggableManager()
 	#answers - foreign key of Answer
 	relatedUsers = models.ManyToManyField(QandaUser, through='QuestionRelatedUsers', related_name='related_questions')
 	class Meta:
@@ -49,8 +53,8 @@ class Answer(models.Model):
 	author = models.ForeignKey(QandaUser, related_name='answers')
 	# replies - foreign key of Reply
 	relatedUsers = models.ManyToManyField(QandaUser, through='AnswerRelatedUsers', related_name='related_answers')
-	postDate = models.DateTimeField(auto_now_add=True, auto_now=False)
-	editDate = models.DateTimeField(auto_now_add=True, auto_now=True)
+	postDate = models.DateTimeField(auto_now_add=True)
+	editDate = models.DateTimeField(auto_now=True)
 	deleted = models.BooleanField()
 	class Meta:
 		verbose_name = 'Qanda Answer'
@@ -63,8 +67,9 @@ class Reply(models.Model):
 	"""
 	text = models.TextField()
 	author = models.ForeignKey(QandaUser, related_name='replies')
-	postDate = models.DateTimeField(auto_now_add=True, auto_now=False)
-	editDate = models.DateTimeField(auto_now_add=True, auto_now=True)
+	answer = models.ForeignKey(Answer, null=True, related_name='replies')
+	postDate = models.DateTimeField(auto_now_add=True)
+	editDate = models.DateTimeField(auto_now=True)
 	deleted = models.BooleanField()
 	class Meta:
 		verbose_name = 'Qanda Reply'
@@ -76,11 +81,11 @@ class UserStars(models.Model):
 	"""
 		Relationship table to hold user starring relations
 	"""
-	starrer = models.ForeignKey(QandaUser, related_name='starrer_relations')
-	starred = models.ForeignKey(QandaUser, related_name='starred_relations')
-	timestamp = models.DateTimeField(auto_now_add=True, auto_now=True)
+	starrer = models.ForeignKey(QandaUser, related_name='starrer_relation')
+	starred = models.ForeignKey(QandaUser, related_name='starred_relation')
+	timestamp = models.DateTimeField(auto_now=True)
 	class Meta:
-		verbose_name = 'Qanda Star Relationships'
+		verbose_name = 'Qanda Star Relationship'
 
 class QuestionRelatedUsers(models.Model):
 	"""
@@ -101,7 +106,7 @@ class QuestionRelatedUsers(models.Model):
 	star = models.BooleanField()
 	flag = models.BooleanField()
 	class Meta:
-		verbose_name = 'Qanda Question/User Relationships'
+		verbose_name = 'Qanda Question/User Relationship'
 
 class AnswerRelatedUsers(models.Model):
 	"""
@@ -122,7 +127,7 @@ class AnswerRelatedUsers(models.Model):
 	star = models.BooleanField()
 	flag = models.BooleanField()
 	class Meta:
-		verbose_name = 'Qanda Answer/User Relationships'
+		verbose_name = 'Qanda Answer/User Relationship'
 
 class QandaUserStats(models.Model):
 	"""
