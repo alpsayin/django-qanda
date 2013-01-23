@@ -1,13 +1,13 @@
 from django.contrib import admin
 from models import QandaUser, Question, Answer, Reply
-from models import UserStars, QuestionRelatedUsers, AnswerRelatedUsers 
+from models import UserStars, QuestionRelatedUsers, AnswerRelatedUsers, QandaUserStats
 
 class QandaUserAdmin(admin.ModelAdmin):
 	fields = ['djangoUser', 'deleted']
 	list_display = ['djangoUser', 'deleted']
 
 class QuestionAdmin(admin.ModelAdmin):
-	fields = ['title', 'text', 'author', 'viewCount', 'uniqueViewCount', 'closeMessage', 'deleted']
+	fields = ['title', 'text', 'author', 'viewCount', 'closeMessage', 'deleted']
 	list_display = ['pk','title','author', 'text', 'postDate', 'editDate', 'closeDate','closeMessage', 'closed', 'deleted']
 	list_filter = ['postDate', 'editDate', 'closeDate','author']
 
@@ -33,6 +33,9 @@ class AnswerRelatedUsersAdmin(admin.ModelAdmin):
 	fields = ['relatedUser', 'relatedQuestion', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
 	list_display = ['relatedUser', 'relatedQuestion', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
 
+class QandaUserStatsAdmin(admin.ModelAdmin):
+	pass
+
 admin.site.register(QandaUser, QandaUserAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer, AnswerAdmin)
@@ -41,3 +44,4 @@ admin.site.register(Reply, ReplyAdmin)
 admin.site.register(UserStars, UserStarsAdmin)
 admin.site.register(QuestionRelatedUsers, QuestionRelatedUsersAdmin)
 admin.site.register(AnswerRelatedUsers, AnswerRelatedUsersAdmin)
+admin.site.register(QandaUserStats, QandaUserStatsAdmin)
