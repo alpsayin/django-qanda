@@ -11,10 +11,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'qanda_sqlite_db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'qanda_db',                      # Or path to database file if using sqlite3.
+        'USER': 'qanda_db',                      # Not used with sqlite3.
+        'PASSWORD': 'qanda_db',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'taggit',
     'south',
     'qanda_app',
+    'django_extensions',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS={
