@@ -1,0 +1,21 @@
+<h2> {{ question.title }} </h2> 
+
+{{ question.author }} <br />
+{{ question.postDate }} <br />
+{{ question.text }}  <br />
+
+<hr>
+
+{% for answer in answers %}
+<p>
+	{{ answer.text }} <br />
+	{{ answer.author }} <br />
+	{% for reply in answer.replies.all %}
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.text }} <br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.author }} <br />
+	</p>
+	{% endfor %}
+	<hr>
+</p>
+{% endfor %}
