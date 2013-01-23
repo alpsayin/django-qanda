@@ -29,7 +29,6 @@ class Question(models.Model):
 	text = models.TextField(blank=True);
 	author = models.ForeignKey(QandaUser, related_name='questions')
 	viewCount = models.IntegerField()
-	uniqueViewCount = models.IntegerField()
 	postDate = models.DateTimeField(auto_now_add=True)
 	editDate = models.DateTimeField(auto_now=True)
 	closeMessage = models.TextField(blank=True)
@@ -134,7 +133,6 @@ class QandaUserStats(models.Model):
 		THIS TABLE IS FOR FUTURE USE
 		Statistics table to hold various statistics about a QandaUser, such as the number of:
 			profileViews
-			uniqueProfileViews
 			Questions
 			Answers
 			Replies
@@ -168,7 +166,6 @@ class QandaUserStats(models.Model):
 	"""
 	qandaUser = models.OneToOneField(QandaUser)
 	profileViews = models.IntegerField()
-	uniqueProfileViews = models.IntegerField()
 	questions = models.IntegerField()
 	answers = models.IntegerField()
 	replies = models.IntegerField()
