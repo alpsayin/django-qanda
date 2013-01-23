@@ -196,3 +196,5 @@ class QandaUserStats(models.Model):
 	hisFlaggedAnswers = models.IntegerField()
 	starredAnswers = models.IntegerField()
 	hisStarredAnswers = models.IntegerField()
+	class Meta:
+		verbose_name = 'Qanda User Statistic'
