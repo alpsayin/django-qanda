@@ -13,19 +13,17 @@
 	{% include "new_question.html" with type="new_question" %}
 {% endcomment %}
 
+{{ debug }}
+
 <h2> {{ question.title }} </h2> 
 
 {{ question.author }} <br />
 {{ question.postDate }} <br />
 {{ question.text }}  <br />
 
-{{ debug }}
-
-{% block relations %}
-{% endblock %}
-
-
 {% include "relations.html" with relations=question.relations pk=question.pk type="question" %}
+
+<a href="{% url new_question_page %}">Enter a new question</a> <br />
 
 <hr>
 
