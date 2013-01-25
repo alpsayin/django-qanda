@@ -80,7 +80,7 @@ class QuestionManager(models.Manager):
 	"""
 		Manager object for Question type
 	"""
-	def create_question(self, question_title, qanda_user, question_text):
+	def create_question(self, qanda_user, question_title, question_text):
 		newQuestion = self.create(	title=question_title,
 									text=question_text,
 									author=qanda_user,
@@ -164,7 +164,7 @@ class AnswerManager(models.Manager):
 	"""
 		Manager object for Answer type
 	"""
-	def create_answer(self, question_id, qanda_user, answer_text):
+	def create_answer(self, qanda_user, question_id, answer_text):
 		newAnswer = self.create(text=answer_text,
 								question=question_id,
 								author=qanda_user,
@@ -239,7 +239,7 @@ class ReplyManager(models.Manager):
 	"""
 		Manager object for Reply Type
 	"""
-	def create_reply(self, answer_id, qanda_user, reply_text):
+	def create_reply(self, qanda_user, answer_id, reply_text):
 		newReply = self.create(text = reply_text,
 								author = qanda_user,
 								answer = answer_id,
