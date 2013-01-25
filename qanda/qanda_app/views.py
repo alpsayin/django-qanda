@@ -16,6 +16,7 @@ def get_user(request):
 
 def index(request):
 	return HttpResponse("questions index")
+	return HttpResponseRedirect(reverse(question_page, args=(Question.objects.count(),)))
 
 def process_question_relations(request, question, qandaUser):
 	if 'star' in request.POST:
