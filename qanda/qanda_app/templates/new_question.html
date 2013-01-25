@@ -1,0 +1,17 @@
+{% block new_question %}
+<form method="post" action="{{ action_link }}">
+	{% csrf_token %}
+	<input type="hidden" name="pk" value="{{ pk }}">
+	<input type="hidden" name="type" value="{{ type }}">
+	Title <br />
+	<input type="text" name="title"> <br />
+	Question Text <br />
+	<textarea type="textarea" name="question_text" rows="40" cols="150" onFocus="clearAllText(this)">
+		Write your question here...
+	</textarea> <br />
+	Tags <br />
+	<input type="text" name="tags"> <br />
+	<br />
+	<input type="submit" value="Submit">
+</form>
+{% endblock %}
