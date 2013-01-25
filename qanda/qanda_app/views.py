@@ -6,6 +6,8 @@ from django.shortcuts import render_to_response
 from django.contrib import auth
 from django.shortcuts import redirect
 from django.template.context import RequestContext
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 from models import *
 
@@ -15,74 +17,57 @@ def get_user(request):
 	return request._cached_user
 
 def index(request):
-	return HttpResponse("questions index")
 	return HttpResponseRedirect(reverse(question_page, args=(Question.objects.count(),)))
 
 def process_question_relations(request, question, qandaUser):
-	if 'star' in request.POST:
-		Question.objects.star(qandaUser, question)
-	else:
-		Question.objects.unstar(qandaUser, question)
-	if 'flag' in request.POST:
-		Question.objects.flag(qandaUser, question)
-	else:
-		Question.objects.unflag(qandaUser, question)
-	if 'upvote' in request.POST:
-		Question.objects.upvote(qandaUser, question)
-	else:
-		Question.objects.unupvote(qandaUser, question)
-	if 'downvote' in request.POST:
-		Question.objects.downvote(qandaUser, question)
-	else:
-		Question.objects.undownvote(qandaUser, question)
-	if 'useful' in request.POST:
-		Question.objects.useful(qandaUser, question)
-	else:
-		Question.objects.unuseful(qandaUser, question)
-	if 'notUseful' in request.POST:
-		Question.objects.notUseful(qandaUser, question)
-	else:
-		Question.objects.unnotUseful(qandaUser, question)
+	relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
+	relations = dict()
+	for submitted_key in request.POST:
+		if submitted_key in relation_types:
+			relations[submitted_key] = True
+	for relation_type in relation_types:
+		if relation_type not in relations:
+			relations[relation_type] = False
+	Question.objects.set_relations(qandaUser, question, relations)
 
 def process_answer_relations(request, answer, qandaUser):
-	if 'star' in request.POST:
-		Answer.objects.star(qandaUser, answer)
-	else:
-		Answer.objects.unstar(qandaUser, answer)
-	if 'flag' in request.POST:
-		Answer.objects.flag(qandaUser, answer)
-	else:
-		Answer.objects.unflag(qandaUser, answer)
-	if 'upvote' in request.POST:
-		Answer.objects.upvote(qandaUser, answer)
-	else:
-		Answer.objects.unupvote(qandaUser, answer)
-	if 'downvote' in request.POST:
-		Answer.objects.downvote(qandaUser, answer)
-	else:
-		Answer.objects.undownvote(qandaUser, answer)
-	if 'useful' in request.POST:
-		Answer.objects.useful(qandaUser, answer)
-	else:
-		Answer.objects.unuseful(qandaUser, answer)
-	if 'notUseful' in request.POST:
-		Answer.objects.notUseful(qandaUser, answer)
-	else:
-		Answer.objects.unnotUseful(qandaUser, answer)
+	relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
+	relations = dict()
+	for submitted_key in request.POST:
+		if submitted_key in relation_types:
+			relations[submitted_key] = True
+	for relation_type in relation_types:
+		if relation_type not in relations:
+			relations[relation_type] = False
+	Answer.objects.set_relations(qandaUser, answer, relations)
 
 def process_new_answer(request, question, qandaUser):
 	"""
 		Process a new answer
 	"""
-	# print process_new_answer.__doc__
-	Answer.objects.create_answer(question, qandaUser, request.POST['answer_text'])
+	return Answer.objects.create_answer(qandaUser, question, request.POST['answer_text'])
 
 def process_new_reply(request, answer, qandaUser):
 	"""
 		Process a new reply
 	"""
-	# print process_new_reply.__doc__
-	Reply.objects.create_reply(answer, qandaUser, request.POST['reply_text'])
+	return Reply.objects.create_reply(qandaUser, answer, request.POST['reply_text'])
+
+def process_new_question(request, qandaUser):
+	"""
+		Process a new question
+	"""
+	return Question.objects.create_question(qandaUser, request.POST['title'], request.POST['question_text'])
+
+def new_question_page(request):
+	if request.method == 'POST':
+		if request.POST['type'] == 'new_question':
+			qandaUser = get_user(request).QandaUser
+			question = process_new_question(request, qandaUser)
+			return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+	context = {}
+	context['type']='new_question'
+	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
 def question_page(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
@@ -100,8 +85,12 @@ def question_page(request, question_id):
 		elif request.POST['type'] == 'new_reply':
 			answer = Answer.objects.get(pk=int(request.POST['pk']))
 			process_new_reply(request, answer, qandaUser)
+		elif request.POST['type'] == 'new_question':
+			process_new_question(request, qandaUser)
 
-	question.relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))[0]
+	all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
+	if all_relations.count() > 0: 
+		question.relations = all_relations[0]
 	answers = question.answers.filter(deleted=False)
 	for answer in answers:
 		if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
