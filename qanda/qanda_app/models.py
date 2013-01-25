@@ -4,6 +4,9 @@ from taggit.managers import TaggableManager
 
 # Create your models here.
 class QandaUserManager(models.Manager):
+	"""
+		Manager object for QandaUser type
+	"""
 	def create_user(self, django_user):
 		newQandaUser=self.create(djangoUser=django_user, deleted=False)
 		return newQandaUser
@@ -26,6 +29,9 @@ class QandaUser(models.Model):
 		return u'%s %s' % (self.djangoUser.first_name, self.djangoUser.last_name)
 
 class QuestionManager(models.Manager):
+	"""
+		Manager object for Question type
+	"""
 	def create_question(self, question_title, qanda_user, question_text):
 		newQuestion = self.create(	title=question_title,
 									text=question_text,
@@ -60,6 +66,9 @@ class Question(models.Model):
 		return u'%d %s' % (self.pk, self.title)
 
 class AnswerManager(models.Manager):
+	"""
+		Manager object for Answer type
+	"""
 	def create_answer(self, question_id, qanda_user, answer_text):
 		newAnswer = self.create(text=answer_text,
 								question=question_id,
@@ -87,6 +96,9 @@ class Answer(models.Model):
 		return u'%d by %s' % (self.pk, self.author.djangoUser)
 
 class ReplyManager(models.Manager):
+	"""
+		Manager object for Reply Type
+	"""
 	def create_reply(self, answer_id, qanda_user, reply_text):
 		newReply = self.create(text = reply_text,
 								author = qanda_user,
