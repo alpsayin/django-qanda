@@ -433,7 +433,7 @@ class AnswerRelatedUsers(models.Model):
 			flag
 	"""
 	relatedUser = models.ForeignKey(QandaUser)
-	relatedQuestion = models.ForeignKey(Answer)
+	relatedAnswer = models.ForeignKey(Answer)
 	upvote = models.BooleanField()
 	downvote = models.BooleanField()
 	useful = models.BooleanField()

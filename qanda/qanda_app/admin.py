@@ -30,8 +30,8 @@ class QuestionRelatedUsersAdmin(admin.ModelAdmin):
 	list_display = ['relatedUser', 'relatedQuestion', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
 
 class AnswerRelatedUsersAdmin(admin.ModelAdmin):
-	fields = ['relatedUser', 'relatedQuestion', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
-	list_display = ['relatedUser', 'relatedQuestion', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
+	fields = ['relatedUser', 'relatedAnswer', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
+	list_display = ['relatedUser', 'relatedAnswer', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
 
 class QandaUserStatsAdmin(admin.ModelAdmin):
 	pass
