@@ -8,3 +8,4 @@ pip install django-notify
 pip install mysql-python
 pip install django-extensions
 pip install werkzeug
+pip install django-tastypie

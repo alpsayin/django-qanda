@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'south',
     'qanda_app',
     'django_extensions',
+    'tastypie',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS={
