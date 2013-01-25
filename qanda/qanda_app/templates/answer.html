@@ -1,0 +1,12 @@
+{% block answer %}
+<form method="post" action="{{ action_link }}">
+	{% csrf_token %}
+	<input type="hidden" name="pk" value="{{ pk }}">
+	<input type="hidden" name="type" value="{{ type }}">
+	<textarea type="textarea" name="answer_text" rows="10" cols="150" onFocus="clearAllText(this)">
+		Write your answer here...
+	</textarea>
+	<br />
+	<input type="submit" value="Submit">
+</form>
+{% endblock %}
