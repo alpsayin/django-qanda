@@ -1,4 +1,14 @@
 
+<html>
+<head>
+<title> {{ question.title }} </title>
+
+{% include "scripts.html" %}
+
+</head>
+
+<body>
+
 <h2> {{ question.title }} </h2> 
 
 {{ question.author }} <br />
@@ -31,4 +41,6 @@
 </p>
 {% endfor %}
 
-{% include "answer.html" %}
+{% include "answer.html" %}</body>
+</body>
+</html>
