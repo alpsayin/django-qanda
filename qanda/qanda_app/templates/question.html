@@ -26,6 +26,9 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.author }} <br />
 	</p>
 	{% endfor %}
+	{% include reply.html %}
 	<hr>
 </p>
 {% endfor %}
+
+{% include "answer.html" %}
