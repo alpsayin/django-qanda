@@ -1,15 +1,25 @@
+
 <h2> {{ question.title }} </h2> 
 
 {{ question.author }} <br />
 {{ question.postDate }} <br />
 {{ question.text }}  <br />
 
+{{ debug }}
+
+{% block relations %}
+{% endblock %}
+
+
+{% include "relations.html" with relations=question.relations pk=question.pk type="question" %}
+
 <hr>
 
 {% for answer in answers %}
 <p>
 	{{ answer.text }} <br />
-	{{ answer.author }} <br />
+	{{ answer.author }} <br/>
+	{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" %} <br />
 	{% for reply in answer.replies.all %}
 	<p>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.text }} <br />

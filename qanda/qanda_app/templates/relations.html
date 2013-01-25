@@ -1,0 +1,14 @@
+{% block relations %}
+<form method="post" action="{{ action_link }}">
+	{% csrf_token %}
+	<input type="hidden" name="pk" value="{{ pk }}">
+	<input type="hidden" name="type" value="{{ type }}">
+	<label><input type="checkbox" name="upvote" value="Upvote" {% if relations.upvote %} checked {% endif %}> Upvote</label>
+	<label><input type="checkbox" name="downvote" value="Downvote" {% if relations.downvote %} checked {% endif %}> Downvote</label>
+	<label><input type="checkbox" name="useful" value="Useful" {% if relations.useful %} checked {% endif %}> Useful</label>
+	<label><input type="checkbox" name="notUseful" value="NotUseful" {% if relations.notUseful %} checked {% endif %}> Not Useful</label>
+	<label><input type="checkbox" name="star" value="Star" {% if relations.star %} checked {% endif %}> Star</label>
+	<label><input type="checkbox" name="flag" value="Flag" {% if relations.flag %} checked {% endif %}> Flag</label>
+	<input type="submit" value="Submit">
+</form>
+{% endblock %}
