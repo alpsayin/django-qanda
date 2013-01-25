@@ -32,8 +32,10 @@
 	{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" %} <br />
 	{% for reply in answer.replies.all %}
 	<p>
+		{% if not reply.deleted %}
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.text }} <br />
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.author }} <br />
+		{% endif %}
 	</p>
 	{% endfor %}
 	{% include "reply.html" with pk=answer.pk type="new_reply" %}
