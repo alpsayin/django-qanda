@@ -166,8 +166,8 @@ class UserRelations(models.Model):
 	"""
 		Relationship table to hold user starring relations
 	"""
-	relater = models.ForeignKey(QandaUser, related_name='related')
-	related = models.ForeignKey(QandaUser, related_name='relater')
+	relater = models.ForeignKey(QandaUser, related_name='relaterRelation')
+	related = models.ForeignKey(QandaUser, related_name='relatedRelation')
 	star = models.BooleanField()
 	flag = models.BooleanField()
 	class Meta:
