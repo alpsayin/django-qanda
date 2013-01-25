@@ -596,6 +596,7 @@ class Reply(models.Model):
 	"""
 		Model to hold replies to answers
 	"""
+	objects = ReplyManager()
 	text = models.TextField()
 	author = models.ForeignKey(QandaUser, related_name='replies')
 	answer = models.ForeignKey(Answer, null=True, related_name='replies')
