@@ -1,3 +1,13 @@
+{% comment %}
+
+Parameters:
+	action_link : form's action link
+	pk : primary key of item to be submitted
+	type : type of item to be submitted
+	relations : AnswerRelatedUsers or QuestionRelatedUsers instance
+
+{% endcomment %}
+
 {% block relations %}
 <form method="post" action="{{ action_link }}">
 	{% csrf_token %}
