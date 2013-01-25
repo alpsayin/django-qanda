@@ -89,32 +89,10 @@ class QuestionManager(models.Manager):
 									deleted=False,
 									closed=False)
 		return newQuestion
-	def star(self, qandaUser, question):
+	def set_relations(self, qandaUser, question, relations):
 		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.star = True
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=True,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def unstar(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.star = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
+		if existingRelations.count() == 0:
+			existingRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
 																relatedQuestion=question,
 																upvote=False,
 																downvote=False,
@@ -122,190 +100,40 @@ class QuestionManager(models.Manager):
 																notUseful=False,
 																star=False,
 																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def flag(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
+		elif existingRelations.count() == 1:
 			existingRelation = existingRelations[0]
-			existingRelation.flag = True
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=True)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def unflag(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.flag = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def upvote(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.upvote = True
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=True,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
+		elif existingRelations.count() > 1:
+			print 'SHOULDNT HAPPEN'
 
-	def unupvote(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.upvote = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def downvote(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.downvote = True
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=True,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def undownvote(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.downvote = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def useful(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.useful = True
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=True,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def unuseful(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.useful = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def notUseful(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.notUseful = True
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=True,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def unnotUseful(self, qandaUser, question):
-		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.notUseful = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedQuestion=question,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
+		for counter,relation in enumerate(relations):
+			value = relations[relation]
+			if relation == 'star':
+				existingRelation.star = value
+
+			elif relation == 'flag':
+				existingRelation.flag = value
+
+			elif relation == 'upvote':
+				existingRelation.upvote = value
+				if value:
+					existingRelation.downvote = False
+
+			elif relation == 'downvote':
+				existingRelation.downvote = value
+				if value:
+					existingRelation.upvote = False
+
+			elif relation == 'useful':
+				existingRelation.useful = value
+				if value:
+					existingRelation.notUseful = False
+
+			elif relation == 'notUseful':
+				existingRelation.notUseful = value
+				if value:
+					existingRelation = False
+
+		existingRelation.save()
 
 class Question(models.Model):
 	"""
@@ -330,6 +158,8 @@ class Question(models.Model):
 	def __unicode__(self):
 		return u'%d %s' % (self.pk, self.title)
 
+
+
 class AnswerManager(models.Manager):
 	"""
 		Manager object for Answer type
@@ -341,32 +171,10 @@ class AnswerManager(models.Manager):
 								deleted=False
 								)
 		return newAnswer
-	def star(self, qandaUser, answer):
+	def set_relations(self, qandaUser, answer, relations):
 		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.star = True
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=True,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def unstar(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.star = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
+		if existingRelations.count() == 0:
+			existingRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
 																relatedAnswer=answer,
 																upvote=False,
 																downvote=False,
@@ -374,194 +182,40 @@ class AnswerManager(models.Manager):
 																notUseful=False,
 																star=False,
 																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def flag(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
+		elif existingRelations.count() == 1:
 			existingRelation = existingRelations[0]
-			existingRelation.flag = True
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=True)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def unflag(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.flag = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def upvote(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.upvote = True
-			existingRelation.downvote = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=True,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
+		elif existingRelations.count() > 1:
+			print 'SHOULDNT HAPPEN'
 
-	def unupvote(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.upvote = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def downvote(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.downvote = True
-			existingRelation.upvote = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=True,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def undownvote(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.downvote = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def useful(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.useful = True
-			existingRelation.notUseful = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=True,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def unuseful(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.useful = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def notUseful(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.notUseful = True
-			existingRelation.useful = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=True,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
-	def unnotUseful(self, qandaUser, answer):
-		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-		if existingRelations.count() == 1:
-			existingRelation = existingRelations[0]
-			existingRelation.notUseful = False
-			existingRelation.save()
-		elif existingRelations.count() == 0:
-			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
-																relatedAnswer=answer,
-																upvote=False,
-																downvote=False,
-																useful=False,
-																notUseful=False,
-																star=False,
-																flag=False)
-			newRelation.save()
-		else:
-			print 'SHOULDNT HAPPEN!'
+		for counter,relation in enumerate(relations):
+			value = relations[relation]
+			if relation == 'star':
+				existingRelation.star = value
+
+			elif relation == 'flag':
+				existingRelation.flag = value
+
+			elif relation == 'upvote':
+				existingRelation.upvote = value
+				if value:
+					existingRelation.downvote = False
+
+			elif relation == 'downvote':
+				existingRelation.downvote = value
+				if value:
+					existingRelation.upvote = False
+
+			elif relation == 'useful':
+				existingRelation.useful = value
+				if value:
+					existingRelation.notUseful = False
+
+			elif relation == 'notUseful':
+				existingRelation.notUseful = value
+				if value:
+					existingRelation = False
+
+		existingRelation.save()
 
 class Answer(models.Model):
 	"""
