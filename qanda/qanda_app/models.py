@@ -10,46 +10,54 @@ class QandaUserManager(models.Manager):
 	def create_user(self, django_user):
 		newQandaUser=self.create(djangoUser=django_user, deleted=False)
 		return newQandaUser
-	def star_user(self, qandaUser1, qandaUser2):
+	def star(self, qandaUser1, qandaUser2):
 		if qandaUser1 is not qandaUser2:
 			existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
 			if existingRelations.count() == 1:
 				existingRelation = existingRelations[0]
 				existingRelation.star = True
 				existingRelation.save()
-			else:
+			elif existingRelations.count() == 0:
 				newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
 				newRelation.save()
-	def unstar_user(self, qandaUser1, qandaUser2):
+			else:
+				print 'SHOULDNT HAPPEN!!!'
+	def unstar(self, qandaUser1, qandaUser2):
 		if qandaUser1 is not qandaUser2:
 			existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
 			if existingRelations.count() == 1:
 				existingRelation = existingRelations[0]
 				existingRelation.star = False
 				existingRelation.save()
-			else:
+			elif existingRelations.count() == 0:
 				newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
 				newRelation.save()
-	def flag_user(self, qandaUser1, qandaUser2):
+			else:
+				print 'SHOULDNT HAPPEN!!!'
+	def flag(self, qandaUser1, qandaUser2):
 		if qandaUser1 is not qandaUser2:
 			existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
 			if existingRelations.count() == 1:
 				existingRelation = existingRelations[0]
 				existingRelation.flag = True
 				existingRelation.save()
-			else:
+			elif existingRelations.count() == 0:
 				newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=True)
 				newRelation.save()
-	def unflag_user(self, qandaUser1, qandaUser2):
+			else:
+				print 'SHOULDNT HAPPEN!!!'
+	def unflag(self, qandaUser1, qandaUser2):
 		if qandaUser1 is not qandaUser2:
 			existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
 			if existingRelations.count() == 1:
 				existingRelation = existingRelations[0]
 				existingRelation.flag = False
 				existingRelation.save()
-			else:
+			elif existingRelations.count() == 0:
 				newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
 				newRelation.save()
+			else:
+				print 'SHOULDNT HAPPEN!!!'
 
 class QandaUser(models.Model):
 	"""
