@@ -10,6 +10,46 @@ class QandaUserManager(models.Manager):
 	def create_user(self, django_user):
 		newQandaUser=self.create(djangoUser=django_user, deleted=False)
 		return newQandaUser
+	def star_user(self, qandaUser1, qandaUser2):
+		if qandaUser1 is not qandaUser2:
+			existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
+			if existingRelations.count() == 1:
+				existingRelation = existingRelations[0]
+				existingRelation.star = True
+				existingRelation.save()
+			else:
+				newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
+				newRelation.save()
+	def unstar_user(self, qandaUser1, qandaUser2):
+		if qandaUser1 is not qandaUser2:
+			existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
+			if existingRelations.count() == 1:
+				existingRelation = existingRelations[0]
+				existingRelation.star = False
+				existingRelation.save()
+			else:
+				newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
+				newRelation.save()
+	def flag_user(self, qandaUser1, qandaUser2):
+		if qandaUser1 is not qandaUser2:
+			existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
+			if existingRelations.count() == 1:
+				existingRelation = existingRelations[0]
+				existingRelation.flag = True
+				existingRelation.save()
+			else:
+				newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=True)
+				newRelation.save()
+	def unflag_user(self, qandaUser1, qandaUser2):
+		if qandaUser1 is not qandaUser2:
+			existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
+			if existingRelations.count() == 1:
+				existingRelation = existingRelations[0]
+				existingRelation.flag = False
+				existingRelation.save()
+			else:
+				newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
+				newRelation.save()
 
 class QandaUser(models.Model):
 	"""
