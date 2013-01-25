@@ -18,7 +18,7 @@ class QandaUser(models.Model):
 	# questions - foreign key of Question
 	# replies - foreign key of Reply
 	deleted = models.BooleanField()
-	starred = models.ManyToManyField("self", null=True, symmetrical=False, through='UserStars', related_name='starred_by')
+	relatedUsers = models.ManyToManyField("self", symmetrical=False, through='UserRelations', related_name='relaterUsers')
 	tags = TaggableManager()
 	class Meta:
 		verbose_name = 'Qanda User'
@@ -110,15 +110,19 @@ class Reply(models.Model):
 		return u'%d by %s' % (self.pk, self.author.djangoUser)
 
 
-class UserStars(models.Model):
+class UserRelations(models.Model):
 	"""
 		Relationship table to hold user starring relations
 	"""
-	starrer = models.ForeignKey(QandaUser, related_name='starrer_relation')
-	starred = models.ForeignKey(QandaUser, related_name='starred_relation')
-	timestamp = models.DateTimeField(auto_now=True)
+	relater = models.ForeignKey(QandaUser, related_name='related')
+	related = models.ForeignKey(QandaUser, related_name='relater')
+	star = models.BooleanField()
+	flag = models.BooleanField()
 	class Meta:
-		verbose_name = 'Qanda Star Relationship'
+		verbose_name = 'Qanda User Relationship'
+	def __unicode__(self):
+		return u'%s -> %s : [S:%d, F:%d]' % (self.relater.djangoUser.username, self.related.djangoUser.username, self.star, self.flag)
+
 
 class QuestionRelatedUsers(models.Model):
 	"""
