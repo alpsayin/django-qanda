@@ -632,8 +632,8 @@ class QuestionRelatedUsers(models.Model):
 			star
 			flag
 	"""
-	relatedUser = models.ForeignKey(QandaUser)
-	relatedQuestion = models.ForeignKey(Question)
+	relatedUser = models.ForeignKey(QandaUser, related_name='question_relation')
+	relatedQuestion = models.ForeignKey(Question, related_name='user_relation')
 	upvote = models.BooleanField()
 	downvote = models.BooleanField()
 	useful = models.BooleanField()
@@ -653,8 +653,8 @@ class AnswerRelatedUsers(models.Model):
 			star
 			flag
 	"""
-	relatedUser = models.ForeignKey(QandaUser)
-	relatedAnswer = models.ForeignKey(Answer)
+	relatedUser = models.ForeignKey(QandaUser, related_name='answer_relation')
+	relatedAnswer = models.ForeignKey(Answer, related_name='user_relation')
 	upvote = models.BooleanField()
 	downvote = models.BooleanField()
 	useful = models.BooleanField()
