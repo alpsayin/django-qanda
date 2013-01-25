@@ -418,6 +418,7 @@ class AnswerManager(models.Manager):
 		if existingRelations.count() == 1:
 			existingRelation = existingRelations[0]
 			existingRelation.upvote = True
+			existingRelation.downvote = False
 			existingRelation.save()
 		elif existingRelations.count() == 0:
 			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
@@ -455,6 +456,7 @@ class AnswerManager(models.Manager):
 		if existingRelations.count() == 1:
 			existingRelation = existingRelations[0]
 			existingRelation.downvote = True
+			existingRelation.upvote = False
 			existingRelation.save()
 		elif existingRelations.count() == 0:
 			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
@@ -491,6 +493,7 @@ class AnswerManager(models.Manager):
 		if existingRelations.count() == 1:
 			existingRelation = existingRelations[0]
 			existingRelation.useful = True
+			existingRelation.notUseful = False
 			existingRelation.save()
 		elif existingRelations.count() == 0:
 			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
@@ -527,6 +530,7 @@ class AnswerManager(models.Manager):
 		if existingRelations.count() == 1:
 			existingRelation = existingRelations[0]
 			existingRelation.notUseful = True
+			existingRelation.useful = False
 			existingRelation.save()
 		elif existingRelations.count() == 0:
 			newRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
