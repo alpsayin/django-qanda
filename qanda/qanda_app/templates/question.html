@@ -9,6 +9,10 @@
 
 <body>
 
+{% comment %}
+	{% include "new_question.html" with type="new_question" %}
+{% endcomment %}
+
 <h2> {{ question.title }} </h2> 
 
 {{ question.author }} <br />
