@@ -131,7 +131,7 @@ class QuestionManager(models.Manager):
 			elif relation == 'notUseful':
 				existingRelation.notUseful = value
 				if value:
-					existingRelation = False
+					existingRelation.useful = False
 
 		existingRelation.save()
 
@@ -213,7 +213,7 @@ class AnswerManager(models.Manager):
 			elif relation == 'notUseful':
 				existingRelation.notUseful = value
 				if value:
-					existingRelation = False
+					existingRelation.useful = False
 
 		existingRelation.save()
 
