@@ -1,10 +1,14 @@
-from django.forms import ModelForm, Textarea
+from django.forms import ModelForm, Textarea, TextInput
 from models import Question, Answer, Reply
 
 class QuestionForm(ModelForm):
 	class Meta:
 		model = Question
 		fields = ('title', 'text', 'tags')
+		widgets = {
+			'title': TextInput(attrs={'size': 120,}),
+			'text': Textarea(attrs={'cols': 120, 'rows': 30}),
+		}
 
 class AnswerForm(ModelForm):
 	class Meta:
