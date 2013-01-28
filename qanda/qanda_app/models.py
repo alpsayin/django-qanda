@@ -94,6 +94,13 @@ class QuestionManager(models.Manager):
 		question.viewCount = question.viewCount + 1
 		question.save()
 		return question.viewCount
+
+	def edit_question(self, question, new_title, new_text, tags):
+		question.title = new_title
+		question.text = new_text
+		question.tags = tags
+		question.save()
+
 	def set_relations(self, qandaUser, question, relations):
 		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
 		if existingRelations.count() == 0:
@@ -177,6 +184,11 @@ class AnswerManager(models.Manager):
 								deleted=False
 								)
 		return newAnswer
+
+	def edit_answer(self, answer, new_text):
+		answer.text = new_text
+		answer.save()
+
 	def set_relations(self, qandaUser, answer, relations):
 		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
 		if existingRelations.count() == 0:
