@@ -9,7 +9,7 @@ from django.template.context import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-
+from forms import QuestionForm, AnswerForm, ReplyForm
 
 from models import *
 
@@ -43,33 +43,51 @@ def process_answer_relations(request, answer, qandaUser):
 			relations[relation_type] = False
 	Answer.objects.set_relations(qandaUser, answer, relations)
 
-def process_new_answer(request, question, qandaUser):
+def process_new_answer(answer_form, question, qandaUser):
 	"""
 		Process a new answer
 	"""
-	return Answer.objects.create_answer(qandaUser, question, request.POST['answer_text'])
+	answer = answer_form.save(commit=False)
+	answer.question = question
+	answer.author = qandaUser
+	answer.save()
+	answer_form.save_m2m()
+	return answer
 
-def process_new_reply(request, answer, qandaUser):
+def process_new_reply(reply_form, answer, qandaUser):
 	"""
 		Process a new reply
 	"""
-	return Reply.objects.create_reply(qandaUser, answer, request.POST['reply_text'])
+	reply = reply_form.save(commit=False)
+	reply.answer = answer
+	reply.author = qandaUser
+	reply.save()
+	reply_form.save_m2m()
+	return reply
 
-def process_new_question(request, qandaUser):
+def process_new_question(question_form, qandaUser):
 	"""
 		Process a new question
 	"""
-	return Question.objects.create_question(qandaUser, request.POST['title'], request.POST['question_text'])
+	question = question_form.save(commit=False)
+	question.author = qandaUser
+	question.viewCount = 0
+	question.save()
+	question_form.save_m2m()
+	return question
 
 @login_required(login_url='/admin/', redirect_field_name='next')
 def new_question_page(request):
 	if request.method == 'POST':
 		if request.POST['type'] == 'new_question':
-			qandaUser = get_user(request).QandaUser
-			question = process_new_question(request, qandaUser)
-			return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+			question_form = QuestionForm(request.POST)
+			if question_form.is_valid():
+				qandaUser = get_user(request).QandaUser
+				question = process_new_question(question_form, qandaUser)
+				return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 	context = {}
-	context['type']='new_question'
+	context['type'] = 'new_question'
+	context['question_form'] = QuestionForm()
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
 @login_required(login_url='/admin/', redirect_field_name='next')
@@ -86,10 +104,14 @@ def question_relation_submit(request, question_id):
 				print answer
 				process_answer_relations(request, answer, qandaUser)
 			elif request.POST['type'] == 'new_answer':
-				process_new_answer(request, question, qandaUser)
+				answer_form = AnswerForm(request.POST)
+				if answer_form.is_valid():
+					process_new_answer(answer_form, question, qandaUser)
 			elif request.POST['type'] == 'new_reply':
 				answer = Answer.objects.get(pk=int(request.POST['pk']))
-				process_new_reply(request, answer, qandaUser)
+				reply_form = ReplyForm(request.POST)
+				if reply_form.is_valid():
+					process_new_reply(reply_form, answer, qandaUser)
 			elif request.POST['type'] == 'new_question':
 				process_new_question(request, qandaUser)
 
@@ -112,6 +134,8 @@ def question_page(request, question_id):
 	context['question'] = question
 	context['answers'] = answers
 	context['debug'] = ''
+	context['answer_form'] = AnswerForm()
+	context['reply_form'] = ReplyForm()
 
 	Question.objects.increment_view_count(question)
 	return render_to_response('question.html', context, context_instance=RequestContext(request))
