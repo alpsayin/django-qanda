@@ -8,6 +8,8 @@ from django.shortcuts import redirect
 from django.template.context import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
 
 from models import *
 
@@ -59,6 +61,7 @@ def process_new_question(request, qandaUser):
 	"""
 	return Question.objects.create_question(qandaUser, request.POST['title'], request.POST['question_text'])
 
+@login_required(login_url='/admin/', redirect_field_name='next')
 def new_question_page(request):
 	if request.method == 'POST':
 		if request.POST['type'] == 'new_question':
@@ -69,25 +72,33 @@ def new_question_page(request):
 	context['type']='new_question'
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
-def question_page(request, question_id):
+@login_required(login_url='/admin/', redirect_field_name='next')
+def question_relation_submit(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
 	user = get_user(request)
-	qandaUser = user.QandaUser
+	if request.user.is_authenticated():
+		if request.method == 'POST':
+			qandaUser = user.QandaUser
+			if request.POST['type'] == 'question' and request.POST['pk'] == str(question.pk):
+				process_question_relations(request, question, qandaUser)
+			elif request.POST['type'] == 'answer':
+				answer = Answer.objects.get(pk=int(request.POST['pk']))
+				print answer
+				process_answer_relations(request, answer, qandaUser)
+			elif request.POST['type'] == 'new_answer':
+				process_new_answer(request, question, qandaUser)
+			elif request.POST['type'] == 'new_reply':
+				answer = Answer.objects.get(pk=int(request.POST['pk']))
+				process_new_reply(request, answer, qandaUser)
+			elif request.POST['type'] == 'new_question':
+				process_new_question(request, qandaUser)
 
-	if request.method == 'POST':
-		if request.POST['type'] == 'question' and request.POST['pk'] == str(question.pk):
-			process_question_relations(request, question, qandaUser)
-		elif request.POST['type'] == 'answer':
-			answer = Answer.objects.get(pk=int(request.POST['pk']))
-			process_answer_relations(request, answer, qandaUser)
-		elif request.POST['type'] == 'new_answer':
-			process_new_answer(request, question, qandaUser)
-		elif request.POST['type'] == 'new_reply':
-			answer = Answer.objects.get(pk=int(request.POST['pk']))
-			process_new_reply(request, answer, qandaUser)
-		elif request.POST['type'] == 'new_question':
-			process_new_question(request, qandaUser)
+	return HttpResponseRedirect(reverse(question_page, args=(Question.objects.count(),)))
 
+
+def question_page(request, question_id):
+	context = {}
+	question = get_object_or_404(Question, pk=question_id)
 	all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
 	if all_relations.count() > 0: 
 		question.relations = all_relations[0]
@@ -95,8 +106,6 @@ def question_page(request, question_id):
 	for answer in answers:
 		if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
 			answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
-
-	context = {}
 	context['question'] = question
 	context['answers'] = answers
 	context['debug'] = ''

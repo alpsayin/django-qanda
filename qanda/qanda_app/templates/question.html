@@ -21,7 +21,7 @@
 {{ question.postDate }} <br />
 {{ question.text }}  <br />
 
-{% include "relations.html" with relations=question.relations pk=question.pk type="question" %}
+{% include "relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
 
 <a href="{% url new_question_page %}">Enter a new question</a> <br />
 
@@ -31,7 +31,7 @@
 <p>
 	{{ answer.text }} <br />
 	{{ answer.author }} <br/>
-	{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" %} <br />
+	{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
 	{% for reply in answer.replies.all %}
 	<p>
 		{% if not reply.deleted %}
