@@ -40,14 +40,14 @@
 		{% endif %}
 	</p>
 	{% endfor %}
-	{% include "reply.html" with pk=answer.pk type="new_reply" %}
+	{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
 	<hr>
 </p>
 {% endfor %}
 
 <h3> Answer this question </h3>
 
-{% include "answer.html" with type="new_answer" %}
+{% include "answer.html" with type="new_answer" action_link="relate/" %}
 
 </body>
 </html>
