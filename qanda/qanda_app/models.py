@@ -89,6 +89,11 @@ class QuestionManager(models.Manager):
 									deleted=False,
 									closed=False)
 		return newQuestion
+
+	def increment_view_count(self, question):
+		question.viewCount = question.viewCount + 1
+		question.save()
+		return question.viewCount
 	def set_relations(self, qandaUser, question, relations):
 		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
 		if existingRelations.count() == 0:

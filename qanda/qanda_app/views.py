@@ -112,5 +112,7 @@ def question_page(request, question_id):
 	context['question'] = question
 	context['answers'] = answers
 	context['debug'] = ''
+
+	Question.objects.increment_view_count(question)
 	return render_to_response('question.html', context, context_instance=RequestContext(request))
 
