@@ -21,6 +21,13 @@
 {{ question.postDate }} <br />
 {{ question.text }}  <br />
 
+<ul>
+	Tags:
+	{% for tag in question.tags.all %}
+		<li> {{ tag.name }} </li>
+	{% endfor %}
+</ul>	
+
 {% include "relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
 
 <a href="{% url new_question_page %}">Enter a new question</a> <br />
