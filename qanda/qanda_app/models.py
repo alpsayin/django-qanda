@@ -151,6 +151,7 @@ class Question(models.Model):
 	deleted = models.BooleanField()
 	closed = models.BooleanField()
 	tags = TaggableManager()
+	category = models.ForeignKey('Category', null=True)
 	#answers - foreign key of Answer
 	relatedUsers = models.ManyToManyField(QandaUser, through='QuestionRelatedUsers', related_name='related_questions')
 	class Meta:
@@ -262,6 +263,15 @@ class Reply(models.Model):
 	def __unicode__(self):
 		return u'%d by %s' % (self.pk, self.author.djangoUser)
 
+class Category(models.Model):
+	"""
+		A simple model to hold Question categories such as different sectors
+	"""
+	category = models.CharField(max_length=255, unique=True)
+	class Meta:
+		verbose_name = "Qanda Category"
+	def __unicode__(self):
+		return u'%s' % (self.category)
 
 class UserRelations(models.Model):
 	"""
