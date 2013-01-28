@@ -99,13 +99,16 @@ def question_relation_submit(request, question_id):
 def question_page(request, question_id):
 	context = {}
 	question = get_object_or_404(Question, pk=question_id)
-	all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
-	if all_relations.count() > 0: 
-		question.relations = all_relations[0]
+	if request.user.is_authenticated():
+		all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
+		if all_relations.count() > 0: 
+			question.relations = all_relations[0]
+			
 	answers = question.answers.filter(deleted=False)
-	for answer in answers:
-		if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
-			answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
+	if request.user.is_authenticated():
+		for answer in answers:
+			if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
+				answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
 	context['question'] = question
 	context['answers'] = answers
 	context['debug'] = ''
