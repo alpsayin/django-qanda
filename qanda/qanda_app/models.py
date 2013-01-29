@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from taggit_autosuggest.managers import TaggableManager
 from django_notify import models as notify_models
+from django_notify.models import Subscription, Settings, NotificationType, Notification
+from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 class QandaUserManager(models.Manager):
@@ -427,3 +430,38 @@ class AnswerSubscription(notify_models.Subscription):
 	answer = models.ForeignKey(Answer, related_name='subscriptions')
 	class Meta:
 		verbose_name = 'Answer Subscription'
+
+def createAnswerNotifications(sender, **kwargs):
+    created= kwargs['created']
+    if created:       
+        answer = kwargs['instance']
+        [subscription,created]=QuestionSubscription.objects.get_or_create(settings=Settings.objects.get_or_create(user=answer.author.djangoUser,)[0],
+                                                                             question=answer.question,
+                                                                             notification_type=NotificationType.objects.get_or_create(key="new_answer",
+                                                                                                                                      content_type=ContentType.objects.get_for_model(answer))[0])
+        if subscription:
+			print 'HERE!!'
+			subscription.send_emails = True
+			subscription.save()
+			new_notification = Notification.objects.create(subscription=subscription,
+            												message='New answer!',
+            												url=reverse('qanda_app.views.question_page', kwargs={'question_id':answer.question.pk,}),
+            												)
+
+def createReplyNotifications(sender, **kwargs):
+    created= kwargs['created']
+    if created:       
+        reply = kwargs['instance']
+        [subscription,created]=AnswerSubscription.objects.get_or_create(settings=Settings.objects.get_or_create(user=reply.author.djangoUser,)[0],
+                                                                             answer=reply.answer,
+                                                                             notification_type=NotificationType.objects.get_or_create(key="new_reply",
+                                                                                                                                      content_type=ContentType.objects.get_for_model(reply))[0])
+        if subscription:
+			print 'HERE!!'
+			subscription.send_emails = True
+			subscription.save()
+			new_notification = Notification.objects.create(subscription=subscription,
+            												message='New reply!',
+            												url=reverse('qanda_app.views.question_page', kwargs={'question_id':reply.answer.question.pk,}),
+            												)
+         
