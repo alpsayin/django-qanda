@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls import patterns
 from views import question_page, new_question_page, question_relation_submit
-
 from tastypie.api import Api
 from api import UserResource, QandaUserResource, QuestionResource, AnswerResource, ReplyResource
+from django_notify.urls import get_pattern as get_notify_pattern
 
 v1_api = Api(api_name='v1')
 v1_api.register(UserResource())
@@ -20,6 +20,9 @@ urlpatterns = patterns('qanda_app',
 
     #django-taggit_autosuggest
     (r'^new/taggit_autosuggest/', include('taggit_autosuggest.urls')),
+
+    #django_notify
+    (r'^notify/', get_notify_pattern()),
 
     #api
     (r'^api/', include(v1_api.urls)),
