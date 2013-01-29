@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from taggit_autosuggest.managers import TaggableManager
+from django_notify import models as notify_models
 
 # Create your models here.
 class QandaUserManager(models.Manager):
@@ -416,3 +417,13 @@ class QandaUserStats(models.Model):
 	hisStarredAnswers = models.IntegerField()
 	class Meta:
 		verbose_name = 'Qanda User Statistic'
+		
+class QuestionSubscription(notify_models.Subscription):
+	question = models.ForeignKey(Question, related_name='subscriptions')
+	class Meta:
+		verbose_name = 'Question Subscription'
+    
+class AnswerSubscription(notify_models.Subscription):
+	answer = models.ForeignKey(Answer, related_name='subscriptions')
+	class Meta:
+		verbose_name = 'Answer Subscription'
