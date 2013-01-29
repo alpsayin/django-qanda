@@ -95,7 +95,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_notify.middleware.NotificationsMiddleware',
 )
 
 ROOT_URLCONF = 'qanda.urls'
@@ -127,11 +126,11 @@ INSTALLED_APPS = (
     'django_extensions',
     'taggit_autosuggest',
     'tastypie',
+    'django_notify',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS={
     'django.contrib.auth.context_processors.auth',
-    'django_notify.context_processors.notifications',
 }
 
 
