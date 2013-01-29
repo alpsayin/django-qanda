@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import QandaUser, Question, Answer, Reply, Category
+from models import QandaUser, Question, Answer, Reply, Category, QuestionSubscription, AnswerSubscription
 from models import UserRelations, QuestionRelatedUsers, AnswerRelatedUsers, QandaUserStats
 
 class QandaUserAdmin(admin.ModelAdmin):
@@ -45,6 +45,8 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Reply, ReplyAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(QuestionSubscription)
+admin.site.register(AnswerSubscription)
 
 admin.site.register(UserRelations, UserRelationsAdmin)
 admin.site.register(QuestionRelatedUsers, QuestionRelatedUsersAdmin)
