@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from taggit_autosuggest.managers import TaggableManager
+from django.db.models import signals
 from django_notify import models as notify_models
 from django_notify.models import Subscription, Settings, NotificationType, Notification
 from django.contrib.contenttypes.models import ContentType
@@ -465,3 +466,6 @@ def createReplyNotifications(sender, **kwargs):
             												url=reverse('qanda_app.views.question_page', kwargs={'question_id':reply.answer.question.pk,}),
             												)
          
+           
+signals.post_save.connect(createAnswerNotifications, sender=Answer)
+signals.post_save.connect(createReplyNotifications, sender=Reply)
