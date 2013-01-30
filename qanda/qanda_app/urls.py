@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls import patterns
-from views import question_page, new_question_page, question_relation_submit
+from views import question_page, new_question_page, question_relation_submit, subscription_submit
 from tastypie.api import Api
 from api import UserResource, QandaUserResource, QuestionResource, AnswerResource, ReplyResource
 from django_notify.urls import get_pattern as get_notify_pattern
@@ -17,6 +17,7 @@ urlpatterns = patterns('qanda_app',
     url(r'^new/$', new_question_page, name='new_question_page'),
     url(r'^(?P<question_id>\d+)/$', question_page, name='question_page'),
     url(r'^(?P<question_id>\d+)/relate/$', question_relation_submit, name='question_relation_submit'),
+    url(r'^(?P<question_id>\d+)/subscribe/$', subscription_submit, name='subscription_submit'),
 
     #django-taggit_autosuggest
     (r'^new/taggit_autosuggest/', include('taggit_autosuggest.urls')),
