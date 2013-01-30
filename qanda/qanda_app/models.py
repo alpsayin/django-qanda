@@ -106,6 +106,16 @@ class QuestionManager(models.Manager):
 		question.tags = tags
 		question.save()
 
+	def subscribe_to_question(self, question, qandaUser):
+		[subscription,created]=QuestionSubscription.objects.get_or_create(settings=Settings.objects.get_or_create(user=qandaUser.djangoUser,)[0],
+                                                                             question=answer.question,
+                                                                             object_id=str(answer.question.pk),
+                                                                             notification_type=NotificationType.objects.get_or_create(key="new_answer",
+                                                                                                                                      content_type=ContentType.objects.get_for_model(answer))[0])
+        if subscription:
+			subscription.send_emails = True
+			subscription.save()
+
 	def set_relations(self, qandaUser, question, relations):
 		existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
 		if existingRelations.count() == 0:
@@ -193,6 +203,17 @@ class AnswerManager(models.Manager):
 	def edit_answer(self, answer, new_text):
 		answer.text = new_text
 		answer.save()
+
+	def subscribe_to_answer(self, answer, qandaUser):
+        [subscription,created]=AnswerSubscription.objects.get_or_create(settings=Settings.objects.get_or_create(user=qandaUser.djangoUser,)[0],
+                                                                             answer=reply.answer,
+                                                                             object_id=str(reply.answer.pk),
+                                                                             notification_type=NotificationType.objects.get_or_create(key="new_reply",
+                                                                                                                                      content_type=ContentType.objects.get_for_model(reply))[0])
+        if subscription:
+			subscription.send_emails = True
+			subscription.save()
+
 
 	def set_relations(self, qandaUser, answer, relations):
 		existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
