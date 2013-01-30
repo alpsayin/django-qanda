@@ -1,5 +1,7 @@
 from django.forms import ModelForm, Textarea, TextInput
 from models import Question, Answer, Reply
+from django import forms
+
 
 class QuestionForm(ModelForm):
 	class Meta:
@@ -25,3 +27,6 @@ class ReplyForm(ModelForm):
 		widgets = {
 			'text': Textarea(attrs={'cols': 80, 'rows': 2}),
 		}
+
+class  SubscriptionForm(forms.Form):
+	subscribed = forms.BooleanField(initial=False)
