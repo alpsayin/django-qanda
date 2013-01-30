@@ -9,7 +9,7 @@ from django.template.context import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from forms import QuestionForm, AnswerForm, ReplyForm
+from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm
 
 from models import *
 
@@ -121,6 +121,7 @@ def question_relation_submit(request, question_id):
 def question_page(request, question_id):
 	context = {}
 	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
 	if request.user.is_authenticated():
 		all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
 		if all_relations.count() > 0: 
@@ -131,11 +132,29 @@ def question_page(request, question_id):
 		for answer in answers:
 			if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
 				answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
+
+			try:
+				subscription = AnswerSubscription.objects.get(settings__user=user, answer=answer)
+				if subscription:
+					answer.subscribed = 'True'
+			except:
+				pass
+
+
+		context['subscription_form'] = SubscriptionForm({'subscribed':False,})
+		try:
+			subscription = QuestionSubscription.objects.get(settings__user=user, question=question)
+			if subscription:
+				question.subscribed = 'True'
+		except:
+			pass
+
+		context['answer_form'] = AnswerForm()
+		context['reply_form'] = ReplyForm()
+
 	context['question'] = question
 	context['answers'] = answers
 	context['debug'] = ''
-	context['answer_form'] = AnswerForm()
-	context['reply_form'] = ReplyForm()
 
 	Question.objects.increment_view_count(question)
 	return render_to_response('question.html', context, context_instance=RequestContext(request))
