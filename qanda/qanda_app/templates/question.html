@@ -21,6 +21,8 @@
 {{ question.postDate }} <br />
 {{ question.text }}  <br />
 
+{% include "subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" checked=question.subscribed %}
+
 <ul>
 	Tags:
 	{% for tag in question.tags.all %}
@@ -38,6 +40,7 @@
 <p>
 	{{ answer.text }} <br />
 	{{ answer.author }} <br/>
+	{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" checked=answer.subscribed %}
 	{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
 	{% for reply in answer.replies.all %}
 	<p>
