@@ -115,7 +115,30 @@ def question_relation_submit(request, question_id):
 			elif request.POST['type'] == 'new_question':
 				process_new_question(request, qandaUser)
 
-	return HttpResponseRedirect(reverse(question_page, args=(Question.objects.count(),)))
+	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+
+@login_required(login_url='/admin/', redirect_field_name='next')
+def subscription_submit(request, **kwargs):
+	question = get_object_or_404(Question, pk=kwargs['question_id'])
+	user = get_user(request)
+	if request.user.is_authenticated():
+		if request.method == 'POST':
+			qandaUser = user.QandaUser
+			if request.POST['type'] == 'question_subscription' and request.POST['pk'] == str(question.pk):
+				if 'subscribed' in request.POST:
+					subscribed = True
+				else:
+					subscribed = False
+				Question.objects.subscribe_to_question(question, qandaUser, subscribed)
+			if request.POST['type'] == 'answer_subscription':
+				answer = get_object_or_404(Answer, pk=request.POST['pk'])
+				if 'subscribed' in request.POST:
+					subscribed = True
+				else:
+					subscribed = False
+				Answer.objects.subscribe_to_answer(answer, qandaUser, subscribed)
+
+	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
 
 def question_page(request, question_id):
