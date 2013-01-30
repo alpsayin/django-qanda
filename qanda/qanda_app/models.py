@@ -459,16 +459,18 @@ def createAnswerNotifications(sender, **kwargs):
         answer = kwargs['instance']
         [subscription,created]=QuestionSubscription.objects.get_or_create(settings=Settings.objects.get_or_create(user=answer.author.djangoUser,)[0],
                                                                              question=answer.question,
+                                                                             object_id=str(answer.question.pk),
                                                                              notification_type=NotificationType.objects.get_or_create(key="new_answer",
                                                                                                                                       content_type=ContentType.objects.get_for_model(answer))[0])
         if subscription:
-			print 'HERE!!'
 			subscription.send_emails = True
 			subscription.save()
-			new_notification = Notification.objects.create(subscription=subscription,
-            												message='New answer!',
-            												url=reverse('qanda_app.views.question_page', kwargs={'question_id':answer.question.pk,}),
-            												)
+
+	new_notifications = Notification.create_notifications(key='new_answer', 
+														object_id=str(answer.question.pk),
+														message='New answer to '+str(answer.question.title),
+														url=reverse('qanda_app.views.question_page', kwargs={'question_id':answer.question.pk,}),
+														)
 
 def createReplyNotifications(sender, **kwargs):
     created= kwargs['created']
@@ -476,16 +478,18 @@ def createReplyNotifications(sender, **kwargs):
         reply = kwargs['instance']
         [subscription,created]=AnswerSubscription.objects.get_or_create(settings=Settings.objects.get_or_create(user=reply.author.djangoUser,)[0],
                                                                              answer=reply.answer,
+                                                                             object_id=str(reply.answer.pk),
                                                                              notification_type=NotificationType.objects.get_or_create(key="new_reply",
                                                                                                                                       content_type=ContentType.objects.get_for_model(reply))[0])
         if subscription:
-			print 'HERE!!'
 			subscription.send_emails = True
 			subscription.save()
-			new_notification = Notification.objects.create(subscription=subscription,
-            												message='New reply!',
-            												url=reverse('qanda_app.views.question_page', kwargs={'question_id':reply.answer.question.pk,}),
-            												)
+
+	new_notifications = Notification.create_notifications(key='new_reply', 
+														object_id=str(reply.answer.pk),
+														message='New reply to your answer in '+str(reply.answer.question.title),
+														url=reverse('qanda_app.views.question_page', kwargs={'question_id':reply.answer.question.pk,}),
+														)
          
            
 signals.post_save.connect(createAnswerNotifications, sender=Answer)
