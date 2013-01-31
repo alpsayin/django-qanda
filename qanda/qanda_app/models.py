@@ -75,7 +75,7 @@ class QandaUser(models.Model):
     # replies - foreign key of Reply
     deleted = models.BooleanField()
     relatedUsers = models.ManyToManyField("self", symmetrical=False, through='UserRelations', related_name='relaterUsers')
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
     class Meta:
         verbose_name = 'Qanda User'
     def __unicode__(self):
@@ -190,7 +190,7 @@ class Question(models.Model):
     closeDate = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField()
     closed = models.BooleanField()
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
     category = models.ForeignKey('Category', null=True)
     #answers - foreign key of Answer
     relatedUsers = models.ManyToManyField(QandaUser, through='QuestionRelatedUsers', related_name='related_questions')
