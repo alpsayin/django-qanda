@@ -154,9 +154,13 @@ def subscription_submit(request, **kwargs):
 
 	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
-
 def question_page(request, question_id):
 	context = {}
+	if not Question.objects.exists():
+		context = {}
+		context['type'] = 'new_question'
+		context['question_form'] = QuestionForm()
+		return HttpResponseRedirect(reverse(new_question_page, args=()))
 	question = get_object_or_404(Question, pk=question_id)
 	user = get_user(request)
 	if request.user.is_authenticated():
