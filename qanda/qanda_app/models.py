@@ -108,7 +108,10 @@ class QuestionManager(models.Manager):
 
     def subscribe_to_question(self, question, qandaUser, subscribe):
         if subscribe:
-            [subscription,created]=QuestionSubscription.objects.get_or_create(settings=Settings.objects.get_or_create(user=qandaUser.djangoUser,)[0],
+            [settings, created] = Settings.objects.get_or_create(user=qandaUser.djangoUser,)
+            if created:
+                settings.save()
+            [subscription, created] = QuestionSubscription.objects.get_or_create(settings=settings,
                                                                                  question=question,
                                                                                  object_id=str(question.pk),
                                                                                  notification_type=NotificationType.objects.get_or_create(key="new_answer",
@@ -214,7 +217,10 @@ class AnswerManager(models.Manager):
 
     def subscribe_to_answer(self, answer, qandaUser, subscribe):
         if subscribe:
-            [subscription,created]=AnswerSubscription.objects.get_or_create(settings=Settings.objects.get_or_create(user=qandaUser.djangoUser,)[0],
+            [settings, created] = Settings.objects.get_or_create(user=qandaUser.djangoUser,)
+            if created:
+                settings.save()
+            [subscription, created] = AnswerSubscription.objects.get_or_create(settings=settings,
                                                                                  answer=answer,
                                                                                  object_id=str(answer.pk),
                                                                                  notification_type=NotificationType.objects.get_or_create(key="new_reply",
