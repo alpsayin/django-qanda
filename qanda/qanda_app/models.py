@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from taggit_autosuggest.managers import TaggableManager
+from taggit.managers import TaggableManager
 from django.db.models import signals
 from django_notify import models as notify_models
 from django_notify.models import Subscription, Settings, NotificationType, Notification

@@ -19,9 +19,6 @@ urlpatterns = patterns('qanda_app',
     url(r'^(?P<question_id>\d+)/relate/$', question_relation_submit, name='question_relation_submit'),
     url(r'^(?P<question_id>\d+)/subscribe/$', subscription_submit, name='subscription_submit'),
 
-    #django-taggit_autosuggest
-    (r'^new/taggit_autosuggest/', include('taggit_autosuggest.urls')),
-
     #django_notify
     (r'^notify/', get_notify_pattern()),
 

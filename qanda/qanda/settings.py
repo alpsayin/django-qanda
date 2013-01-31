@@ -124,7 +124,6 @@ INSTALLED_APPS = (
     'south',
     'qanda_app',
     'django_extensions',
-    'taggit_autosuggest',
     'tastypie',
     'django_notify',
 )
