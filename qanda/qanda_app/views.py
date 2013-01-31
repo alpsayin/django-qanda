@@ -78,16 +78,21 @@ def process_new_question(question_form, qandaUser):
 
 @login_required(login_url='/admin/', redirect_field_name='next')
 def new_question_page(request):
+	context = {}
+	context['type'] = 'new_question'
+
 	if request.method == 'POST':
 		if request.POST['type'] == 'new_question':
 			question_form = QuestionForm(request.POST)
+			context['question_form'] = question_form
 			if question_form.is_valid():
 				qandaUser = get_user(request).QandaUser
 				question = process_new_question(question_form, qandaUser)
 				return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
-	context = {}
-	context['type'] = 'new_question'
-	context['question_form'] = QuestionForm()
+	else:
+		context['question_form'] = QuestionForm()
+
+	context['debug'] = question_form.errors
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
 @login_required(login_url='/admin/', redirect_field_name='next')
