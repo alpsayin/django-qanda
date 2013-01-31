@@ -82,6 +82,7 @@ def index(request):
 	except:
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 
+@assert_qanda_user
 @login_required(login_url='/admin/', redirect_field_name='next')
 def new_question_page(request):
 	context = {}
