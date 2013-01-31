@@ -102,6 +102,7 @@ def new_question_page(request):
 	context['debug'] = question_form.errors
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
+@assert_qanda_user
 @login_required(login_url='/admin/', redirect_field_name='next')
 def question_relation_submit(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
