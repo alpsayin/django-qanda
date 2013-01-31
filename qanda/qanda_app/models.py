@@ -113,7 +113,7 @@ class QuestionManager(models.Manager):
                                                                                  object_id=str(question.pk),
                                                                                  notification_type=NotificationType.objects.get_or_create(key="new_answer",
                                                                                                                                           content_type=ContentType.objects.get_for_model(Answer))[0])
-            if subscription:
+            if created:
                 subscription.send_emails = True
                 subscription.save()
                 pass
@@ -219,7 +219,7 @@ class AnswerManager(models.Manager):
                                                                                  object_id=str(answer.pk),
                                                                                  notification_type=NotificationType.objects.get_or_create(key="new_reply",
                                                                                                                                           content_type=ContentType.objects.get_for_model(Reply))[0])
-            if subscription:
+            if created:
                 subscription.send_emails = True
                 subscription.save()
                 pass
