@@ -11,15 +11,13 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm
 
+from decorators import assert_qanda_user
 from models import *
 
 def get_user(request):
 	if not hasattr(request, '_cached_user'):
 		request._cached_user = auth.get_user(request)
 	return request._cached_user
-
-def index(request):
-	return HttpResponseRedirect(reverse(question_page, args=(Question.objects.count(),)))
 
 def process_question_relations(request, question, qandaUser):
 	relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
@@ -75,6 +73,14 @@ def process_new_question(question_form, qandaUser):
 	question.save()
 	question_form.save_m2m()
 	return question
+
+@assert_qanda_user
+def index(request):
+	try:
+		latest_question = Question.objects.latest('postDate')
+		return HttpResponseRedirect(reverse(question_page, args=(latest_question.pk,)))
+	except:
+		return HttpResponseRedirect(reverse(new_question_page, args=()))
 
 @login_required(login_url='/admin/', redirect_field_name='next')
 def new_question_page(request):
