@@ -99,7 +99,7 @@ def new_question_page(request):
 	else:
 		context['question_form'] = QuestionForm()
 
-	context['debug'] = question_form.errors
+	context['debug'] = ''
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
