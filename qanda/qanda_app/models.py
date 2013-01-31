@@ -125,7 +125,9 @@ class QuestionManager(models.Manager):
             subscription = QuestionSubscription.objects.filter(settings__user=qandaUser.djangoUser,
                                                             question=question,
                                                             object_id=str(question.pk),
-                                                            ).delete()
+                                                            )
+            notifications = Notification.objects.filter(subscription=subscription).delete()
+            subscription.delete()
 
     def set_relations(self, qandaUser, question, relations):
         existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
@@ -234,7 +236,9 @@ class AnswerManager(models.Manager):
             subscription = AnswerSubscription.objects.filter(settings__user=qandaUser.djangoUser,
                                                             answer=answer,
                                                             object_id=str(answer.pk),
-                                                            ).delete()
+                                                            )
+            notifications = Notification.objects.filter(subscription=subscription).delete()
+            subscription.delete()
 
 
     def set_relations(self, qandaUser, answer, relations):
