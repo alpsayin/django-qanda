@@ -3,13 +3,21 @@ from models import QandaUser, Question, Answer, Reply, Category, QuestionSubscri
 from models import UserRelations, QuestionRelatedUsers, AnswerRelatedUsers, QandaUserStats
 
 class QandaUserAdmin(admin.ModelAdmin):
-	fields = ['djangoUser', 'deleted']
-	list_display = ['djangoUser', 'deleted']
+    fields = ['djangoUser', 'tags','deleted']
+    list_display = ['djangoUser', 'the_tags', 'deleted']
+
+    def the_tags(self, obj):
+        return "%s" % (obj.tags.all(), )
+    the_tags.short_description = 'Tags'
 
 class QuestionAdmin(admin.ModelAdmin):
-	fields = ['title', 'text', 'author',  'category','viewCount', 'closeMessage', 'deleted']
-	list_display = ['pk','title','author', 'category','text', 'postDate', 'editDate', 'closeDate','closeMessage', 'closed', 'deleted']
-	list_filter = ['postDate', 'editDate', 'closeDate','author' ,'category']
+    fields = ['title', 'text', 'author', 'category', 'tags', 'viewCount', 'closeMessage', 'deleted']
+    list_display = ['pk','title','author', 'category','text', 'the_tags', 'postDate', 'editDate', 'closeDate','closeMessage', 'closed', 'deleted']
+    list_filter = ['postDate', 'editDate', 'closeDate','author' ,'category']
+
+    def the_tags(self, obj):
+        return "%s" % (obj.tags.all(), )
+    the_tags.short_description = 'Tags'
 
 class AnswerAdmin(admin.ModelAdmin):
 	fields = ['text', 'question', 'author']
