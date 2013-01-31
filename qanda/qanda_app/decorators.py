@@ -7,8 +7,9 @@ def assert_qanda_user(function):
 	"""
 	def _decorated(*args, **kwargs):
 		user = auth.get_user(args[0])
-		if not QandaUser.objects.filter(djangoUser=user).exists():
-			QandaUser.objects.create_user(user)
-		print user.QandaUser
+		if user.is_authenticated():
+			if not QandaUser.objects.filter(djangoUser=user).exists():
+				QandaUser.objects.create_user(user)
+			print user.QandaUser
 		return function(*args, **kwargs)
 	return _decorated
