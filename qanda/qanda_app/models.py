@@ -22,7 +22,7 @@ class QandaUserManager(models.Manager):
                 existingRelation = existingRelations[0]
                 existingRelation.star = True
                 existingRelation.save()
-            elif existingRelations.count() == 0:
+            elif existingRelations.exists():
                 newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
                 newRelation.save()
             else:
@@ -34,7 +34,7 @@ class QandaUserManager(models.Manager):
                 existingRelation = existingRelations[0]
                 existingRelation.star = False
                 existingRelation.save()
-            elif existingRelations.count() == 0:
+            elif existingRelations.exists():
                 newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
                 newRelation.save()
             else:
@@ -46,7 +46,7 @@ class QandaUserManager(models.Manager):
                 existingRelation = existingRelations[0]
                 existingRelation.flag = True
                 existingRelation.save()
-            elif existingRelations.count() == 0:
+            elif existingRelations.exists():
                 newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=True)
                 newRelation.save()
             else:
@@ -58,7 +58,7 @@ class QandaUserManager(models.Manager):
                 existingRelation = existingRelations[0]
                 existingRelation.flag = False
                 existingRelation.save()
-            elif existingRelations.count() == 0:
+            elif existingRelations.exists():
                 newRelation = UserRelations.objects.create(relater=qandaUser1, related=qandaUser2, star=False, flag=False)
                 newRelation.save()
             else:
@@ -131,7 +131,7 @@ class QuestionManager(models.Manager):
 
     def set_relations(self, qandaUser, question, relations):
         existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-        if existingRelations.count() == 0:
+        if existingRelations.exists():
             existingRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
                                                                 relatedQuestion=question,
                                                                 upvote=False,
@@ -243,7 +243,7 @@ class AnswerManager(models.Manager):
 
     def set_relations(self, qandaUser, answer, relations):
         existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-        if existingRelations.count() == 0:
+        if existingRelations.exists():
             existingRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
                                                                 relatedAnswer=answer,
                                                                 upvote=False,
