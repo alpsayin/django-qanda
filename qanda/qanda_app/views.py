@@ -130,6 +130,7 @@ def question_relation_submit(request, question_id):
 
 	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
+@assert_qanda_user
 @login_required(login_url='/admin/', redirect_field_name='next')
 def subscription_submit(request, **kwargs):
 	question = get_object_or_404(Question, pk=kwargs['question_id'])
