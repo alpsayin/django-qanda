@@ -1,29 +1,40 @@
-{% block new_question %}
+{% extends "qanda_base.html" %}
 
-<form method="post" action="{{ action_link }}">
-	{% csrf_token %}
-	{{ question_form.non_field_errors }}
-	<input type="hidden" name="pk" value="{{ pk }}">
-	<input type="hidden" name="type" value="{{ type }}">
-	<div class="questionTitleWrapper">
-        {{ question_form.title.errors }}
-        <label for="id_title">Title:</label>
-        {{ question_form.title }}
-	</div>
+{% block head %}
+	<title> Qanda </title>
+	{% include "scripts.html" %}
+{% endblock %}
 
-	<div class="questionTextWrapper">
-        {{ question_form.text.errors }}
-        <label for="id_text">Question Text:</label> <br />
-        {{ question_form.text }}
-	</div>
+{% block body %}
 
-	<div class="questionTagsWrapper">
-        {{ question_form.tags.errors }}
-        <label for="id_tags">Tags:</label>
-        {{ question_form.tags }}
-	</div>
+	{% block new_question %}
 
-<input type="submit" value="Submit" />
-</form>
+	<form method="post" action="{{ action_link }}">
+		{% csrf_token %}
+		{{ question_form.non_field_errors }}
+		<input type="hidden" name="pk" value="{{ pk }}">
+		<input type="hidden" name="type" value="{{ type }}">
+		<div class="questionTitleWrapper">
+	        {{ question_form.title.errors }}
+	        <label for="id_title">Title:</label>
+	        {{ question_form.title }}
+		</div>
+
+		<div class="questionTextWrapper">
+	        {{ question_form.text.errors }}
+	        <label for="id_text">Question Text:</label> <br />
+	        {{ question_form.text }}
+		</div>
+
+		<div class="questionTagsWrapper">
+	        {{ question_form.tags.errors }}
+	        <label for="id_tags">Tags:</label>
+	        {{ question_form.tags }}
+		</div>
+
+	<input type="submit" value="Submit" />
+	</form>
+
+	{% endblock %}
 
 {% endblock %}
