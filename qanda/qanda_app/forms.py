@@ -9,7 +9,7 @@ class QuestionForm(ModelForm):
 		fields = ('title', 'text', 'tags')
 		widgets = {
 			'title': TextInput(attrs={'size': 120,}),
-			'text': Textarea(attrs={'cols': 120, 'rows': 30}),
+			'text': Textarea(attrs={'cols': 120, 'rows': 10, 'class':'span6'}),
 		}
 
 class AnswerForm(ModelForm):
@@ -17,7 +17,7 @@ class AnswerForm(ModelForm):
 		model = Answer
 		fields = ( 'text', )
 		widgets = {
-			'text': Textarea(attrs={'cols': 80, 'rows': 10}),
+			'text': Textarea(attrs={'cols': 80, 'rows': 10, 'class':'span6'}),
 		}
 
 class ReplyForm(ModelForm):
@@ -25,7 +25,7 @@ class ReplyForm(ModelForm):
 		model = Reply
 		fields = ( 'text', )
 		widgets = {
-			'text': Textarea(attrs={'cols': 80, 'rows': 2}),
+			'text': Textarea(attrs={'cols': 80, 'rows': 2, 'class':'span6'}),
 		}
 
 class  SubscriptionForm(forms.Form):
