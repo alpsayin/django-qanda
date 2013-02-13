@@ -131,7 +131,7 @@ class QuestionManager(models.Manager):
 
     def set_relations(self, qandaUser, question, relations):
         existingRelations = QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, relatedQuestion=question)
-        if existingRelations.exists():
+        if not existingRelations.exists():
             existingRelation = QuestionRelatedUsers.objects.create(relatedUser=qandaUser, 
                                                                 relatedQuestion=question,
                                                                 upvote=False,
@@ -144,6 +144,8 @@ class QuestionManager(models.Manager):
             existingRelation = existingRelations[0]
         elif existingRelations.count() > 1:
             print 'SHOULDNT HAPPEN'
+        else:
+            print 'ALSO SHOULDNT HAPPEN'
 
         for counter,relation in enumerate(relations):
             value = relations[relation]
@@ -243,7 +245,7 @@ class AnswerManager(models.Manager):
 
     def set_relations(self, qandaUser, answer, relations):
         existingRelations = AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, relatedAnswer=answer)
-        if existingRelations.exists():
+        if not existingRelations.exists():
             existingRelation = AnswerRelatedUsers.objects.create(relatedUser=qandaUser, 
                                                                 relatedAnswer=answer,
                                                                 upvote=False,
@@ -256,6 +258,8 @@ class AnswerManager(models.Manager):
             existingRelation = existingRelations[0]
         elif existingRelations.count() > 1:
             print 'SHOULDNT HAPPEN'
+        else:
+            print 'ALSO SHOULDNT HAPPEN'
 
         for counter,relation in enumerate(relations):
             value = relations[relation]
