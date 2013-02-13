@@ -2,9 +2,39 @@
 <head>
 {% block head %}
 {% endblock %}
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 </head>
 <body>
-{% block body %}
-{% endblock %}
+	{% block navbar %}
+	{% include "navbar.html" %}
+	{% endblock %}
+
+	{% block body %}
+	{% endblock %}
+	<script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script><!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ STATIC_URL }}bootstrap/js/jquery.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-transition.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-alert.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-modal.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-tab.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-popover.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-button.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-typeahead.js"></script>
 </body>
 </html>

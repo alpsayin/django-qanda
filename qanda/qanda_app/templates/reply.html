@@ -1,17 +1,18 @@
 {% block answer %}
 
-<form method="post" action="{{ action_link }}">
-	{% csrf_token %}
-	{{ reply_form.non_field_errors }}
+<div class="span6">
+	<form method="post" action="{{ action_link }}">
+		{% csrf_token %}
+		{{ reply_form.non_field_errors }}
 
-	<input type="hidden" name="pk" value="{{ pk }}">
-	<input type="hidden" name="type" value="{{ type }}">	
-	<div class="replyTextWrapper">
-        {{ reply_form.text.errors }}
-        <label for="id_text">Reply:</label> <br />
-        {{ reply_form.text }}
-	</div>	
-	<input type="submit" value="Submit">
-</form>
-
+		<input type="hidden" name="pk" value="{{ pk }}">
+		<input type="hidden" name="type" value="{{ type }}">	
+		<div class="replyTextWrapper">
+	        {{ reply_form.text.errors }}
+	        <label for="id_text">Reply:</label> <br />
+	        {{ reply_form.text }}
+		</div>	
+		<input type="submit" value="Submit">
+	</form>
+</div>
 {% endblock %}

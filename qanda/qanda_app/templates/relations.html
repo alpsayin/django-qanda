@@ -9,16 +9,33 @@ Parameters:
 {% endcomment %}
 
 {% block relations %}
-<form method="post" action="{{ action_link }}">
-	{% csrf_token %}
-	<input type="hidden" name="pk" value="{{ pk }}">
-	<input type="hidden" name="type" value="{{ type }}">
-	<label><input type="checkbox" name="upvote" value="Upvote" {% if relations.upvote %} checked {% endif %}> Upvote</label>
-	<label><input type="checkbox" name="downvote" value="Downvote" {% if relations.downvote %} checked {% endif %}> Downvote</label>
-	<label><input type="checkbox" name="useful" value="Useful" {% if relations.useful %} checked {% endif %}> Useful</label>
-	<label><input type="checkbox" name="notUseful" value="NotUseful" {% if relations.notUseful %} checked {% endif %}> Not Useful</label>
-	<label><input type="checkbox" name="star" value="Star" {% if relations.star %} checked {% endif %}> Star</label>
-	<label><input type="checkbox" name="flag" value="Flag" {% if relations.flag %} checked {% endif %}> Flag</label>
-	<input type="submit" value="Submit">
-</form>
+<script type="text/javascript">
+function checkUncheck(element1, element2) {
+    var c1 = document.getElementById(element1);
+    var c2 = document.getElementById(element2);
+        if (c1.type == 'checkbox' & c2.type == 'checkbox')
+    	{
+        	if (c1.checked & c2.checked)
+        	{
+            	c2.checked = false;
+            }
+        }
+}
+</script>
+<div class="span3">
+	<form method="post" action="{{ action_link }}">
+		{% csrf_token %}
+		<input type="hidden" name="pk" value="{{ pk }}">
+		<input type="hidden" name="type" value="{{ type }}">
+		<div class="row">
+				<label><input type="checkbox" id="upvote{{pk}}" name="upvote" value="Upvote" {% if relations.upvote %} checked {% endif %} onclick="checkUncheck('upvote{{pk}}', 'downvote{{pk}}');"> Upvote</label>
+				<label><input type="checkbox" id="downvote{{pk}}" name="downvote" value="Downvote" {% if relations.downvote %} checked {% endif %} onclick="checkUncheck('downvote{{pk}}', 'upvote{{pk}}');"> Downvote</label>
+				<label><input type="checkbox" id="useful{{pk}}" name="useful" value="Useful" {% if relations.useful %} checked {% endif %} onclick="checkUncheck('useful{{pk}}', 'notUseful{{pk}}');"> Useful</label>
+				<label><input type="checkbox" id="notUseful{{pk}}" name="notUseful" value="NotUseful" {% if relations.notUseful %} checked {% endif %} onclick="checkUncheck('notUseful{{pk}}', 'useful{{pk}}');"> Not Useful</label>
+				<label><input type="checkbox" name="star" value="Star" {% if relations.star %} checked {% endif %}> Star</label>
+				<label><input type="checkbox" name="flag" value="Flag" {% if relations.flag %} checked {% endif %}> Flag</label>
+			<input type="submit" value="Submit">
+		</div>
+	</form>
+</div>
 {% endblock %}

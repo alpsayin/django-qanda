@@ -1,15 +1,18 @@
 {% block subscription %}
 
-<form method="post" action="{{ action_link }}">
-	{% csrf_token %}
+<div class="span3">
+	<form method="post" action="{{ action_link }}">
+		{% csrf_token %}
 
-	<input type="hidden" name="pk" value="{{ pk }}">
-	<input type="hidden" name="type" value="{{ type }}">	
-	<div class="subscriptionWrapper">
-        <label for="id_subscribed">Subscribed:</label>
-		<input {% if checked == 'True' %} checked {% endif %} type="checkbox" name="subscribed" id="id_subscribed">	
-		<input type="submit" value="Submit">
-	</div>	
-</form>
+		<input type="hidden" name="pk" value="{{ pk }}">
+		<input type="hidden" name="type" value="{{ type }}">	
+		<div class="subscriptionWrapper">
+	        <label for="id_subscribed">Subscribed:
+			<input {% if checked == 'True' %} checked {% endif %} type="checkbox" name="subscribed" id="id_subscribed">	
+			<input type="submit" value="Submit">
+			</label>
+		</div>	
+	</form>
+</div>
 
 {% endblock %}

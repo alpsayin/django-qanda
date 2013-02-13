@@ -8,55 +8,94 @@
 {% endblock %}
 
 {% block body %}
+<div class="container">
 
 	{% comment %}
 		{% include "new_question.html" with type="new_question" %}
 	{% endcomment %}
 
 	{{ debug }}
+	<div class="row">
+		<div class="span6">
+			<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
+		</div>
+	</div>
+	<div class="row">
+		<div class="span6">
+			by {{ question.author }} <br />
+			submitted {{ question.postDate }} <br />
+			<blockquote>
+			{{ question.text }}  
+			</blockquote>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span6">
+		{% include "subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" checked=question.subscribed %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<ul>
+				Tags:
+				{% for tag in question.tags.all %}
+					<li> {{ tag.name }} </li>
+				{% endfor %}
+			</ul>	
+		</div>
 
-	<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
+		<div class="span6">
+			{% include "relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
+		</div>
+	</div>
 
-	{{ question.author }} <br />
-	{{ question.postDate }} <br />
-	{{ question.text }}  <br />
-
-	{% include "subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" checked=question.subscribed %}
-
-	<ul>
-		Tags:
-		{% for tag in question.tags.all %}
-			<li> {{ tag.name }} </li>
-		{% endfor %}
-	</ul>	
-
-	{% include "relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
-
-	<a href="{% url new_question_page %}">Enter a new question</a> <br />
-
+	<div class="row">
+		<div class="span6">
+			<a href="{% url new_question_page %}">Enter a new question</a> <br />
+		</div>
+	</div>
 	<hr>
 
 	{% for answer in answers %}
-	<p>
-		{{ answer.text }} <br />
-		{{ answer.author }} <br/>
-		{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" checked=answer.subscribed %}
-		{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
-		{% for reply in answer.replies.all %}
+	<div class ="row">
+		<div class="span6">
 		<p>
-			{% if not reply.deleted %}
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.text }} <br />
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.author }} <br />
-			{% endif %}
+			<div class="row">
+				<div class="span5">
+					<blockquote>
+						{{ answer.text }} 
+					</blockquote>
+					by {{ answer.author }}
+				</div>
+			</div>
+
+			<div class="row">
+				{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" checked=answer.subscribed %}
+			
+				{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
+			</div>
+			
+			{% for reply in answer.replies.all %}
+			<p>
+				{% if not reply.deleted %}
+				<div class="row">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.text }} <br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ reply.author }} <br />
+					{% endif %}
+				</div>
+			</p>
+			{% endfor %}
+			{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
+			<hr>
 		</p>
-		{% endfor %}
-		{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
-		<hr>
-	</p>
+		</div>
+	</div>
 	{% endfor %}
 
-	<h3> Answer this question </h3>
+	<div class="row">
+		<h3> Answer this question </h3>
 
-	{% include "answer.html" with type="new_answer" action_link="relate/" %}
-
+		{% include "answer.html" with type="new_answer" action_link="relate/" %}
+	</div>
+</div>
 {% endblock %}

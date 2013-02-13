@@ -1,18 +1,18 @@
 {% block answer %}
+<div class="span6">
+	<form method="post" action="{{ action_link }}">
+		{% csrf_token %}	
+		{{ answer_form.non_field_errors }}
+		<input type="hidden" name="pk" value="{{ pk }}">
+		<input type="hidden" name="type" value="{{ type }}">
 
-<form method="post" action="{{ action_link }}">
-	{% csrf_token %}	
-	{{ answer_form.non_field_errors }}
-	<input type="hidden" name="pk" value="{{ pk }}">
-	<input type="hidden" name="type" value="{{ type }}">
+		<div class="answerTextWrapper">
+	        {{ answer_form.text.errors }}
+	        <label for="id_text">Answer:</label> 
+	        {{ answer_form.text }}
+		</div>
 
-	<div class="answerTextWrapper">
-        {{ answer_form.text.errors }}
-        <label for="id_text">Answer:</label> <br />
-        {{ answer_form.text }}
-	</div>
-
-<input type="submit" value="Submit" />
-</form>
-
+	<input type="submit" value="Submit" />
+	</form>
+</div>
 {% endblock %}
