@@ -78,6 +78,24 @@ def process_new_question(question_form, qandaUser):
 def index(request):
 	try:
 		latest_question = Question.objects.latest('postDate')
+		return HttpResponseRedirect(reverse(question_list, args=(latest_question.pk,)))
+	except:
+		return HttpResponseRedirect(reverse(new_question_page, args=()))
+
+@assert_qanda_user
+def question_list(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	context = {}
+	questions = Question.objects.filter(pk__lte=question_id)[:10]
+	for question in questions:
+		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
+	context['questions'] = questions
+	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
+
+@assert_qanda_user
+def most_recent_question(request):
+	try:
+		latest_question = Question.objects.latest('postDate')
 		return HttpResponseRedirect(reverse(question_page, args=(latest_question.pk,)))
 	except:
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
