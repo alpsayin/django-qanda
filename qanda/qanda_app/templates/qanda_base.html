@@ -13,12 +13,15 @@
     <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 </head>
 <body>
-	{% block navbar %}
-	{% include "navbar.html" %}
-	{% endblock %}
+    	{% block navbar %}
+    	{% include "navbar.html" %}
+    	{% endblock %}
 
-	{% block body %}
-	{% endblock %}
+    <div class="container">
+    	{% block body %}
+    	{% endblock %}
+
+    </div>
 	<script src="http://code.jquery.com/jquery.js"></script>
     <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script><!-- Le javascript
     ================================================== -->
