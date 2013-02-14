@@ -25,6 +25,15 @@
 		{% endfor %}
 	</div>
 
+	<div class="span6">
+		{% if prev %}
+		<a href="{% url qanda_app.views.question_list question_id=prev %}">Prev</a>
+		{% endif %}
+		{% if next %}
+		<a href="{% url qanda_app.views.question_list question_id=next %}">Next</a>
+		{% endif %}
+	</div>
+
 	{% endblock %}
 
 {% endblock %}
