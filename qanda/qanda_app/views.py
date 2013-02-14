@@ -90,6 +90,7 @@ def question_list(request, question_id):
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
 	context['questions'] = questions
+	context['view'] = 'question_list'
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
@@ -141,6 +142,7 @@ def new_question_page(request):
 	else:
 		context['question_form'] = QuestionForm()
 
+	context['view'] = 'new_question_page'
 	context['debug'] = ''
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
@@ -238,6 +240,11 @@ def question_page(request, question_id):
 	context['question'] = question
 	context['answers'] = answers
 	context['debug'] = ''
+	print Question.objects.latest('pk')
+	if question == Question.objects.latest('pk'):
+		context['view'] = 'last_question_page'
+	else:
+		context['view'] = 'question_page'
 
 	Question.objects.increment_view_count(question)
 	return render_to_response('question.html', context, context_instance=RequestContext(request))
