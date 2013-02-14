@@ -117,9 +117,7 @@ def tag_page(request, tag, page):
 		context['next'] = page+1
 
 	if page >= 1:
-		print page
 		prev_qset = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
-		print prev_qset
 		if prev_qset.exists():
 			context['prev'] = page-1
 
@@ -166,7 +164,6 @@ def question_relation_submit(request, question_id):
 				process_question_relations(request, question, qandaUser)
 			elif request.POST['type'] == 'answer':
 				answer = Answer.objects.get(pk=int(request.POST['pk']))
-				print answer
 				process_answer_relations(request, answer, qandaUser)
 			elif request.POST['type'] == 'new_answer':
 				answer_form = AnswerForm(request.POST)
@@ -248,7 +245,7 @@ def question_page(request, question_id):
 	context['question'] = question
 	context['answers'] = answers
 	context['debug'] = ''
-	print Question.objects.latest('pk')
+
 	if question == Question.objects.latest('pk'):
 		context['view'] = 'last_question_page'
 	else:
