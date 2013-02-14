@@ -82,7 +82,7 @@ def index(request):
 	except:
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 
-NUM_OF_QUESTIONS_PER_PAGE = 2
+NUM_OF_QUESTIONS_PER_PAGE = 10
 @assert_qanda_user
 def question_list(request, question_id):
 	context = {}
