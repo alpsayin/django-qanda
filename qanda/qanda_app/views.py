@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm
+from taggit.models import Tag
 
 from decorators import assert_qanda_user
 from models import *
@@ -83,6 +84,7 @@ def index(request):
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 
 NUM_OF_QUESTIONS_PER_PAGE = 10
+NUM_OF_TAGS_PER_PAGE = 20
 @assert_qanda_user
 def question_list(request, question_id):
 	context = {}
@@ -102,6 +104,29 @@ def question_list(request, question_id):
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
+def tag_list(request, page):
+	context = {}
+	page = int(page)
+	tags = Tag.objects.order_by('name')[page*(NUM_OF_TAGS_PER_PAGE):(page+1)*NUM_OF_TAGS_PER_PAGE]
+	
+	context['tags'] = tags
+	context['view'] = 'tag_list'
+
+	next_qset = Tag.objects.order_by('name')[(page+1)*NUM_OF_TAGS_PER_PAGE:(page+2)*NUM_OF_TAGS_PER_PAGE]
+	if next_qset.exists():
+		context['next'] = page+1
+
+	if page >= 1:
+		prev_qset = Tag.objects.order_by('name')[(page-1)*NUM_OF_TAGS_PER_PAGE:page*NUM_OF_TAGS_PER_PAGE]
+		if prev_qset.exists():
+			context['prev'] = page-1
+
+	import pprint
+	pprint.pprint(context)
+	return render_to_response("tag_list.html", context, context_instance=RequestContext(request))
+
+
+@assert_qanda_user
 def tag_page(request, tag, page):
 	context = {}
 	page = int(page)
@@ -110,7 +135,7 @@ def tag_page(request, tag, page):
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
 	context['questions'] = questions
 	context['tag'] = tag
-	context['view'] = 'question_list'
+	context['view'] = 'tag_page'
 
 	next_qset = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[(page+1)*NUM_OF_QUESTIONS_PER_PAGE:(page+2)*NUM_OF_QUESTIONS_PER_PAGE]
 	if next_qset.exists():
