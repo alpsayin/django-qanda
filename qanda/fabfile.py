@@ -10,6 +10,14 @@ from fabric.api import lcd
 def deploy():
     with lcd('/Users/alpsayin/Sites/qanda'):
         local('git pull /Users/alpsayin/qanda/')
+        local('pip install django')
+        local('pip install south')
+        local('pip install fabric')
+        local('pip install django-taggit')
+        local('pip install django-notify')
+        local('pip install mysql-python')
+        local('pip install django-extensions')
+        local('pip install werkzeug')
+        local('pip install django-tastypie')
         local('python manage.py migrate qanda_app')
-        local('python manage.py test qanda_app')
         local('sudo apachectl stop && sudo apachectl start')
