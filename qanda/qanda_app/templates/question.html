@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="span4">
+		<div class="span5">
 			by {{ question.author }} <br />
 			submitted {{ question.postDate }} <br />
 		</div>
@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="span3">
+		<div class="span6">
 			<ul>
 				Tags:
 				{% for tag in question.tags.all %}
@@ -58,7 +58,7 @@
 
 	{% for answer in answers %}
 	<div class ="row">
-		<div class="span6">
+		<div class="span7">
 		<p>
 			<div class="row">
 				<div class="span1">
@@ -68,23 +68,18 @@
 						{{ answer.text }} 
 					</blockquote>
 				</div>
+				<div class="span1">
+					{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
+				</div>
 			</div>
 			<div class="row">
 				<div class="span1">
 				</div>
-				<div class="span3">
+				<div class="span4">
 					by {{ answer.author }}
 				</div>
-				<div class="span2">
-					{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" checked=answer.subscribed %}
-				</div>
-			</div>
-
-			<div class="row">
 				<div class="span1">
-				</div>
-				<div class="span2">
-					{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
+					{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" checked=answer.subscribed %}
 				</div>
 			</div>
 			
