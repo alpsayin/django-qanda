@@ -1,0 +1,39 @@
+{% extends "qanda_base.html" %}
+
+{% block head %}
+	<title> Qanda </title>
+	{% include "scripts.html" %}
+{% endblock %}
+
+{% block body %}
+
+	{% block question_list %}
+
+	<div class="span6">
+		{% for question in questions %}
+			<div class="row">
+				<div class="span6">
+					<a href="{% url qanda_app.views.question_page question_id=question.pk %}">
+						Votes: {{ question.voteCount }}
+						Viewcount:	{{ question.viewCount }}
+						Answers: {{ question.answers.count }}
+						Title: {{ question.title }}
+						by {{ question.author }}
+					</a>
+				</div>	
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="span6">
+		{% if prev or prev == 0 %}
+		<a href="{% url qanda_app.views.tag_page tag=tag page=prev %}">Prev</a>
+		{% endif %}
+		{% if next %}
+		<a href="{% url qanda_app.views.tag_page tag=tag page=next %}">Next</a>
+		{% endif %}
+	</div>
+
+	{% endblock %}
+
+{% endblock %}

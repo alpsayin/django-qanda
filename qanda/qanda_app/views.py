@@ -93,6 +93,30 @@ def question_list(request, question_id):
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
+def tag_page(request, tag, page):
+	context = {}
+	page = int(page)
+	questions = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[page*(NUM_OF_QUESTIONS_PER_PAGE):(page+1)*NUM_OF_QUESTIONS_PER_PAGE]
+	for question in questions:
+		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
+	context['questions'] = questions
+	context['tag'] = tag
+	context['view'] = 'question_list'
+
+	next_qset = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[(page+1)*NUM_OF_QUESTIONS_PER_PAGE:(page+2)*NUM_OF_QUESTIONS_PER_PAGE]
+	if next_qset.exists():
+		context['next'] = page+1
+
+	if page >= 1:
+		print page
+		prev_qset = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
+		print prev_qset
+		if prev_qset.exists():
+			context['prev'] = page-1
+
+	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
+
+@assert_qanda_user
 def most_recent_question(request):
 	try:
 		latest_question = Question.objects.latest('postDate')
