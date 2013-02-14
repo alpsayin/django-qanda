@@ -1,0 +1,39 @@
+{% extends "qanda_base.html" %}
+
+{% block head %}
+	<title> Qanda </title>
+	{% include "scripts.html" %}
+{% endblock %}
+
+{% block body %}
+
+	{% block tag_list %}
+
+	{% for tag in tags %}
+		<div class="row">
+			<div class="span6">
+				<a href="{% url qanda_app.views.tag_page tag=tag page="0" %}">
+					{{ tag }}
+				</a>
+			</div>	
+		</div>
+	{% endfor %}
+
+	<div class="row">
+		<p></p>
+	</div>
+
+	<div class="row">
+		<div class="span6">
+			{% if prev or prev == 0 %}
+			<a href="{% url qanda_app.views.tag_list page=prev %}">Prev</a>
+			{% endif %}
+			{% if next %}
+			<a href="{% url qanda_app.views.tag_list page=next %}">Next</a>
+			{% endif %}
+		</div>
+	</div>
+
+	{% endblock %}
+
+{% endblock %}
