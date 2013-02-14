@@ -82,15 +82,23 @@ def index(request):
 	except:
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 
+NUM_OF_QUESTIONS_PER_PAGE = 2
 @assert_qanda_user
 def question_list(request, question_id):
-	question = get_object_or_404(Question, pk=question_id)
 	context = {}
-	questions = Question.objects.filter(pk__lte=question_id)[:10]
+	questions = Question.objects.filter(pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
 	context['questions'] = questions
 	context['view'] = 'question_list'
+
+	next_qset = Question.objects.filter(pk__lte=int(question_id)+NUM_OF_QUESTIONS_PER_PAGE).order_by('-postDate')[:1]
+	if next_qset[0].pk > int(question_id):
+		context['next'] = int(question_id)+NUM_OF_QUESTIONS_PER_PAGE
+
+	prev_qset = Question.objects.filter(pk__lte=int(question_id)-NUM_OF_QUESTIONS_PER_PAGE).order_by('-postDate')[:1]
+	if prev_qset.exists():
+		context['prev'] = prev_qset[0].pk
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
