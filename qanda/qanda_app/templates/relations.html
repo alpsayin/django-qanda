@@ -22,12 +22,11 @@ function checkUncheck(element1, element2) {
         }
 }
 </script>
-<div class="span3">
+<div class="row">
 	<form method="post" action="{{ action_link }}">
 		{% csrf_token %}
 		<input type="hidden" name="pk" value="{{ pk }}">
 		<input type="hidden" name="type" value="{{ type }}">
-		<div class="row">
 				<label><input type="checkbox" id="upvote{{pk}}" name="upvote" value="Upvote" {% if relations.upvote %} checked {% endif %} onclick="checkUncheck('upvote{{pk}}', 'downvote{{pk}}');"> Upvote</label>
 				<label><input type="checkbox" id="downvote{{pk}}" name="downvote" value="Downvote" {% if relations.downvote %} checked {% endif %} onclick="checkUncheck('downvote{{pk}}', 'upvote{{pk}}');"> Downvote</label>
 				<label><input type="checkbox" id="useful{{pk}}" name="useful" value="Useful" {% if relations.useful %} checked {% endif %} onclick="checkUncheck('useful{{pk}}', 'notUseful{{pk}}');"> Useful</label>
@@ -35,7 +34,6 @@ function checkUncheck(element1, element2) {
 				<label><input type="checkbox" name="star" value="Star" {% if relations.star %} checked {% endif %}> Star</label>
 				<label><input type="checkbox" name="flag" value="Flag" {% if relations.flag %} checked {% endif %}> Flag</label>
 			<input type="submit" value="Submit">
-		</div>
 	</form>
 </div>
 {% endblock %}
