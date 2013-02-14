@@ -9,21 +9,9 @@ Parameters:
 {% endcomment %}
 
 {% block relations %}
-<script type="text/javascript">
-function checkUncheck(element1, element2) {
-    var c1 = document.getElementById(element1);
-    var c2 = document.getElementById(element2);
-        if (c1.type == 'checkbox' & c2.type == 'checkbox')
-    	{
-        	if (c1.checked & c2.checked)
-        	{
-            	c2.checked = false;
-            }
-        }
-}
-</script>
+
 <div class="row">
-	<form method="post" action="{{ action_link }}">
+	<form id="{{type}}{{pk}}" method="post" action="{{ action_link }}">
 		{% csrf_token %}
 		<input type="hidden" name="pk" value="{{ pk }}">
 		<input type="hidden" name="type" value="{{ type }}">
@@ -36,4 +24,5 @@ function checkUncheck(element1, element2) {
 			<input type="submit" value="Submit">
 	</form>
 </div>
+
 {% endblock %}
