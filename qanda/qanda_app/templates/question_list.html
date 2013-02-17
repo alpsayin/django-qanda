@@ -10,15 +10,26 @@
 
 	{% for question in questions %}
 		<div class="row">
-			<div class="span6">
+			<div class="span12">
 				<a href="{% url qanda_app.views.question_page question_id=question.pk %}">
-					Votes: {{ question.voteCount }}
-					Viewcount:	{{ question.viewCount }}
-					Answers: {{ question.answers.count }}
-					Title: {{ question.title }}
-					by {{ question.author }}
+					<div class="span1 votecount-box">
+						Votes<br />{{ question.voteCount }}
+					</div>
+					<div class="span1 viewcount-box">
+						Views<br />{{ question.viewCount }}
+					</div>	
+					<div class="span1 answercount-box">
+						Answers<br />{{ question.answers.count }}
+					</div>	
+					<div class="span7 titleandauthor-box">
+						Title: {{ question.title }}
+						by {{ question.author }}
+					</div>	
 				</a>
 			</div>	
+		</div>
+		<div class="row">
+			<p></p>
 		</div>
 	{% endfor %}
 
