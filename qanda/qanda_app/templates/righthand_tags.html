@@ -1,10 +1,21 @@
 
-<div class="pull-left span2">
-	<h3>
+<div class="pull-right span2">
+	<h4 class="recent-tags">
 		Recent Tags
-	</h3>
+	</h4>
 	<div class="tags-box">
-		{% for tag in tags %}
+		{% for tag in recent_tags %}
+		<a class="tag-link" href="{% url qanda_app.views.tag_page tag=tag page=0 %}">
+			#{{ tag }}
+		</a>
+		<br/>
+		{% endfor %}
+	</div>
+	<h4 class="common-tags">
+		Common Tags
+	</h4>
+	<div class="tags-box">
+		{% for tag in common_tags %}
 		<a class="tag-link" href="{% url qanda_app.views.tag_page tag=tag page=0 %}">
 			#{{ tag }}
 		</a>

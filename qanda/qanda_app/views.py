@@ -104,7 +104,8 @@ def question_list(request, question_id):
 	if prev_qset.exists():
 		context['prev'] = prev_qset[0].pk
 
-	context['tags'] = Tag.objects.order_by('-pk').all()[:35]
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:20]
+	context['common_tags'] = Question.tags.most_common()
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
@@ -150,7 +151,8 @@ def tag_page(request, tag, page):
 		if prev_qset.exists():
 			context['prev'] = page-1
 
-	context['tags'] = Tag.objects.order_by('-pk').all()[:35]
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:20]
+	context['common_tags'] = Question.tags.most_common()
 
 	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
 

@@ -97,3 +97,11 @@
 	font-size: 12;
 	color: rgb(0, 0, 0);
 }
+
+.recent-tags {
+	text-align: center;
+}
+
+.common-tags {
+	text-align: center;
+}
