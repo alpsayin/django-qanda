@@ -8,11 +8,13 @@
 
 	{% block tag_list %}
 
+	{{ debug }}
+
 	{% for tag in tags %}
 		<div class="row">
 			<div class="span6">
 				<a href="{% url qanda_app.views.tag_page tag=tag page="0" %}">
-					{{ tag }}
+					{{ tag }}  - x{{ tag.count }}
 				</a>
 			</div>	
 		</div>
