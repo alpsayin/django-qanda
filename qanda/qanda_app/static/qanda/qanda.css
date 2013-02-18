@@ -1,8 +1,8 @@
 
 .votecount-box {
 	padding-top: 10px;
+	padding-bottom: 10px;
 	margin-left: 10px;
-	height: 50px;
 	background-color: rgb(255, 255, 255);
 	color: rgb(0, 0, 0);
 	border: outset;
@@ -15,8 +15,8 @@
 
 .answercount-box {
 	padding-top: 10px;
+	padding-bottom: 10px;
 	margin-left: 10px;
-	height: 50px;
 	background-color: rgb(255, 255, 255);
 	color: rgba(200, 0, 0, 1);
 	border: outset;
@@ -29,8 +29,8 @@
 
 .viewcount-box {
 	padding-top: 10px;
+	padding-bottom: 10px;
 	margin-left: 10px;
-	height: 50px;
 	background-color: rgb(255, 255, 255);
 	color: rgba(0, 0, 0, 0.5);
 	border: outset;
@@ -47,7 +47,7 @@
 	padding-left: 10px;
 	margin-right: 10px;
 	padding-right: 10px;
-	height: 50px;
+	padding-bottom: 10px;
 	background-color: rgb(255, 255, 255);
 	color: rgba(0, 0, 180, 1);
 }
