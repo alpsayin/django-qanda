@@ -22,6 +22,11 @@
 								#{{ tag }}
 							</span>
 						{% endfor %}
+						{% if not question.tags.all.exists %}
+							<span class="questiontag">						
+								#
+							</span>
+						{% endif %}
 						<span class="questioninfo pull-right">
 							{{ question.postDate }} by {{ question.author }} 
 						</span>
