@@ -62,13 +62,14 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class="row">
 		<p></p>
 	</div>
 
-	<div class="pagination text-center">
+	<div class="pagination pagination-large text-center">
 	  <ul>
-		{% if prev %}
+		{% if prev or prev == 0 %}
 	    	<li class=""><a href="{% url qanda_app.views.question_list question_id=prev %}">Prev</a></li>
     	{% else %}
 	    	<li class="disabled"><a href="#">Prev</a></li>
