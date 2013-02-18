@@ -2,34 +2,88 @@
 .votecount-box {
 	padding-top: 10px;
 	margin-left: 10px;
-	color: rgb(0,0,0);
-	background-color: rgb(255, 230, 225);
 	height: 50px;
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 	border: outset;
 	text-align: center;
 }
 
-.viewcount-box {
-	padding-top: 10px;
-	margin-left: 10px;
-	height: 50px;
-	border: outset;
-	text-align: center;
+.votecount-box:hover {
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .answercount-box {
 	padding-top: 10px;
 	margin-left: 10px;
 	height: 50px;
+	background-color: rgb(255, 255, 255);
+	color: rgba(200, 0, 0, 1);
 	border: outset;
 	text-align: center;
 }
 
+.answercount-box:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
 
-.titleandauthor-box {
+.viewcount-box {
+	padding-top: 10px;
+	margin-left: 10px;
+	height: 50px;
+	background-color: rgb(255, 255, 255);
+	color: rgba(0, 0, 0, 0.5);
+	border: outset;
+	text-align: center;
+}
+
+.viewcount-box:hover{
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.question-box {
 	padding-top: 10px;
 	margin-left: 10px;
 	padding-left: 10px;
+	margin-right: 10px;
+	padding-right: 10px;
 	height: 50px;
-	border: outset;
+	background-color: rgb(255, 255, 255);
+	color: rgba(0, 0, 180, 1);
+}
+
+.question-box:hover {
+	border: groove;
+}
+
+.tags-box {
+	padding-top: 10px;
+	margin-left: 10px;
+	padding-left: 10px;
+	margin-right: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	background-color: rgb(255, 255, 255);
+	border: none;
+	text-align: right;
+	line-height: 20px;
+}
+
+.tag-link {
+	color: rgba(0, 0, 0, 1);
+	font-size: 14;
+}
+
+.tag-link:hover {
+	color: rgba(255, 0, 0, 1);
+	font-size: 18;
+}
+
+.prev {
+	font-size: 18px;
+}
+
+.next {
+	font-size: 18px;
 }

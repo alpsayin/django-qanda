@@ -8,30 +8,45 @@
 
 	{% block question_list %}
 
-	{% for question in questions %}
-		<div class="row">
-			<div class="span12">
-				<a href="{% url qanda_app.views.question_page question_id=question.pk %}">
-					<div class="span1 votecount-box">
-						Votes<br />{{ question.voteCount }}
-					</div>
-					<div class="span1 viewcount-box">
-						Views<br />{{ question.viewCount }}
+	<div class="row">
+		<h2>
+			Recent Questions
+		</h2>
+		<div class="span10">
+			{% for question in questions %}
+				<div class="row">
+					<div class="span10">
+						<a href="{% url qanda_app.views.question_page question_id=question.pk %}">
+							<div class="span1 votecount-box">
+								Votes<br />{{ question.voteCount }}
+							</div>
+							<div class="span1 answercount-box">
+								Answers<br />{{ question.answers.count }}
+							</div>	
+							<div class="span1 viewcount-box">
+								Views<br />{{ question.viewCount }}
+							</div>	
+							<div class="span6 question-box">
+								<!-- <a href="{% url qanda_app.views.question_page question_id=question.pk %}"> -->
+									Title: {{ question.title }}<br/>
+								<!-- </a> -->
+								{% for tag in question.tags.all %}
+									<!-- <a class="tag-link" href="{% url qanda_app.views.tag_page tag=tag page=0 %}"> -->
+										{{ tag }}
+									<!-- </a> -->
+								{% endfor %}
+								<div class="pull-right">
+									{{ question.postDate }} by {{ question.author }} 
+								</div>
+							</div>	
+						</a>
 					</div>	
-					<div class="span1 answercount-box">
-						Answers<br />{{ question.answers.count }}
-					</div>	
-					<div class="span7 titleandauthor-box">
-						Title: {{ question.title }}
-						by {{ question.author }}
-					</div>	
-				</a>
-			</div>	
+				</div>
+				<div class="row">
+					<p></p>
+				</div>
+			{% endfor %}
 		</div>
-		<div class="row">
-			<p></p>
-		</div>
-	{% endfor %}
 
 		<div class="pull-left span2">
 			<h3>
@@ -51,15 +66,29 @@
 		<p></p>
 	</div>
 
+	<div class="pagination text-center">
+	  <ul>
+		{% if prev %}
+	    	<li class=""><a href="{% url qanda_app.views.question_list question_id=prev %}">Prev</a></li>
+    	{% else %}
+	    	<li class="disabled"><a href="#">Prev</a></li>
+		{% endif %}
+			
+			<li class="disabled"><a href="#">_______________________</a></li>
+
+		{% if next %}
+	    	<li class=""><a href="{% url qanda_app.views.question_list question_id=next %}">Next</a></li>
+	    {% else %}
+	    	<li class="disabled"><a href="#">Next</a></li>
+		{% endif %}
+	  </ul>
+	</div>
+
 	<div class="row">
-		<div class="span6">
-			{% if prev %}
-			<a href="{% url qanda_app.views.question_list question_id=prev %}">Prev</a>
-			{% endif %}
-			{% if next %}
-			<a href="{% url qanda_app.views.question_list question_id=next %}">Next</a>
-			{% endif %}
-		</div>
+		<p></p>
+	</div>
+	<div class="row">
+		<p></p>
 	</div>
 
 	{% endblock %}
