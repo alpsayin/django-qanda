@@ -1,3 +1,5 @@
+from django.contrib import auth
+
 def get_user(request):
 	if not hasattr(request, '_cached_user'):
 		request._cached_user = auth.get_user(request)
