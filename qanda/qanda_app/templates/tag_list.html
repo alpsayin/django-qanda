@@ -16,40 +16,47 @@
 		in alphabetical order
 	</h5>
 	<div class="row">
-		<div class="span13">
-			{% for tag in tags %}
-						<div class="span3">
-							<a class="tag-list-element" href="{% url qanda_app.views.tag_page tag=tag page="0" %}">
-								#{{ tag }}
-							</a>
-							<span class="tag-list-used">
-							  - used {{ tag.count }} {% if tag.count == 1 %} time {% else %} times {% endif %}
-							</span>
-						</div>	
-			{% endfor %}
+		<div class="span10">
+			<div class="row">
+				<div class="span10">
+					{% for tag in tags %}
+								<div class="span3">
+									<a class="tag-list-element" href="{% url qanda_app.views.tag_page tag=tag page="0" %}">
+										#{{ tag }}
+									</a>
+									<span class="tag-list-used">
+									  - used {{ tag.count }} {% if tag.count == 1 %} time {% else %} times {% endif %}
+									</span>
+								</div>	
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="row">
+				<p></p>
+			</div>
+
+			<div class="pagination pagination-large text-center">
+			  <ul>
+				{% if prev or prev == 0 %}
+			    	<li class=""><a href="{% url qanda_app.views.tag_list page=prev %}">Prev</a></li>
+		    	{% else %}
+			    	<li class="disabled"><a href="#">Prev</a></li>
+				{% endif %}
+					
+					<li class="disabled"><a href="#">_______________________</a></li>
+
+				{% if next %}
+			    	<li class=""><a href="{% url qanda_app.views.tag_list page=next %}">Next</a></li>
+			    {% else %}
+			    	<li class="disabled"><a href="#">Next</a></li>
+				{% endif %}
+			  </ul>
+			</div>
 		</div>
-	</div>
 
-	<div class="row">
-		<p></p>
-	</div>
+		{% include "righthand_tags.html" %}
 
-	<div class="pagination pagination-large text-center">
-	  <ul>
-		{% if prev or prev == 0 %}
-	    	<li class=""><a href="{% url qanda_app.views.tag_list page=prev %}">Prev</a></li>
-    	{% else %}
-	    	<li class="disabled"><a href="#">Prev</a></li>
-		{% endif %}
-			
-			<li class="disabled"><a href="#">_______________________</a></li>
-
-		{% if next %}
-	    	<li class=""><a href="{% url qanda_app.views.tag_list page=next %}">Next</a></li>
-	    {% else %}
-	    	<li class="disabled"><a href="#">Next</a></li>
-		{% endif %}
-	  </ul>
 	</div>
 
 	{% endblock %}

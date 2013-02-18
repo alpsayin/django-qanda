@@ -18,9 +18,11 @@ from decorators import assert_qanda_user
 from models import *
 
 NUM_OF_QUESTIONS_PER_PAGE = 10
-NUM_OF_TAGS_PER_PAGE = 60
+NUM_OF_TAGS_PER_PAGE = 70
 NUM_OF_TAGS_IN_COMMON_TAGS = 16
 NUM_OF_TAGS_IN_RECENT_TAGS = 16
+NUM_OF_TAGS_IN_COMMON_TAGS_IN_TAG_LIST = 10
+NUM_OF_TAGS_IN_RECENT_TAGS_IN_TAG_LIST = 10
 
 # FORM PROCESSORS
 
@@ -128,6 +130,8 @@ def tag_list(request, page):
 		if prev_qset.exists():
 			context['prev'] = page-1
 
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS_IN_TAG_LIST]
+	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS_IN_TAG_LIST]
 
 	return render_to_response("tag_list.html", context, context_instance=RequestContext(request))
 
