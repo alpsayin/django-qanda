@@ -185,7 +185,7 @@ class Question(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField(blank=True);
     author = models.ForeignKey(QandaUser, related_name='questions')
-    viewCount = models.IntegerField()
+    viewCount = models.IntegerField(default=0)
     postDate = models.DateTimeField(auto_now_add=True)
     editDate = models.DateTimeField(auto_now=True)
     closeMessage = models.TextField(blank=True)
