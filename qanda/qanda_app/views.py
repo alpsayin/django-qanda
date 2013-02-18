@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm
 from taggit.models import Tag
+import pprint
 
 from decorators import assert_qanda_user
 from models import *
@@ -125,8 +126,7 @@ def tag_list(request, page):
 		if prev_qset.exists():
 			context['prev'] = page-1
 
-	import pprint
-	pprint.pprint(context)
+
 	return render_to_response("tag_list.html", context, context_instance=RequestContext(request))
 
 
