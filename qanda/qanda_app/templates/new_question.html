@@ -8,6 +8,7 @@
 
 	{% block new_question %}
 
+<div class="row">
 	<div class="span6">
 		<form method="post" action="{{ action_link }}">
 			{% csrf_token %}
@@ -35,7 +36,11 @@
 		<input type="submit" value="Submit" />
 		</form>
 	</div>
+
+	{% include "righthand_tags.html" %}
 	
+</div>
+
 	{% endblock %}
 
 {% endblock %}

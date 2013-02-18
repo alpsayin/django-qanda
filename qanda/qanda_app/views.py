@@ -188,10 +188,11 @@ def new_question_page(request):
 
 	context['view'] = 'new_question_page'
 	context['debug'] = ''
+
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
+	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
+
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
-
-
-
 
 
 def question_page(request, question_id):
