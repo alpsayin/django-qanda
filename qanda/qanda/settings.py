@@ -135,6 +135,8 @@ TEMPLATE_CONTEXT_PROCESSORS={
     'django.core.context_processors.static',
 }
 
+LOGIN_URL = '/admin/'
+
 INTERNAL_IPS = ('127.0.0.1', 'localhost')
 
 # A sample logging configuration. The only tangible logging
