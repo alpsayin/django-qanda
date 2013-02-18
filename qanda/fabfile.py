@@ -20,5 +20,7 @@ def deploy():
         local('pip install werkzeug')
         local('pip install django-tastypie')
         local('pip install django-debug-toolbar')
+        local('python manage.py validate')
+        local('python manage.py syncdb')
         local('python manage.py migrate qanda_app')
         local('sudo apachectl stop && sudo apachectl start')
