@@ -150,6 +150,8 @@ def tag_page(request, tag, page):
 		if prev_qset.exists():
 			context['prev'] = page-1
 
+	context['tags'] = Tag.objects.order_by('-pk').all()[:35]
+
 	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
