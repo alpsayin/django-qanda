@@ -18,6 +18,8 @@ from models import *
 
 NUM_OF_QUESTIONS_PER_PAGE = 10
 NUM_OF_TAGS_PER_PAGE = 60
+NUM_OF_TAGS_IN_COMMON_TAGS = 16
+NUM_OF_TAGS_IN_RECENT_TAGS = 16
 
 def get_user(request):
 	if not hasattr(request, '_cached_user'):
@@ -104,8 +106,8 @@ def question_list(request, question_id):
 	if prev_qset.exists():
 		context['prev'] = prev_qset[0].pk
 
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:20]
-	context['common_tags'] = Question.tags.most_common()
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
+	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
@@ -154,8 +156,8 @@ def tag_page(request, tag, page):
 		if prev_qset.exists():
 			context['prev'] = page-1
 
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:20]
-	context['common_tags'] = Question.tags.most_common()
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
+	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 
 	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
 
