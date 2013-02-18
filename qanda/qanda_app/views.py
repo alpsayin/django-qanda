@@ -168,7 +168,7 @@ def most_recent_question(request):
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 
 @assert_qanda_user
-@login_required(login_url='/admin/', redirect_field_name='next')
+@login_required
 def new_question_page(request):
 	context = {}
 	context['type'] = 'new_question'
@@ -189,7 +189,7 @@ def new_question_page(request):
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
-@login_required(login_url='/admin/', redirect_field_name='next')
+@login_required
 def question_relation_submit(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
 	user = get_user(request)
@@ -216,7 +216,7 @@ def question_relation_submit(request, question_id):
 	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
 @assert_qanda_user
-@login_required(login_url='/admin/', redirect_field_name='next')
+@login_required
 def subscription_submit(request, **kwargs):
 	question = get_object_or_404(Question, pk=kwargs['question_id'])
 	user = get_user(request)
