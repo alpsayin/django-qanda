@@ -1,4 +1,5 @@
 from django.contrib import auth
+from qanda_app.models import *
 
 def get_user(request):
 	if not hasattr(request, '_cached_user'):
