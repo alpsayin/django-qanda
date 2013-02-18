@@ -105,3 +105,16 @@
 .common-tags {
 	text-align: center;
 }
+
+.tag-list-element {
+	font-size: 15;
+	color: rgba(0, 0, 0, 1);
+}
+
+.tag-list-element:hover {
+	color: rgba(255, 0, 0, 1);
+}
+
+.tag-list-used {
+	font-size: 10;
+}

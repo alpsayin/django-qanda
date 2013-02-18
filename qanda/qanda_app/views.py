@@ -17,7 +17,7 @@ from decorators import assert_qanda_user
 from models import *
 
 NUM_OF_QUESTIONS_PER_PAGE = 10
-NUM_OF_TAGS_PER_PAGE = 20
+NUM_OF_TAGS_PER_PAGE = 60
 
 def get_user(request):
 	if not hasattr(request, '_cached_user'):
