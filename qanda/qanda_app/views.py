@@ -15,6 +15,9 @@ from taggit.models import Tag
 from decorators import assert_qanda_user
 from models import *
 
+NUM_OF_QUESTIONS_PER_PAGE = 10
+NUM_OF_TAGS_PER_PAGE = 20
+
 def get_user(request):
 	if not hasattr(request, '_cached_user'):
 		request._cached_user = auth.get_user(request)
@@ -83,8 +86,6 @@ def index(request):
 	except:
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 
-NUM_OF_QUESTIONS_PER_PAGE = 10
-NUM_OF_TAGS_PER_PAGE = 20
 @assert_qanda_user
 def question_list(request, question_id):
 	context = {}
