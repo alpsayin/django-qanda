@@ -12,23 +12,33 @@
 
 	{{ debug }}
 	<div class="row">
-		<div class="span8">
+		<div class="span10">
 			<div class="row">
-				<div class="span6">
+				<div class="pull-left">
+					<a class="btn {% if upvoted %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;</a><br/>
+					<a class="btn {% if downvoted %} active {% endif %}"><i class="icon-arrow-down"></i>Down</a>
+				</div>
+				<div class="span9">
 					<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
 				</div>
 			</div>
 			<div class="row">
-				<div class="span5">
-					by {{ question.author }} <br />
+				<p></p>
+			</div>
+			<div class="row">
+				<div class="span6">
+					by <i>{{ question.author }}</i> <br />
 					submitted {{ question.postDate }} <br />
 				</div>
-				<div class="span2">
+				<div class="span3">
 					{% include "subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" checked=question.subscribed %}
 				</div>
 			</div>
 			<div class="row">
-				<div class="span6">
+				<p></p>
+			</div>
+			<div class="row">
+				<div class="span8">
 					<blockquote>
 					{{ question.text }}  
 					</blockquote>
@@ -38,7 +48,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="span6">
+				<div class="span8">
 					<ul>
 						Tags:
 						{% for tag in question.tags.all %}
@@ -48,34 +58,30 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="span6">
+			<!-- <div class="row">
+				<div class="span8">
 					<a href="{% url new_question_page %}">Enter a new question</a> <br />
 				</div>
-			</div>
+			</div> -->
 			<hr>
 
 			{% for answer in answers %}
 			<div class ="row">
-				<div class="span7">
+				<div class="span8">
 				<p>
 					<div class="row">
-						<div class="span1">
-						</div>
-						<div class="span5">
+						<div class="span7 offset1">
 							<blockquote>
 								{{ answer.text }} 
 							</blockquote>
 						</div>
-						<div class="span1">
+						<!-- <div class="span1">
 							{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
-						</div>
+						</div> -->
 					</div>
 					<div class="row">
-						<div class="span1">
-						</div>
-						<div class="span4">
-							by {{ answer.author }}
+						<div class="span5 offset1">
+							by <i>{{ answer.author }}</i>
 						</div>
 						<div class="span1">
 							{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" checked=answer.subscribed %}
@@ -83,20 +89,22 @@
 					</div>
 					
 					{% for reply in answer.replies.all %}
-					<p>
 						{% if not reply.deleted %}
-						<div class="row">
-							<div class="span2">
+							<div class="row">
+								<div class="span6 offset2">
+									<hr>
+									{{ reply.text }} <br />
+									by <i>{{ reply.author }}</i> <br />
+								</div>
+								{% endif %}
 							</div>
-							<div class="span4">
-								{{ reply.text }} <br />
-								{{ reply.author }} <br />
-							</div>
-							{% endif %}
-						</div>
-					</p>
 					{% endfor %}
-					{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
+					<div class="row">
+						<p></p>
+					</div>
+					<div class="span6 offset2">
+						{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
+					</div>
 					<hr>
 				</p>
 				</div>
