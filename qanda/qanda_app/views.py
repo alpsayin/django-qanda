@@ -101,6 +101,9 @@ def question_list(request, question_id):
 	prev_qset = Question.objects.filter(pk__lte=int(question_id)-NUM_OF_QUESTIONS_PER_PAGE).order_by('-postDate')[:1]
 	if prev_qset.exists():
 		context['prev'] = prev_qset[0].pk
+
+	context['tags'] = Tag.objects.order_by('-pk').all()[:35]
+
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
