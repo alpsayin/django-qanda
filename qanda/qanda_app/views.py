@@ -22,6 +22,60 @@ NUM_OF_TAGS_PER_PAGE = 60
 NUM_OF_TAGS_IN_COMMON_TAGS = 16
 NUM_OF_TAGS_IN_RECENT_TAGS = 16
 
+# FORM PROCESSORS
+
+@assert_qanda_user
+@login_required
+def question_relation_submit(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
+	if request.user.is_authenticated():
+		if request.method == 'POST':
+			qandaUser = user.QandaUser
+			if request.POST['type'] == 'question' and request.POST['pk'] == str(question.pk):
+				process_question_relations(request, question, qandaUser)
+			elif request.POST['type'] == 'answer':
+				answer = Answer.objects.get(pk=int(request.POST['pk']))
+				process_answer_relations(request, answer, qandaUser)
+			elif request.POST['type'] == 'new_answer':
+				answer_form = AnswerForm(request.POST)
+				if answer_form.is_valid():
+					process_new_answer(answer_form, question, qandaUser)
+			elif request.POST['type'] == 'new_reply':
+				answer = Answer.objects.get(pk=int(request.POST['pk']))
+				reply_form = ReplyForm(request.POST)
+				if reply_form.is_valid():
+					process_new_reply(reply_form, answer, qandaUser)
+			elif request.POST['type'] == 'new_question':
+				process_new_question(request, qandaUser)
+
+	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+
+@assert_qanda_user
+@login_required
+def subscription_submit(request, **kwargs):
+	question = get_object_or_404(Question, pk=kwargs['question_id'])
+	user = get_user(request)
+	if request.user.is_authenticated():
+		if request.method == 'POST':
+			qandaUser = user.QandaUser
+			if request.POST['type'] == 'question_subscription' and request.POST['pk'] == str(question.pk):
+				if 'subscribed' in request.POST:
+					subscribed = True
+				else:
+					subscribed = False
+				Question.objects.subscribe_to_question(question, qandaUser, subscribed)
+			if request.POST['type'] == 'answer_subscription':
+				answer = get_object_or_404(Answer, pk=request.POST['pk'])
+				if 'subscribed' in request.POST:
+					subscribed = True
+				else:
+					subscribed = False
+				Answer.objects.subscribe_to_answer(answer, qandaUser, subscribed)
+
+	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+
+# INDEX PAGES
 
 @assert_qanda_user
 def index(request):
@@ -132,56 +186,9 @@ def new_question_page(request):
 	context['debug'] = ''
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
-@assert_qanda_user
-@login_required
-def question_relation_submit(request, question_id):
-	question = get_object_or_404(Question, pk=question_id)
-	user = get_user(request)
-	if request.user.is_authenticated():
-		if request.method == 'POST':
-			qandaUser = user.QandaUser
-			if request.POST['type'] == 'question' and request.POST['pk'] == str(question.pk):
-				process_question_relations(request, question, qandaUser)
-			elif request.POST['type'] == 'answer':
-				answer = Answer.objects.get(pk=int(request.POST['pk']))
-				process_answer_relations(request, answer, qandaUser)
-			elif request.POST['type'] == 'new_answer':
-				answer_form = AnswerForm(request.POST)
-				if answer_form.is_valid():
-					process_new_answer(answer_form, question, qandaUser)
-			elif request.POST['type'] == 'new_reply':
-				answer = Answer.objects.get(pk=int(request.POST['pk']))
-				reply_form = ReplyForm(request.POST)
-				if reply_form.is_valid():
-					process_new_reply(reply_form, answer, qandaUser)
-			elif request.POST['type'] == 'new_question':
-				process_new_question(request, qandaUser)
 
-	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
-@assert_qanda_user
-@login_required
-def subscription_submit(request, **kwargs):
-	question = get_object_or_404(Question, pk=kwargs['question_id'])
-	user = get_user(request)
-	if request.user.is_authenticated():
-		if request.method == 'POST':
-			qandaUser = user.QandaUser
-			if request.POST['type'] == 'question_subscription' and request.POST['pk'] == str(question.pk):
-				if 'subscribed' in request.POST:
-					subscribed = True
-				else:
-					subscribed = False
-				Question.objects.subscribe_to_question(question, qandaUser, subscribed)
-			if request.POST['type'] == 'answer_subscription':
-				answer = get_object_or_404(Answer, pk=request.POST['pk'])
-				if 'subscribed' in request.POST:
-					subscribed = True
-				else:
-					subscribed = False
-				Answer.objects.subscribe_to_answer(answer, qandaUser, subscribed)
 
-	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
 def question_page(request, question_id):
 	context = {}
@@ -231,7 +238,7 @@ def question_page(request, question_id):
 	else:
 		context['view'] = 'question_page'
 
-		
+
 	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
 	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 
