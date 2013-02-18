@@ -1,0 +1,14 @@
+
+<div class="pull-left span2">
+	<h3>
+		Recent Tags
+	</h3>
+	<div class="tags-box">
+		{% for tag in tags %}
+		<a class="tag-link" href="{% url qanda_app.views.tag_page tag=tag page=0 %}">
+			#{{ tag }}
+		</a>
+		<br/>
+		{% endfor %}
+	</div>
+</div>
