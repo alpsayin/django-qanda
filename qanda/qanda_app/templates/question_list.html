@@ -12,55 +12,11 @@
 		<h2>
 			Recent Questions
 		</h2>
-		<div class="span10">
-			{% for question in questions %}
-				<div class="row">
-					<div class="span10">
-						<a href="{% url qanda_app.views.question_page question_id=question.pk %}">
-							<div class="span1 votecount-box">
-								Votes<br />{{ question.voteCount }}
-							</div>
-							<div class="span1 answercount-box">
-								Answers<br />{{ question.answers.count }}
-							</div>	
-							<div class="span1 viewcount-box">
-								Views<br />{{ question.viewCount }}
-							</div>	
-							<div class="span6 question-box">
-								<!-- <a href="{% url qanda_app.views.question_page question_id=question.pk %}"> -->
-									Title: {{ question.title }}<br/>
-								<!-- </a> -->
-								{% for tag in question.tags.all %}
-									<!-- <a class="tag-link" href="{% url qanda_app.views.tag_page tag=tag page=0 %}"> -->
-										{{ tag }}
-									<!-- </a> -->
-								{% endfor %}
-								<div class="pull-right">
-									{{ question.postDate }} by {{ question.author }} 
-								</div>
-							</div>	
-						</a>
-					</div>	
-				</div>
-				<div class="row">
-					<p></p>
-				</div>
-			{% endfor %}
-		</div>
 
-		<div class="pull-left span2">
-			<h3>
-				Recent Tags
-			</h3>
-			<div class="tags-box">
-				{% for tag in tags %}
-				<a class="tag-link" href="{% url qanda_app.views.tag_page tag=tag page=0 %}">
-					{{ tag }}
-				</a>
-				<br/>
-				{% endfor %}
-			</div>
-		</div>
+		{% include "question_listing_base.html" %}
+
+		{% include "righthand_tags.html" %}
+
 	</div>
 	
 	<div class="row">

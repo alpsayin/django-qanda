@@ -8,20 +8,17 @@
 
 	{% block question_list %}
 
-	<div class="span6">
-		{% for question in questions %}
-			<div class="row">
-				<div class="span6">
-					<a href="{% url qanda_app.views.question_page question_id=question.pk %}">
-						Votes: {{ question.voteCount }}
-						Viewcount:	{{ question.viewCount }}
-						Answers: {{ question.answers.count }}
-						Title: {{ question.title }}
-						by {{ question.author }}
-					</a>
-				</div>	
-			</div>
-		{% endfor %}
+	<div class="row">
+		<h2>
+			Questions with "{{ tag }}" tag
+		</h2>
+		
+		{% include "question_listing_base.html" %}
+
+		{% include "righthand_tags.html" %}
+
+	</div>
+	
 	<div class="row">
 		<p></p>
 	</div>
