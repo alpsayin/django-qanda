@@ -1,0 +1,36 @@
+
+<div class="span10">
+	{% for question in questions %}
+		<div class="row">
+			<div class="span10">
+				<a href="{% url qanda_app.views.question_page question_id=question.pk %}">
+					<div class="span1 votecount-box">
+						Votes<br />{{ question.voteCount }}
+					</div>
+					<div class="span1 answercount-box">
+						Answers<br />{{ question.answers.count }}
+					</div>	
+					<div class="span1 viewcount-box">
+						Views<br />{{ question.viewCount }}
+					</div>	
+					<div class="span6 question-box">
+							<span class="title">
+								{{ question.title }}<br/>
+							</span>
+						{% for tag in question.tags.all %}
+							<span class="questiontag">						
+								#{{ tag }}
+							</span>
+						{% endfor %}
+						<span class="questioninfo pull-right">
+							{{ question.postDate }} by {{ question.author }} 
+						</span>
+					</div>	
+				</a>
+			</div>	
+		</div>
+		<div class="row">
+			<p></p>
+		</div>
+	{% endfor %}
+</div>
