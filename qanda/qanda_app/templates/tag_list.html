@@ -16,9 +16,9 @@
 		in alphabetical order
 	</h5>
 	<div class="row">
-		<div class="span9">
+		<div class="span13">
 			{% for tag in tags %}
-						<div class="span2">
+						<div class="span3">
 							<a class="tag-list-element" href="{% url qanda_app.views.tag_page tag=tag page="0" %}">
 								#{{ tag }}
 							</a>
