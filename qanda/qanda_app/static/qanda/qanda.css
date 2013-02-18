@@ -80,10 +80,20 @@
 	font-size: 18;
 }
 
-.prev {
-	font-size: 18px;
+.title {
+	font-size: 22;
+	color: rgb(0, 0, 0);
 }
 
-.next {
-	font-size: 18px;
+.questiontag {
+	color: rgb(255, 255, 255);
+	background-color: rgba(240, 80, 0, 1);
+	border-color: rgba(0, 0, 0, 0.2);
+	margin-right: 2px;
+	font-size: 12;
+}
+
+.questioninfo {
+	font-size: 12;
+	color: rgb(0, 0, 0);
 }
