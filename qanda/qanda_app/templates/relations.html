@@ -21,7 +21,7 @@ Parameters:
 				<label><input type="checkbox" id="notUseful{{pk}}" name="notUseful" value="NotUseful" {% if relations.notUseful %} checked {% endif %} onclick="checkUncheck('notUseful{{pk}}', 'useful{{pk}}');"> Not Useful</label>
 				<label><input type="checkbox" name="star" value="Star" {% if relations.star %} checked {% endif %}> Star</label>
 				<label><input type="checkbox" name="flag" value="Flag" {% if relations.flag %} checked {% endif %}> Flag</label>
-			<input type="submit" value="Submit">
+			<input class="btn" type="submit" value="Submit">
 	</form>
 </div>
 
