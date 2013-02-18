@@ -16,20 +16,32 @@
 					<input type="hidden" name="pk" value="{{ pk }}">
 					<input type="hidden" name="type" value="{{ type }}">
 					<div class="questionTitleWrapper">
-				        {{ question_form.title.errors }}
-				        <label for="id_title">Title:</label>
+			        	{{ question_form.title.errors }}
+				        <label for="id_title">
+							<h2>
+								Title:
+			        		</h2>
+						</label>
 				        {{ question_form.title }}
 					</div>
 
 					<div class="questionTextWrapper">
 				        {{ question_form.text.errors }}
-				        <label for="id_text">Question Text:</label> <br />
+				        <label for="id_text">
+				        	<h4>
+				        		Question Text:
+				        	</h4>
+				        </label>
 				        {{ question_form.text }}
 					</div>
 
 					<div class="questionTagsWrapper">
 				        {{ question_form.tags.errors }}
-				        <label for="id_tags">Tags:</label>
+				        <label for="id_tags">
+				        	<h4>
+				        		Tags:
+				        	</h4>
+				        </label>
 				        {{ question_form.tags }}
 					</div>
 

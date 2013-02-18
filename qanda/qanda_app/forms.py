@@ -8,8 +8,9 @@ class QuestionForm(ModelForm):
 		model = Question
 		fields = ('title', 'text', 'tags')
 		widgets = {
-			'title': TextInput(attrs={'size': 120,}),
-			'text': Textarea(attrs={'cols': 120, 'rows': 10, 'class':'span6'}),
+			'title': TextInput(attrs={'size': 220, 'class':'span8'}),
+			'text': Textarea(attrs={'cols': 120, 'rows': 20, 'class':'span8'}),
+			'tags': TextInput(attrs={'size': 220, 'class':'span8'}),
 		}
 
 class AnswerForm(ModelForm):
