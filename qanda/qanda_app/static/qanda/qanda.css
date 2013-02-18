@@ -6,6 +6,7 @@
 	background-color: rgb(255, 255, 255);
 	color: rgb(0, 0, 0);
 	border: outset;
+	border-color: rgba(240, 240, 240, 1);
 	text-align: center;
 }
 
@@ -20,6 +21,7 @@
 	background-color: rgb(255, 255, 255);
 	color: rgba(200, 0, 0, 1);
 	border: outset;
+	border-color: rgba(240, 240, 240, 1);
 	text-align: center;
 }
 
@@ -34,6 +36,7 @@
 	background-color: rgb(255, 255, 255);
 	color: rgba(0, 0, 0, 0.5);
 	border: outset;
+	border-color: rgba(240, 240, 240, 1);
 	text-align: center;
 }
 
@@ -42,10 +45,10 @@
 }
 
 .question-box {
-	padding-top: 10px;
 	margin-left: 10px;
-	padding-left: 10px;
 	margin-right: 10px;
+	padding-top: 10px;
+	padding-left: 10px;
 	padding-right: 10px;
 	padding-bottom: 10px;
 	background-color: rgb(255, 255, 255);
@@ -53,7 +56,8 @@
 }
 
 .question-box:hover {
-	border: groove;
+	border: outset;
+	border-color: rgba(230, 230, 230, 1);
 }
 
 .tags-box {
