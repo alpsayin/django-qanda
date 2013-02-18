@@ -12,99 +12,106 @@
 
 	{{ debug }}
 	<div class="row">
-		<div class="span6">
-			<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
-		</div>
-	</div>
-	<div class="row">
-		<div class="span5">
-			by {{ question.author }} <br />
-			submitted {{ question.postDate }} <br />
-		</div>
-		<div class="span2">
-			{% include "subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" checked=question.subscribed %}
-		</div>
-	</div>
-	<div class="row">
-		<div class="span6">
-			<blockquote>
-			{{ question.text }}  
-			</blockquote>
-		</div>
-		<div class="span2">
-			{% include "relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
-		</div>
-	</div>
-	<div class="row">
-		<div class="span6">
-			<ul>
-				Tags:
-				{% for tag in question.tags.all %}
-					<a href="{% url qanda_app.views.tag_page tag=tag.name page="0" %}">{{ tag.name }},</a>
-				{% endfor %}
-			</ul>	
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="span6">
-			<a href="{% url new_question_page %}">Enter a new question</a> <br />
-		</div>
-	</div>
-	<hr>
-
-	{% for answer in answers %}
-	<div class ="row">
-		<div class="span7">
-		<p>
+		<div class="span8">
 			<div class="row">
-				<div class="span1">
+				<div class="span6">
+					<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
 				</div>
+			</div>
+			<div class="row">
 				<div class="span5">
+					by {{ question.author }} <br />
+					submitted {{ question.postDate }} <br />
+				</div>
+				<div class="span2">
+					{% include "subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" checked=question.subscribed %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6">
 					<blockquote>
-						{{ answer.text }} 
+					{{ question.text }}  
 					</blockquote>
 				</div>
-				<div class="span1">
-					{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
+				<div class="span2">
+					{% include "relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
 				</div>
 			</div>
 			<div class="row">
-				<div class="span1">
-				</div>
-				<div class="span4">
-					by {{ answer.author }}
-				</div>
-				<div class="span1">
-					{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" checked=answer.subscribed %}
+				<div class="span6">
+					<ul>
+						Tags:
+						{% for tag in question.tags.all %}
+							<a href="{% url qanda_app.views.tag_page tag=tag.name page="0" %}">{{ tag.name }},</a>
+						{% endfor %}
+					</ul>	
 				</div>
 			</div>
-			
-			{% for reply in answer.replies.all %}
-			<p>
-				{% if not reply.deleted %}
-				<div class="row">
-					<div class="span2">
-					</div>
-					<div class="span4">
-						{{ reply.text }} <br />
-						{{ reply.author }} <br />
-					</div>
-					{% endif %}
+
+			<div class="row">
+				<div class="span6">
+					<a href="{% url new_question_page %}">Enter a new question</a> <br />
 				</div>
-			</p>
-			{% endfor %}
-			{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
+			</div>
 			<hr>
-		</p>
+
+			{% for answer in answers %}
+			<div class ="row">
+				<div class="span7">
+				<p>
+					<div class="row">
+						<div class="span1">
+						</div>
+						<div class="span5">
+							<blockquote>
+								{{ answer.text }} 
+							</blockquote>
+						</div>
+						<div class="span1">
+							{% include "relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+						</div>
+						<div class="span4">
+							by {{ answer.author }}
+						</div>
+						<div class="span1">
+							{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" checked=answer.subscribed %}
+						</div>
+					</div>
+					
+					{% for reply in answer.replies.all %}
+					<p>
+						{% if not reply.deleted %}
+						<div class="row">
+							<div class="span2">
+							</div>
+							<div class="span4">
+								{{ reply.text }} <br />
+								{{ reply.author }} <br />
+							</div>
+							{% endif %}
+						</div>
+					</p>
+					{% endfor %}
+					{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
+					<hr>
+				</p>
+				</div>
+			</div>
+			{% endfor %}
+
+			<div class="row">
+				<h3> Answer this question </h3>
+
+				{% include "answer.html" with type="new_answer" action_link="relate/" %}
+			</div>
 		</div>
-	</div>
-	{% endfor %}
 
-	<div class="row">
-		<h3> Answer this question </h3>
+		{% include "righthand_tags.html" %}
 
-		{% include "answer.html" with type="new_answer" action_link="relate/" %}
 	</div>
 
 {% endblock %}

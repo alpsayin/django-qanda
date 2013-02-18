@@ -289,6 +289,10 @@ def question_page(request, question_id):
 	else:
 		context['view'] = 'question_page'
 
+		
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
+	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
+
 	Question.objects.increment_view_count(question)
 	return render_to_response('question.html', context, context_instance=RequestContext(request))
 
