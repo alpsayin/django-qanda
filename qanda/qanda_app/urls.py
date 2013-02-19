@@ -1,6 +1,13 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls import patterns
-from views import question_page, new_question_page, question_relation_submit, subscription_submit, most_recent_question, question_list, tag_page, tag_list
+from views import question_page
+from views import new_question_page
+from views import question_relation_submit
+from views import subscription_submit
+from views import most_recent_question
+from views import question_list
+from views import tag_page
+from views import tag_list
 from tastypie.api import Api
 from api import UserResource, QandaUserResource, QuestionResource, AnswerResource, ReplyResource
 from django_notify.urls import get_pattern as get_notify_pattern
