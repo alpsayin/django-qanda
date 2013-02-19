@@ -122,3 +122,19 @@
 .tag-list-used {
 	font-size: 10;
 }
+
+.question-useful {
+	display: none;
+}
+
+.question:hover .question-useful {
+	display: block;
+}
+
+.answer-useful {
+	display: none;
+}
+.answer:hover .answer-useful {
+		display: block;
+	}
+}

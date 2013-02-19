@@ -1,18 +1,30 @@
 {% block subscription %}
 
 <div class="span3">
-	<form method="post" action="{{ action_link }}">
+	{% if type == 'question_subscription' %}
+		<a href="subscribe/{% if subscribed == 'True' %}false{% else %}true{% endif %}" class="btn btn-mini {% if subscribed == 'True' %}active{% endif %}">
+	{% else %}
+		<a href="{{ pk }}/subscribe/{% if subscribed == 'True' %}false{% else %}true{% endif %}" class="btn btn-mini {% if subscribed == 'True' %}active{% endif %}">
+	{% endif %}
+			<i class="icon-envelope"></i>
+			{% if subscribed == 'True' %}
+				Subscribed
+			{% else %}
+				Subscribe
+			{% endif %}
+		</a>
+	<!-- <form method="post" action="{{ action_link }}">
 		{% csrf_token %}
 
 		<input type="hidden" name="pk" value="{{ pk }}">
 		<input type="hidden" name="type" value="{{ type }}">	
 		<div class="subscriptionWrapper">
-	        <label for="id_subscribed">Subscribed:
-			<input {% if checked == 'True' %} checked {% endif %} type="checkbox" name="subscribed" id="id_subscribed">	
+	        <label for="id_subscribed">
+			<input {% if subscribed == 'True' %} checked {% endif %} type="checkbox" name="subscribed" id="id_subscribed">	
 			<input class="btn" type="submit" value="Submit">
 			</label>
 		</div>	
-	</form>
+	</form> -->
 </div>
 
 {% endblock %}

@@ -28,6 +28,58 @@ NUM_OF_TAGS_IN_RECENT_TAGS_IN_TAG_LIST = 10
 
 @assert_qanda_user
 @login_required
+def subscribe_question(request, question_id, value):
+	value = value == 'true'
+	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
+	if request.user.is_authenticated():
+		qandaUser = user.QandaUser
+		Question.objects.subscribe_to_question(question, qandaUser, value)
+	return HttpResponseRedirect(reverse(question_page, args=(question_id,)))
+
+@assert_qanda_user
+@login_required
+def subscribe_answer(request, question_id, answer_id, value):
+	value = value == 'true'
+	answer = get_object_or_404(Answer, pk=answer_id)
+	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
+	if request.user.is_authenticated():
+		if answer in question.answers.all():
+			qandaUser = user.QandaUser
+			Answer.objects.subscribe_to_answer(answer, qandaUser, value)
+	return HttpResponseRedirect(reverse(question_page, args=(question_id,)))
+
+@assert_qanda_user
+@login_required
+def relate_question_single(request, question_id, relation, value):
+	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
+	if request.user.is_authenticated():
+		qandaUser = user.QandaUser
+		relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
+		relations = dict()
+		relations[relation] = value=='true'
+		Question.objects.set_relations(qandaUser, question, relations)
+	return HttpResponseRedirect(reverse(question_page, args=(question_id,)))
+
+@assert_qanda_user
+@login_required
+def relate_answer_single(request, question_id, answer_id, relation, value):
+	answer = get_object_or_404(Answer, pk=answer_id)
+	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
+	if request.user.is_authenticated():
+		if answer in question.answers.all():
+			qandaUser = user.QandaUser
+			relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
+			relations = dict()
+			relations[relation] = value=='true'
+			Answer.objects.set_relations(qandaUser, answer, relations)
+	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
+
+@assert_qanda_user
+@login_required
 def question_relation_submit(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
 	user = get_user(request)
@@ -247,11 +299,15 @@ def question_page(request, question_id):
 	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
 	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 
-	upvoted = question.user_relation.filter(relatedUser=user.QandaUser, upvote=True)
-	downvoted = question.user_relation.filter(relatedUser=user.QandaUser, downvote=True)
-
-	context['upvoted'] = upvoted
-	context['downvoted'] = downvoted
+	relations = question.user_relation.filter(relatedUser=user.QandaUser)
+	if relations.exists():
+		relations = relations[0]
+		context['upvote'] = relations.upvote
+		context['downvote'] = relations.downvote
+		context['useful'] = relations.useful
+		context['notUseful'] = relations.notUseful
+		context['star'] = relations.star
+		context['flag'] = relations.flag
 
 	Question.objects.increment_view_count(question)
 	return render_to_response('question.html', context, context_instance=RequestContext(request))

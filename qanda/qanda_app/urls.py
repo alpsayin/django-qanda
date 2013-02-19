@@ -8,6 +8,10 @@ from views import most_recent_question
 from views import question_list
 from views import tag_page
 from views import tag_list
+from views import relate_answer_single
+from views import relate_question_single
+from views import subscribe_question
+from views import subscribe_answer
 from tastypie.api import Api
 from api import UserResource, QandaUserResource, QuestionResource, AnswerResource, ReplyResource
 from django_notify.urls import get_pattern as get_notify_pattern
@@ -27,6 +31,10 @@ urlpatterns = patterns('qanda_app',
     url(r'^tags/(?P<page>\d+)/$', tag_list, name='tag_list'),
     url(r'^tag/(?P<tag>\w+)/(?P<page>\d+)$', tag_page, name='tag_page'),
     url(r'^(?P<question_id>\d+)/$', question_page, name='question_page'),
+    url(r'^(?P<question_id>\d+)/(?P<answer_id>\d+)/subscribe/(?P<value>.+)/$', subscribe_answer, name='subscribe_answer'),
+    url(r'^(?P<question_id>\d+)/subscribe/(?P<value>.+)/$', subscribe_question, name='subscribe_question'),
+    url(r'^(?P<question_id>\d+)/relate_single/(?P<relation>.+)/(?P<value>.+)/$', relate_question_single, name='relate_question_single'),
+    url(r'^(?P<question_id>\d+)/(?P<answer_id>\d+)/(?P<relation>.+)/(?P<value>.+)/$', relate_answer_single, name='relate_answer_single'),
     url(r'^(?P<question_id>\d+)/relate/$', question_relation_submit, name='question_relation_submit'),
     url(r'^(?P<question_id>\d+)/subscribe/$', subscription_submit, name='subscription_submit'),
 
