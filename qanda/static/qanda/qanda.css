@@ -137,13 +137,17 @@
 
 .answer:hover .answer-useful {
 		display: block;
+	}
 }
 
 .reply-box {
-	display: none;
+	border: double;
+	/*display: none;*/
 }
 
 .answer:hover .reply-box {
 		display: block;
+	}
 }
+
 

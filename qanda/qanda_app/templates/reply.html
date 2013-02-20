@@ -1,6 +1,4 @@
-{% block answer %}
-
-<div class="row">
+{% block reply %}
 	<form method="post" action="{{ action_link }}">
 		{% csrf_token %}
 		{{ reply_form.non_field_errors }}
@@ -13,10 +11,9 @@
 	        	<h5>
 	        		Reply:
 	        	</h5>
+	        	{{ reply_form.text }}
 	        </label>
-	        {{ reply_form.text }}
 		</div>	
 		<input class="btn" type="submit" value="Submit">
 	</form>
-</div>
 {% endblock %}

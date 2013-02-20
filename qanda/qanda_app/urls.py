@@ -12,6 +12,7 @@ from views import relate_answer_single
 from views import relate_question_single
 from views import subscribe_question
 from views import subscribe_answer
+from views import index_with_login
 from tastypie.api import Api
 from api import UserResource, QandaUserResource, QuestionResource, AnswerResource, ReplyResource
 from django_notify.urls import get_pattern as get_notify_pattern
@@ -25,6 +26,7 @@ v1_api.register(ReplyResource())
 
 urlpatterns = patterns('qanda_app',
     url(r'^$', 'views.index', name='index'),
+    url(r'^qanda-login-redirect/$', index_with_login, name='index_with_login'),
     url(r'^new/$', new_question_page, name='new_question_page'),
     url(r'^last/$', most_recent_question, name='most_recent_question'),
     url(r'^list/(?P<question_id>\d+)/$', question_list, name='question_list'),

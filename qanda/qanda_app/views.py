@@ -131,6 +131,11 @@ def subscription_submit(request, **kwargs):
 
 # INDEX PAGES
 
+@login_required
+@assert_qanda_user
+def index_with_login(request):
+	return HttpResponseRedirect(reverse(index, args=()))
+
 @assert_qanda_user
 def index(request):
 	try:
