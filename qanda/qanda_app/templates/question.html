@@ -159,7 +159,7 @@
 							{% if user.is_authenticated %}
 								{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
 							{% else %}
-								<a href="{% url qanda_app.views.index_with_login %}">Login to reply</a>
+								<a href="{% url qanda_app.views.login_redirect request.path %}">Login to reply</a>
 							{% endif %}
 						</div>
 					</div>

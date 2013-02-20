@@ -133,8 +133,8 @@ def subscription_submit(request, **kwargs):
 
 @login_required
 @assert_qanda_user
-def index_with_login(request):
-	return HttpResponseRedirect(reverse(index, args=()))
+def login_redirect(request, redirect_url):
+	return HttpResponseRedirect(redirect_url)
 
 @assert_qanda_user
 def index(request):
