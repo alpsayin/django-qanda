@@ -16,12 +16,12 @@
 			<div class="question">
 				<div class="row">
 					<div class="pull-left">
-						<a href="relate_single/upvote/{% if upvote %}false{%else%}true{% endif %}" class="btn {% if upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;</a>
+						<a href="relate_single/upvote/{% if question.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;</a>
 						<br/>
 						<h4 class="text-center">
 							#vote
 						</h4>
-						<a href="relate_single/downvote/{% if downvote %}false{%else%}true{% endif %}" class="btn {% if downvote %} active {% endif %}"><i class="icon-arrow-down"></i>Down</a>
+						<a href="relate_single/downvote/{% if question.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>Down</a>
 					</div>
 					<div class="span8">
 						<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
@@ -52,12 +52,12 @@
 						{% include "relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
 					</div> -->
 					<div class="span2">
-						<a href="relate_single/star/{% if star %}false{%else%}true{% endif %}" class="btn {% if star %} active {% endif %}">
+						<a href="relate_single/star/{% if question.relations.star %}false{%else%}true{% endif %}" class="btn {% if question.relations.star %} active {% endif %}">
 							<i class="icon-star"></i> Star
 						</a>
 						<br/>
 						<br/>
-						<a href="relate_single/flag/{% if flag %}false{%else%}true{% endif %}" class="btn {% if flag %} active {% endif %}">
+						<a href="relate_single/flag/{% if question.relations.flag %}false{%else%}true{% endif %}" class="btn {% if question.relations.flag %} active {% endif %}">
 							<i class="icon-flag"></i> Flag
 						</a>
 					</div>
@@ -76,8 +76,8 @@
 					<div class="span8 question-useful">
 						<h6>
 							Have you found this question useful?
-							<a href="relate_single/useful/{% if useful %}false{%else%}true{% endif %}" class="btn {% if useful %} active {% endif %}">Yes</a>
-							<a href="relate_single/notUseful/{% if notUseful %}false{%else%}true{% endif %}" class="btn {% if notUseful %} active {% endif %}">No</a>
+							<a href="relate_single/useful/{% if question.relations.useful %}false{%else%}true{% endif %}" class="btn {% if question.relations.useful %} active {% endif %}">Yes</a>
+							<a href="relate_single/notUseful/{% if question.relations.notUseful %}false{%else%}true{% endif %}" class="btn {% if question.relations.notUseful %} active {% endif %}">No</a>
 						</h6>
 					</div>
 				</div>

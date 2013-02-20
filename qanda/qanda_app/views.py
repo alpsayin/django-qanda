@@ -262,7 +262,11 @@ def question_page(request, question_id):
 			question.relations = all_relations[0]
 			
 	answers = question.answers.filter(deleted=False)
-	if request.user.is_authenticated():
+	if user.is_authenticated():
+		relations = question.user_relation.filter(relatedUser=user.QandaUser)
+		if relations.exists():
+			relations = relations[0]
+			question.relations = relations
 		for answer in answers:
 			if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
 				answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
@@ -298,16 +302,6 @@ def question_page(request, question_id):
 
 	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
 	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
-
-	relations = question.user_relation.filter(relatedUser=user.QandaUser)
-	if relations.exists():
-		relations = relations[0]
-		context['upvote'] = relations.upvote
-		context['downvote'] = relations.downvote
-		context['useful'] = relations.useful
-		context['notUseful'] = relations.notUseful
-		context['star'] = relations.star
-		context['flag'] = relations.flag
 
 	Question.objects.increment_view_count(question)
 	return render_to_response('question.html', context, context_instance=RequestContext(request))
