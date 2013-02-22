@@ -135,6 +135,8 @@ TEMPLATE_CONTEXT_PROCESSORS={
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.static',
     'django.core.context_processors.request',
+    'qanda_app.context_processors.search_form',
+    'qanda_app.context_processors.latest_questions',
 }
 
 LOGIN_URL = '/admin/'
