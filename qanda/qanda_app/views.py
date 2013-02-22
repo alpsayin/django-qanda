@@ -156,7 +156,7 @@ def question_list(request, question_id):
 	context = {}
 	questions = Question.objects.filter(pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	for question in questions:
-		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
+		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
 	context['questions'] = questions
 	context['view'] = 'question_list'
 
