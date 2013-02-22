@@ -121,7 +121,10 @@
 						</div>
 						<div class="pull-right">
 							<a href="{{ answer.pk }}/star/{% if answer.relations.star %}false{%else%}true{% endif %}" class="btn {% if answer.relations.star %} active {% endif %}">
-								<i class="icon-star"></i> Star
+								{% if answer.relations.star %}
+									<i class="icon-star"></i> Starred
+								{% else %}									<i class="icon-star-empty"></i> Star
+								{% endif %}
 							</a>
 							<br/>
 							<br/>
