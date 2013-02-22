@@ -9,5 +9,5 @@ def search_form(request):
 
 def latest_questions(request):
 	return {
-		'latest_questions' : Question.objects.all.order_by('-postDate')[:5]
+		'latest_questions' : Question.objects.all().order_by('-postDate')[:5]
 	}
