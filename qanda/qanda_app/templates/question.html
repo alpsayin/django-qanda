@@ -19,7 +19,11 @@
 						<a href="relate_single/upvote/{% if question.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;</a>
 						<br/>
 						<h4 class="text-center">
-							#vote
+							{% if question.numOfVotes > 0 %}
+								+ {{ question.numOfVotes }}
+							{% else %}
+								{{ question.numOfVotes }}
+							{% endif %}
 						</h4>
 						<a href="relate_single/downvote/{% if question.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>Down</a>
 					</div>
@@ -99,7 +103,11 @@
 							<a href="{{ answer.pk }}/upvote/{% if answer.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;</a>
 							<br/>
 							<h4 class="text-center">
-								#vote
+								{% if answer.numOfVotes > 0 %}
+									+ {{ answer.numOfVotes }}
+								{% else %}
+									{{ answer.numOfVotes }}
+								{% endif %}
 							</h4>
 							<a href="{{ answer.pk }}/downvote/{% if answer.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>Down</a>
 						</div>

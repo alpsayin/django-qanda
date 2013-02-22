@@ -260,6 +260,7 @@ def question_page(request, question_id):
 		context['question_form'] = QuestionForm()
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 	question = get_object_or_404(Question, pk=question_id)
+	question.numOfVotes = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
 	user = get_user(request)
 	if request.user.is_authenticated():
 		all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
@@ -273,6 +274,7 @@ def question_page(request, question_id):
 			relations = relations[0]
 			question.relations = relations
 		for answer in answers:
+			answer.numOfVotes = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, upvote=True).count() - AnswerRelatedUsers.objects.filter(relatedAnswer=answer, downvote=True).count()
 			if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
 				answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
 
