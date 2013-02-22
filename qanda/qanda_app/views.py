@@ -145,6 +145,13 @@ def index(request):
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 
 @assert_qanda_user
+def searchdoc(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	context = {}
+	context['object'] = question
+	return render_to_response('search/indexes/qanda_app/question_text.txt', context, context_instance=RequestContext(request))
+
+@assert_qanda_user
 def question_list(request, question_id):
 	context = {}
 	questions = Question.objects.filter(pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
