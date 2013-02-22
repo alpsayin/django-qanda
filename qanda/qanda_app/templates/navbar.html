@@ -16,8 +16,14 @@
           <li {% if view == "tag_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.tag_list page="0" %}">Tags</a></li>
           <li {% if view == "new_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.new_question_page %}">New Question</a></li>
         </ul>
-        <form class="navbar-search pull-right">
-          <input type="text" class="search-query" placeholder="Search">
+        <form class="navbar-search pull-right" action="/search/">
+          <div class="controls">
+          <div class="input-prepend">
+          <span class="add-on">
+            <i class="icon-search"></i>
+            <input type="text" class="search-query" placeholder="Search"></input></span>
+        </div>
+      </div>
         </form>
       </div><!--/.nav-collapse -->
     </div>
