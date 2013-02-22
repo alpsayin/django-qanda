@@ -198,6 +198,10 @@ class Question(models.Model):
     relatedUsers = models.ManyToManyField(QandaUser, through='QuestionRelatedUsers', related_name='related_questions')
     class Meta:
         verbose_name = 'Qanda Question'
+
+    def get_absolute_url(self):
+        return reverse('qanda_app.views.question_page', args=(self.pk,))
+
     def __unicode__(self):
         return u'%d %s' % (self.pk, self.title)
 
@@ -306,6 +310,10 @@ class Answer(models.Model):
     deleted = models.BooleanField()
     class Meta:
         verbose_name = 'Qanda Answer'
+
+    def get_absolute_url(self):
+        return self.question.get_absolute_url()
+
     def __unicode__(self):
         return u'%d by %s' % (self.pk, self.author.djangoUser)
 
