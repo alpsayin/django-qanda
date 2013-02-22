@@ -17,6 +17,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^qanda/', include('qanda_app.urls')),
+
+    #haystack
+    (r'^search/', include('haystack.urls')),
+
 )
 
 urlpatterns += staticfiles_urlpatterns()

@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'tastypie',
     'django_notify',
     'debug_toolbar',
+    'haystack',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS={
@@ -139,6 +140,11 @@ TEMPLATE_CONTEXT_PROCESSORS={
 LOGIN_URL = '/admin/'
 
 INTERNAL_IPS = ('127.0.0.1', 'localhost')
+
+HAYSTACK_SITECONF = 'qanda_app.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'solr'
+HAYSTACK_SOLR_URL = 'http://127.0.0.1:8983/solr'
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
