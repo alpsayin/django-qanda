@@ -341,6 +341,7 @@ class Reply(models.Model):
     deleted = models.BooleanField()
     class Meta:
         verbose_name = 'Qanda Reply'
+        verbose_name_plural = 'Qanda Replies'
     def __unicode__(self):
         return u'%d by %s' % (self.pk, self.author.djangoUser)
 
@@ -351,6 +352,7 @@ class Category(models.Model):
     category = models.CharField(max_length=255, unique=True)
     class Meta:
         verbose_name = "Qanda Category"
+        verbose_name_plural = "Qanda Categories"
     def __unicode__(self):
         return u'%s' % (self.category)
 
