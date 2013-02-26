@@ -138,11 +138,7 @@ def login_redirect(request, redirect_url):
 
 @assert_qanda_user
 def index(request):
-	try:
-		latest_question = Question.objects.latest('postDate')
-		return HttpResponseRedirect(reverse(question_list, args=(latest_question.pk,)))
-	except:
-		return HttpResponseRedirect(reverse(new_question_page, args=()))
+	return HttpResponseRedirect(reverse(question_list, args=(0,)))
 
 @assert_qanda_user
 def searchdoc(request, question_id):
@@ -154,6 +150,12 @@ def searchdoc(request, question_id):
 @assert_qanda_user
 def question_list(request, question_id):
 	context = {}
+	if int(question_id) <= 0:
+		try:
+			question_id = Question.objects.latest('pk').pk
+		except:
+			pass
+
 	questions = Question.objects.filter(pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
@@ -198,7 +200,6 @@ def tag_list(request, page):
 	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS_IN_TAG_LIST]
 
 	return render_to_response("tag_list.html", context, context_instance=RequestContext(request))
-
 
 @assert_qanda_user
 def tag_page(request, tag, page):
