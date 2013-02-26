@@ -13,3 +13,14 @@ def assert_qanda_user(function):
 			# print user.QandaUser
 		return function(*args, **kwargs)
 	return _decorated
+
+def save_object_after(function):
+	"""
+		Save the model object after computation of the method
+	"""
+	def _decorated(*args, **kwargs):
+		obj = args[0]
+		return_value = function(*args, **kwargs)
+		obj.save()
+		return return_value
+	return _decorated
