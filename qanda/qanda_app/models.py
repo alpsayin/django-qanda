@@ -16,6 +16,7 @@ class QandaUserManager(models.Manager):
         newQandaUser=self.create(djangoUser=django_user, deleted=False)
         newQandaUserStat=QandaUserStats.create(qandaUser=newQandaUser)
         return newQandaUser
+
     def star(self, qandaUser1, qandaUser2):
         if qandaUser1 is not qandaUser2:
             existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
@@ -28,6 +29,7 @@ class QandaUserManager(models.Manager):
                 newRelation.save()
             else:
                 print 'SHOULDNT HAPPEN!!!'
+
     def unstar(self, qandaUser1, qandaUser2):
         if qandaUser1 is not qandaUser2:
             existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
@@ -40,6 +42,7 @@ class QandaUserManager(models.Manager):
                 newRelation.save()
             else:
                 print 'SHOULDNT HAPPEN!!!'
+
     def flag(self, qandaUser1, qandaUser2):
         if qandaUser1 is not qandaUser2:
             existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
@@ -52,6 +55,7 @@ class QandaUserManager(models.Manager):
                 newRelation.save()
             else:
                 print 'SHOULDNT HAPPEN!!!'
+
     def unflag(self, qandaUser1, qandaUser2):
         if qandaUser1 is not qandaUser2:
             existingRelations = UserRelations.objects.filter(relater=qandaUser1, related=qandaUser2)
