@@ -14,6 +14,7 @@ class QandaUserManager(models.Manager):
     """
     def create_user(self, django_user):
         newQandaUser=self.create(djangoUser=django_user, deleted=False)
+        newQandaUserStat=QandaUserStats.create(qandaUser=newQandaUser)
         return newQandaUser
     def star(self, qandaUser1, qandaUser2):
         if qandaUser1 is not qandaUser2:
@@ -643,7 +644,7 @@ class QandaUserStats(models.Model):
         self.get_questions()
         self.get_answers()
         self.get_replies()
-        
+
         self.get_user_stars_given()
         self.get_user_stars_taken()
         self.get_user_flags_given()
