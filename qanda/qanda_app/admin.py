@@ -1,6 +1,6 @@
 from django.contrib import admin
 from models import QandaUser, Question, Answer, Reply, Category, QuestionSubscription, AnswerSubscription
-from models import UserRelations, QuestionRelatedUsers, AnswerRelatedUsers, QandaUserStats
+from models import UserRelations, QuestionRelatedUsers, AnswerRelatedUsers
 
 class QandaUserAdmin(admin.ModelAdmin):
     fields = ['djangoUser', 'tags','deleted']
@@ -45,8 +45,6 @@ class CategoryAdmin(admin.ModelAdmin):
 	fields = ['category']
 	list_display = ['category']
 
-class QandaUserStatsAdmin(admin.ModelAdmin):
-	pass
 
 admin.site.register(QandaUser, QandaUserAdmin)
 admin.site.register(Question, QuestionAdmin)
@@ -59,4 +57,3 @@ admin.site.register(AnswerSubscription)
 admin.site.register(UserRelations, UserRelationsAdmin)
 admin.site.register(QuestionRelatedUsers, QuestionRelatedUsersAdmin)
 admin.site.register(AnswerRelatedUsers, AnswerRelatedUsersAdmin)
-admin.site.register(QandaUserStats, QandaUserStatsAdmin)

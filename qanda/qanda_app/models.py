@@ -69,6 +69,99 @@ class QandaUserManager(models.Manager):
             else:
                 print 'SHOULDNT HAPPEN!!!'
 
+    def get_questions(self, qandaUser):
+        return qandaUser.questions.count()
+    
+    def get_answers(self, qandaUser):
+        return qandaUser.answers.count()
+
+    def get_replies(self, qandaUser):
+        return qandaUser.replies.count()
+
+    def get_user_stars_taken(self, qandaUser):
+        return UserRelations.objects.filter(related=qandaUser, star=True).count()
+
+    def get_user_stars_given(self, qandaUser):
+        return UserRelations.objects.filter(relater=qandaUser, star=True).count()
+
+    def get_user_flags_taken(self, qandaUser):
+        return UserRelations.objects.filter(related=qandaUser, flag=True).count()
+
+    def get_user_flags_given(self, qandaUser):
+        return UserRelations.objects.filter(relater=qandaUser, flag=True).count()
+
+    def get_questions_upvotes_given(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, upvote=True).count()
+
+    def get_question_upvotes_taken(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedQuestion__author=qandaUser, upvote=True).count()
+
+    def get_question_downvotes_given(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, downvote=True).count()
+
+    def get_question_downvotes_taken(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedQuestion__author=qandaUser, downvote=True).count()
+
+    def get_question_usefuls_given(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, useful=True).count()
+
+    def get_question_usefuls_taken(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedQuestion__author=qandaUser, useful=True).count()
+
+    def get_question_notUsefuls_given(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, notUseful=True).count()
+
+    def get_question_notUsefuls_taken(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedQuestion__author=qandaUser, notUseful=True).count()
+
+    def get_question_flags_given(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, flag=True).count()
+
+    def get_question_flags_taken(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedQuestion__author=qandaUser, flag=True).count()
+
+    def get_question_stars_given(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedUser=qandaUser, star=True).count()
+
+    def get_question_stars_taken(self, qandaUser):
+        return QuestionRelatedUsers.objects.filter(relatedQuestion__author=qandaUser, star=True).count()
+
+    def get_answer_upvotes_given(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, upvote=True).count()
+
+    def get_answer_upvotes_taken(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedAnswer__author=qandaUser, upvote=True).count()
+
+    def get_answer_downvotes_given(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, downvote=True).count()
+
+    def get_answer_downvotes_taken(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedAnswer__author=qandaUser, downvote=True).count()
+
+    def get_answer_usefuls_given(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, useful=True).count()
+
+    def get_answer_usefuls_taken(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedAnswer__author=qandaUser, useful=True).count()
+
+    def get_answer_notUsefuls_given(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, notUseful=True).count()
+
+    def get_answer_notUsefuls_taken(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedAnswer__author=qandaUser, notUseful=True).count()
+
+    def get_answer_flags_given(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, flag=True).count()
+
+    def get_answer_flags_taken(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedAnswer__author=qandaUser, flag=True).count()
+
+    def get_answer_stars_given(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedUser=qandaUser, star=True).count()
+
+    def get_answer_stars_taken(self, qandaUser):
+        return AnswerRelatedUsers.objects.filter(relatedAnswer__author=qandaUser, star=True).count()
+
 class QandaUser(models.Model):
     """
         User information regarding the Qanda Application
@@ -417,273 +510,6 @@ class AnswerRelatedUsers(models.Model):
     flag = models.BooleanField()
     class Meta:
         verbose_name = 'Qanda Answer/User Relationship'
-
-from decorators import save_object_after
-class QandaUserStats(models.Model):
-    """
-        THIS TABLE IS FOR FUTURE USE
-        Statistics table to hold various statistics about a QandaUser, such as the number of:
-            profileViews
-            Questions
-            Answers
-            Replies
-            Tags
-            Starred Users
-            His Starred Users
-            Upvoted Questions
-            His Upvoted Questions
-            Downvoted Questions
-            His Downvoted Questions
-            Useful Questions
-            His Useful Questions
-            Not Useful Questions
-            His Not Useful Questions
-            Flagged Questions
-            His Flagged Questions
-            Starred Questions
-            His Starred Questions
-            Upvoted Answers
-            His Upvoted Answers
-            Downvoted Answers
-            His Downvoted Answers
-            Useful Answers
-            His Useful Answers
-            Not Useful Answers
-            His Not Useful Answers
-            Flagged Answers
-            His Flagged Answers
-            Starred Answers
-            His Starred Answers
-    """
-    qandaUser = models.OneToOneField(QandaUser, related_name='statistics')
-    profileViews = models.IntegerField(default=0)
-    tags = models.IntegerField(default=0)
-    
-    questions = models.IntegerField(default=0)
-    @save_object_after
-    def get_questions(self):
-        self.questions = self.qandaUser.questions.count()
-        return self.questions
-    
-    answers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answers(self):
-        self.answers = self.qandaUser.answers.count()
-        return self.answers
-
-    replies = models.IntegerField(default=0)
-    @save_object_after
-    def get_replies(self):
-        self.replies = self.qandaUser.replies.count()
-        return self.replies
-
-    starredUsers = models.IntegerField(default=0)
-    @save_object_after
-    def get_user_stars_taken(self):
-        self.starredUsers = UserRelations.objects.filter(related=self.qandaUser, star=True).count()
-        return self.starredUsers
-
-    hisStarredUsers = models.IntegerField(default=0)
-    @save_object_after
-    def get_user_stars_given(self):
-        self.hisStarredUsers = UserRelations.objects.filter(relater=self.qandaUser, star=True).count()
-        return self.hisStarredUsers
-
-    flaggedUsers = models.IntegerField(default=0)
-    @save_object_after
-    def get_user_flags_taken(self):
-        self.flaggedUsers = UserRelations.objects.filter(related=self.qandaUser, flag=True).count()
-        return self.flaggedUsers
-
-    hisFlaggedUsers = models.IntegerField(default=0)
-    @save_object_after
-    def get_user_flags_given(self):
-        self.hisFlaggedUsers = UserRelations.objects.filter(relater=self.qandaUser, flag=True).count()
-        return self.hisFlaggedUsers
-
-    upvotedQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_questions_upvotes_given(self):
-        self.upvotedQuestions = QuestionRelatedUsers.objects.filter(relatedUser=self.qandaUser, upvote=True).count()
-        return self.upvotedQuestions
-
-    hisUpvotedQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_upvotes_taken(self):
-        self.hisUpvotedQuestions = QuestionRelatedUsers.objects.filter(relatedQuestion__author=self.qandaUser, upvote=True).count()
-        return self.hisUpvotedQuestions
-
-    downvotedQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_downvotes_given(self):
-        self.downvotedQuestions = QuestionRelatedUsers.objects.filter(relatedUser=self.qandaUser, downvote=True).count()
-        return self.downvotedQuestions
-
-    hisDownvotedQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_downvotes_taken(self):
-        self.hisDownvotedQuestions = QuestionRelatedUsers.objects.filter(relatedQuestion__author=self.qandaUser, downvote=True).count()
-        return self.hisDownvotedQuestions
-
-    usefulQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_usefuls_given(self):
-        self.usefulQuestions = QuestionRelatedUsers.objects.filter(relatedUser=self.qandaUser, useful=True).count()
-        return self.usefulQuestions
-
-    hisUsefulQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_usefuls_taken(self):
-        self.hisUsefulQuestions = QuestionRelatedUsers.objects.filter(relatedQuestion__author=self.qandaUser, useful=True).count()
-        return self.hisUsefulQuestions
-
-    notUsefulQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_notUsefuls_given(self):
-        self.notUsefulQuestions = QuestionRelatedUsers.objects.filter(relatedUser=self.qandaUser, notUseful=True).count()
-        return self.notUsefulQuestions
-
-    hisNotUsefulQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_notUsefuls_taken(self):
-        self.hisNotUsefulQuestions = QuestionRelatedUsers.objects.filter(relatedQuestion__author=self.qandaUser, notUseful=True).count()
-        return self.hisNotUsefulQuestions
-
-    flaggedQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_flags_given(self):
-        self.flaggedQuestions = QuestionRelatedUsers.objects.filter(relatedUser=self.qandaUser, flag=True).count()
-        return self.flaggedQuestions
-
-    hisFlaggedQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_flags_taken(self):
-        self.hisFlaggedQuestions = QuestionRelatedUsers.objects.filter(relatedQuestion__author=self.qandaUser, flag=True).count()
-        return self.hisFlaggedQuestions
-
-    starredQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_stars_given(self):
-        self.starredQuestions = QuestionRelatedUsers.objects.filter(relatedUser=self.qandaUser, star=True).count()
-        return self.starredQuestions
-
-    hisStarredQuestions = models.IntegerField(default=0)
-    @save_object_after
-    def get_question_stars_taken(self):
-        self.hisStarredQuestions = QuestionRelatedUsers.objects.filter(relatedQuestion__author=self.qandaUser, star=True).count()
-        return self.hisStarredQuestions
-
-    upvotedAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_upvotes_given(self):
-        self.upvotedAnswers = AnswerRelatedUsers.objects.filter(relatedUser=self.qandaUser, upvote=True).count()
-        return self.upvotedAnswers
-
-    hisUpvotedAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_upvotes_taken(self):
-        self.hisUpvotedAnswers = AnswerRelatedUsers.objects.filter(relatedAnswer__author=self.qandaUser, upvote=True).count()
-        return self.hisUpvotedAnswers
-
-    downvotedAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_downvotes_given(self):
-        self.downvotedAnswers = AnswerRelatedUsers.objects.filter(relatedUser=self.qandaUser, downvote=True).count()
-        return self.downvotedAnswers
-
-    hisDownvotedAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_downvotes_taken(self):
-        self.hisDownvotedAnswers = AnswerRelatedUsers.objects.filter(relatedAnswer__author=self.qandaUser, downvote=True).count()
-        return self.hisDownvotedAnswers
-
-    usefulAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_usefuls_given(self):
-        self.usefulAnswers = AnswerRelatedUsers.objects.filter(relatedUser=self.qandaUser, useful=True).count()
-        return self.usefulAnswers
-
-    hisUsefulAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_usefuls_taken(self):
-        self.hisUsefulAnswers = AnswerRelatedUsers.objects.filter(relatedAnswer__author=self.qandaUser, useful=True).count()
-        return self.hisUsefulAnswers
-
-    notUsefulAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_notUsefuls_given(self):
-        self.notUsefulAnswers = AnswerRelatedUsers.objects.filter(relatedUser=self.qandaUser, notUseful=True).count()
-        return self.notUsefulAnswers
-
-    hisNotUsefulAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_notUsefuls_taken(self):
-        self.hisNotUsefulAnswers = AnswerRelatedUsers.objects.filter(relatedAnswer__author=self.qandaUser, notUseful=True).count()
-        return self.hisNotUsefulAnswers
-
-    flaggedAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_flags_given(self):
-        self.flaggedAnswers = AnswerRelatedUsers.objects.filter(relatedUser=self.qandaUser, flag=True).count()
-        return self.flaggedAnswers
-
-    hisFlaggedAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_flags_taken(self):
-        self.hisFlaggedAnswers = AnswerRelatedUsers.objects.filter(relatedAnswer__author=self.qandaUser, flag=True).count()
-        return self.hisFlaggedAnswers
-
-    starredAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_stars_given(self):
-        self.starredAnswers = AnswerRelatedUsers.objects.filter(relatedUser=self.qandaUser, star=True).count()
-        return self.starredAnswers
-
-    hisStarredAnswers = models.IntegerField(default=0)
-    @save_object_after
-    def get_answer_stars_taken(self):
-        self.hisStarredAnswers = AnswerRelatedUsers.objects.filter(relatedAnswer__author=self.qandaUser, star=True).count()
-        return self.hisStarredAnswers
-
-    def synchronize(self):
-        self.get_questions()
-        self.get_answers()
-        self.get_replies()
-
-        self.get_user_stars_given()
-        self.get_user_stars_taken()
-        self.get_user_flags_given()
-        self.get_user_stars_taken()
-
-        self.get_question_upvotes_given()
-        self.get_question_upvotes_taken()
-        self.get_question_downvotes_given()
-        self.get_question_downvotes_taken()
-        self.get_question_usefuls_given()
-        self.get_question_usefuls_taken()
-        self.get_question_notUsefuls_given()
-        self.get_question_notUsefuls_taken()
-        self.get_question_flags_given()
-        self.get_question_flags_taken()
-        self.get_question_stars_given()
-        self.get_question_stars_taken()
-
-        self.get_answer_upvotes_given()
-        self.get_answer_upvotes_taken()
-        self.get_answer_downvotes_given()
-        self.get_answer_downvotes_taken()
-        self.get_answer_usefuls_given()
-        self.get_answer_usefuls_taken()
-        self.get_answer_notUsefuls_given()
-        self.get_answer_notUsefuls_taken()
-        self.get_answer_flags_given()
-        self.get_answer_flags_taken()
-        self.get_answer_stars_given()
-        self.get_answer_stars_taken()
-
-
-    class Meta:
-        verbose_name = 'Qanda User Statistic'
         
 class QuestionSubscription(notify_models.Subscription):
     question = models.ForeignKey(Question, related_name='subscriptions')
