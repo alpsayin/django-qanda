@@ -42,8 +42,8 @@ class AnswerRelatedUsersAdmin(admin.ModelAdmin):
 	list_display = ['relatedUser', 'relatedAnswer', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
 
 class CategoryAdmin(admin.ModelAdmin):
-	fields = ['category']
-	list_display = ['category']
+	fields = ['name', 'about']
+	list_display = ['name', 'about']
 
 
 admin.site.register(QandaUser, QandaUserAdmin)
