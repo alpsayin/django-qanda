@@ -338,7 +338,7 @@ class Reply(models.Model):
         Model to hold replies to answers
     """
     objects = ReplyManager()
-    text = models.TextField()
+    text = models.TextField(default='')
     author = models.ForeignKey(QandaUser, related_name='replies')
     answer = models.ForeignKey(Answer, null=True, related_name='replies')
     postDate = models.DateTimeField(auto_now_add=True)
@@ -354,12 +354,13 @@ class Category(models.Model):
     """
         A simple model to hold Question categories such as different sectors
     """
-    category = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, unique=True)
+    about = models.TextField()
     class Meta:
         verbose_name = "Qanda Category"
         verbose_name_plural = "Qanda Categories"
     def __unicode__(self):
-        return u'%s' % (self.category)
+        return u'%s' % (self.name)
 
 class UserRelations(models.Model):
     """
