@@ -309,10 +309,14 @@ def question_page(request, question_id):
 	context['answers'] = answers
 	context['debug'] = ''
 
-	if question == Question.objects.latest('pk'):
-		context['view'] = 'last_question_page'
-	else:
+	try:
+		if question == Question.objects.latest('pk'):
+			context['view'] = 'last_question_page'
+		else:
+			context['view'] = 'question_page'
+	except:
 		context['view'] = 'question_page'
+
 
 
 	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
