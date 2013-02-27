@@ -20,7 +20,11 @@ from models import *
 NUM_OF_QUESTIONS_PER_PAGE = 8
 NUM_OF_TAGS_PER_PAGE = 70
 
+##############################################
+#
 # FORM PROCESSORS
+#
+##############################################
 
 @assert_qanda_user
 @login_required
@@ -125,7 +129,11 @@ def subscription_submit(request, **kwargs):
 
 	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
+##############################################
+#
 # INDEX PAGES
+#
+##############################################
 
 @login_required
 @assert_qanda_user
