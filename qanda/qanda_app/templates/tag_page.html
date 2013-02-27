@@ -12,6 +12,28 @@
 		<h2>
 			Questions with "{{ tag }}" tag
 		</h2>
+
+		<div>
+			<div class="btn-group">
+				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					Category Filter
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="#all">All</a>
+					</li>
+					{% for category in categories %}
+						<li>
+							<a href="#{{ category.name }}">{{ category.name }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+		</div>
+
+		<div class="row">
+			<p></p>
+		</div>
 		
 		{% include "question_listing_base.html" %}
 

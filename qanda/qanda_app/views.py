@@ -282,6 +282,8 @@ def tag_page(request, tag, page):
 
 	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
 	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
+	
+	context['categories'] = Category.objects.all()
 
 	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
 
@@ -308,6 +310,8 @@ def categorized_tag_page(request, category, tag, page):
 
 	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
 	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
+
+	context['categories'] = Category.objects.all()
 
 	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
 
