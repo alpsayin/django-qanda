@@ -25,7 +25,7 @@
 										#{{ tag }}
 									</a>
 									<span class="tag-list-used">
-									  - used {{ tag.count }} {% if tag.count == 1 %} time {% else %} times {% endif %}
+									  - used {{ tag.count }} time{{ tag.count|pluralize }}
 									</span>
 								</div>	
 					{% endfor %}
