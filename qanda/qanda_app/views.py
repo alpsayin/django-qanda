@@ -289,7 +289,7 @@ def tag_page(request, tag, page):
 def categorized_tag_page(request, category, tag, page):
 	context = {}
 	page = int(page)
-	category_id = get_object_or_404(Category, category=category)
+	category_id = get_object_or_404(Category, name=category)
 	questions = Question.objects.filter(category=category_id, tags__name__in=[tag]).order_by('-postDate')[page*(NUM_OF_QUESTIONS_PER_PAGE):(page+1)*NUM_OF_QUESTIONS_PER_PAGE]
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
