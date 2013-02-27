@@ -144,6 +144,14 @@ def searchdoc(request, question_id):
 	return render_to_response('search/indexes/qanda_app/question_text.txt', context, context_instance=RequestContext(request))
 
 @assert_qanda_user
+@login_required
+def profile_page(request, user_id):
+	context = {}
+	qandaUser = get_object_or_404(QandaUser, pk=user_id)
+	context['qandaUser'] = qandaUser
+	return render_to_response("profile.html", context, context_instance=RequestContext(request))
+
+@assert_qanda_user
 def question_list(request, question_id):
 	context = {}
 	if int(question_id) <= 0:
