@@ -11,23 +11,275 @@
 	<div class="row">
 		<div class="span10">
 			<h2>
-				Profile Page for "{{ qandaUser.djangoUser }}"
+				Profile Page of {{ qandaUser.djangoUser }}
 			</h2>
+			<div class="row">
+				<p></p>
+			</div>
+			<div class="row">
+				<p></p>
+			</div>
+			<div class="row profile-summary">
+				<p>Summary</p>
+			</div>
+			<div class="row profile-summary-element">
+					{{ qandaUser.djangoUser }} has asked 
+					<a class="profile-important-link" href="#">
+						{{ qandaUser.get_questions_asked }} question{{ qandaUser.get_questions_asked|pluralize }}.
+					</a>
+			</div>
+			<div class="row profile-summary-element">
+				{{ qandaUser.djangoUser }} has answered 
+				<a class="profile-important-link" href="#">
+					{{ qandaUser.get_questions_answered }} question{{ qandaUser.get_questions_answered|pluralize }}.
+				</a>
+			</div>
+			<div class="row profile-summary-element">
+				{{ qandaUser.djangoUser }} has  
+				<a class="profile-important-link" href="#">
+					{{ qandaUser.get_answers }} answer{{ qandaUser.get_answers|pluralize }}.
+				</a>
+			</div>
+			<div class="row profile-summary-element">
+				{{ qandaUser.djangoUser }} replied to  
+				<a class="profile-important-link" href="#">
+					{{ qandaUser.get_answers_replied }} answer{{ qandaUser.get_answers_replied|pluralize }}.
+				</a>
+			</div>
+			<div class="row profile-summary-element">
+				{{ qandaUser.djangoUser }} has  
+				<a class="profile-important-link" href="#">
+					{{ qandaUser.get_replies }} repl{{ qandaUser.get_replies|pluralize:"y,ies" }}.
+				</a>
+			</div>
 
-			<div class="span9">
-				<div class="row">
-					#questions : {{ qandaUser.questions.count }}
-				</div>
-				<div class="row">
-					#answers : {{ qandaUser.answers.count }}
-				</div>
-				<div class="row">
-					#replies : {{ qandaUser.replies.count }}
-				</div>
-				<div class="row">
-					#and_so_on : {{ qandaUser.pk }}
+			<div class="row profile-rest">
+				<a class="relations-title" href="#user-relations-table" onClick="toggleElementVisibility('#user-relations-table', '#user-relations-message', 500);">User Relations</a>
+				<div id="user-relations-message" class="relations-message">
+					(click the title to display)
 				</div>
 			</div>
+			<div id="user-relations-table" class="relations-table">
+				<table class="profile-rest-table">
+					<tr>
+						<th>
+							{{ qandaUser.djangoUser }}
+						</th>
+						<th>
+							Taken
+						</th>
+						<th>
+							Given
+						</th>
+					</tr>
+					<tr>
+						<td>
+							User Stars
+						</td>
+						<td>
+							{{ qandaUser.get_user_stars_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_user_stars_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							User Flags
+						</td>
+						<td>
+							{{ qandaUser.get_user_flags_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_user_flags_given }}
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="row profile-rest">
+				<a class="relations-title" href="#questions-table" onClick="toggleElementVisibility('#question-relations-table', '#question-relations-message', 500);">Question Relations</a>
+				<div id="question-relations-message" class="relations-message">
+					(click the title to display)
+				</div>
+			</div>
+			<div id="question-relations-table" class="relations-table">
+				<table class="profile-rest-table">
+					<tr>
+						<th>
+							{{ qandaUser.djangoUser }}
+						</th>
+						<th>
+							Taken
+						</th>
+						<th>
+							Given
+						</th>
+					</tr>
+					<tr>
+						<td>
+							Upvotes
+						</td>
+						<td>
+							{{ qandaUser.get_question_upvotes_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_question_upvotes_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Downvotes
+						</td>
+						<td>
+							{{ qandaUser.get_question_downvotes_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_question_downvotes_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Found Useful
+						</td>
+						<td>
+							{{ qandaUser.get_question_usefuls_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_question_usefuls_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Didn't Found Useful
+						</td>
+						<td>
+							{{ qandaUser.get_question_notUsefuls_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_question_notUsefuls_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Stars
+						</td>
+						<td>
+							{{ qandaUser.get_question_stars_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_question_stars_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Flags
+						</td>
+						<td>
+							{{ qandaUser.get_question_flags_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_question_flags_given }}
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="row profile-rest">
+				<a class="relations-title" href="#relations-title" onClick="toggleElementVisibility('#answer-relations-table', '#answer-relations-message', 500);">Answer Relations</a>
+				<div id="answer-relations-message" class="relations-message">
+					(click the title to display)
+				</div>
+			</div>
+			<div id="answer-relations-table" class="relations-table">
+				<table class="profile-rest-table">
+					<tr>
+						<th>
+							{{ qandaUser.djangoUser }}
+						</th>
+						<th>
+							Taken
+						</th>
+						<th>
+							Given
+						</th>
+					</tr>
+					<tr>
+						<td>
+							Upvotes
+						</td>
+						<td>
+							{{ qandaUser.get_answer_upvotes_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_answer_upvotes_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Downvotes
+						</td>
+						<td>
+							{{ qandaUser.get_answer_downvotes_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_answer_downvotes_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Found Useful
+						</td>
+						<td>
+							{{ qandaUser.get_answer_usefuls_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_answer_usefuls_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Didn't Found Useful
+						</td>
+						<td>
+							{{ qandaUser.get_answer_notUsefuls_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_answer_notUsefuls_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Stars
+						</td>
+						<td>
+							{{ qandaUser.get_answer_stars_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_answer_stars_given }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Flags
+						</td>
+						<td>
+							{{ qandaUser.get_answer_flags_taken }}
+						</td>
+						<td>
+							{{ qandaUser.get_answer_flags_given }}
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="row">
+				<p></p>
+			</div>
+			<div class="row">
+				<p></p>
+			</div>
+
 		</div>
 
 		{% include "righthand_tags.html" %}
