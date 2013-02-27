@@ -17,7 +17,7 @@
           <li {% if view == "category_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.category_list page="0" %}">Categories</a></li>
           <li {% if view == "new_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.new_question_page %}">New Question</a></li>
           {% if request.user.is_authenticated %}
-          <li {% if view == "profile" %} class="active" {% endif %} ><a href="#">Profile</a></li>
+          <li {% if view == "profile" %} class="active" {% endif %} ><a href="{% url qanda_app.views.profile_page user_id=request.user.QandaUser.pk %}">Profile</a></li>
           {% else %}
           <li {% if view == "login" %} class="active" {% endif %} ><a href="{{ LOGIN_URL }}">Login</a></li>
           {% endif %}
