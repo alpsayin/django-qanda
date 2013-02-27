@@ -173,6 +173,7 @@ def question_list(request, question_id):
 
 	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
 	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
+	context['categories'] = Category.objects.all()
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
@@ -204,6 +205,7 @@ def categorized_question_list(request, category, question_id):
 
 	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
 	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
+	context['categories'] = Category.objects.all()
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
