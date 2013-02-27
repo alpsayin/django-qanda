@@ -1,0 +1,64 @@
+{% extends "qanda_base.html" %}
+
+{% block head %}
+	<title> Qanda </title>
+{% endblock %}
+
+{% block body %}
+
+	{% block category_list %}
+
+	{{ debug }}
+	<h3>
+		Categories
+	</h3>
+	<h5>
+		in alphabetical order
+	</h5>
+	<div class="row">
+		<div class="span10">
+			<div class="row">
+				<div class="span10">
+					{% for category in categories %}
+								<div class="span3">
+									<a class="tag-list-element" href="{% url qanda_app.views.categorized_question_list category=category question_id=0 %}">
+										"{{ category }}"
+									</a>
+									<span class="tag-list-used">
+									  - used {{ category.count }} time{{ category.count|pluralize }}
+									</span>
+								</div>	
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="row">
+				<p></p>
+			</div>
+
+			<div class="pagination pagination-large text-center">
+			  <ul>
+				{% if prev or prev == 0 %}
+			    	<li class=""><a href="{% url qanda_app.views.category_list page=prev %}">Prev</a></li>
+		    	{% else %}
+			    	<li class="disabled"><a href="#">Prev</a></li>
+				{% endif %}
+					
+					<li class="disabled"><a href="#">_______________________</a></li>
+
+				{% if next %}
+			    	<li class=""><a href="{% url qanda_app.views.category_list page=next %}">Next</a></li>
+			    {% else %}
+			    	<li class="disabled"><a href="#">Next</a></li>
+				{% endif %}
+			  </ul>
+			</div>
+		</div>
+
+		{% include "righthand_tags.html" %}
+
+	</div>
+
+	{% endblock %}
+
+{% endblock %}

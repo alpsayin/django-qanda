@@ -14,6 +14,7 @@
           <li {% if view == "question_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.index %}">Home</a></li>
           <li {% if view == "last_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.most_recent_question %}">Last Question</a></li>
           <li {% if view == "tag_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.tag_list page="0" %}">Tags</a></li>
+          <li {% if view == "category_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.category_list page="0" %}">Categories</a></li>
           <li {% if view == "new_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.new_question_page %}">New Question</a></li>
         </ul>
 

@@ -177,6 +177,35 @@ def question_list(request, question_id):
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
+
+@assert_qanda_user
+def category_list(request, page):
+	context = {}
+	page = int(page)
+	
+	categories = Category.objects.order_by('name')[page*(NUM_OF_TAGS_PER_PAGE):(page+1)*NUM_OF_TAGS_PER_PAGE]
+	for category in categories:
+		category.count = Question.objects.filter(category=category).count()
+
+	context['categories'] = categories
+	context['view'] = 'category_list'
+
+	next_qset = Category.objects.order_by('name')[(page+1)*NUM_OF_TAGS_PER_PAGE:(page+2)*NUM_OF_TAGS_PER_PAGE]
+	if next_qset.exists():
+		context['next'] = page+1
+
+	if page >= 1:
+		prev_qset = Category.objects.order_by('name')[(page-1)*NUM_OF_TAGS_PER_PAGE:page*NUM_OF_TAGS_PER_PAGE]
+		if prev_qset.exists():
+			context['prev'] = page-1
+
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS_IN_TAG_LIST]
+	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS_IN_TAG_LIST]
+
+	return render_to_response("category_list.html", context, context_instance=RequestContext(request))
+
+
+@assert_qanda_user
 def tag_list(request, page):
 	context = {}
 	page = int(page)
