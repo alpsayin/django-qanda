@@ -138,6 +138,7 @@ TEMPLATE_CONTEXT_PROCESSORS={
     'qanda_app.context_processors.search_form',
     'qanda_app.context_processors.latest_questions',
     'qanda_app.context_processors.site_settings',
+    'qanda_app.context_processors.recent_and_common_tags',
 }
 
 LOGIN_URL = '/admin/'

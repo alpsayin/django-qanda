@@ -17,12 +17,8 @@ import pprint
 from decorators import assert_qanda_user
 from models import *
 
-NUM_OF_QUESTIONS_PER_PAGE = 10
+NUM_OF_QUESTIONS_PER_PAGE = 8
 NUM_OF_TAGS_PER_PAGE = 70
-NUM_OF_TAGS_IN_COMMON_TAGS = 16
-NUM_OF_TAGS_IN_RECENT_TAGS = 16
-NUM_OF_TAGS_IN_COMMON_TAGS_IN_TAG_LIST = 10
-NUM_OF_TAGS_IN_RECENT_TAGS_IN_TAG_LIST = 10
 
 # FORM PROCESSORS
 
@@ -171,8 +167,6 @@ def question_list(request, question_id):
 	if prev_qset.exists():
 		context['prev'] = prev_qset[0].pk
 
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
-	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 	context['categories'] = Category.objects.all()
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
@@ -203,8 +197,6 @@ def categorized_question_list(request, category, question_id):
 	if prev_qset.exists():
 		context['prev'] = prev_qset[0].pk
 
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
-	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 	context['categories'] = Category.objects.all()
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
@@ -230,8 +222,6 @@ def category_list(request, page):
 		if prev_qset.exists():
 			context['prev'] = page-1
 
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS_IN_TAG_LIST]
-	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS_IN_TAG_LIST]
 	context['current_page_number'] = page
 
 	return render_to_response("category_list.html", context, context_instance=RequestContext(request))
@@ -258,8 +248,6 @@ def tag_list(request, page):
 		if prev_qset.exists():
 			context['prev'] = page-1
 
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS_IN_TAG_LIST]
-	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS_IN_TAG_LIST]
 	context['current_page_number'] = page
 
 	return render_to_response("tag_list.html", context, context_instance=RequestContext(request))
@@ -283,9 +271,6 @@ def tag_page(request, tag, page):
 		prev_qset = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
 		if prev_qset.exists():
 			context['prev'] = page-1
-
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
-	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 
 	context['categories'] = Category.objects.all()
 	context['current_page_number'] = page
@@ -312,9 +297,6 @@ def categorized_tag_page(request, category, tag, page):
 		prev_qset = Question.objects.filter(category=category_id, tags__name__in=[tag]).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
 		if prev_qset.exists():
 			context['prev'] = page-1
-
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
-	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 
 	context['categories'] = Category.objects.all()
 	context['current_page_number'] = page
@@ -348,9 +330,6 @@ def new_question_page(request):
 
 	context['view'] = 'new_question_page'
 	context['debug'] = ''
-
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
-	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
@@ -412,10 +391,6 @@ def question_page(request, question_id):
 	except:
 		context['view'] = 'question_page'
 
-
-
-	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
-	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
 
 	Question.objects.increment_view_count(question)
 	return render_to_response('question.html', context, context_instance=RequestContext(request))
