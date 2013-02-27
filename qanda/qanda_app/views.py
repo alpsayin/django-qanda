@@ -286,6 +286,32 @@ def tag_page(request, tag, page):
 	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
+def categorized_tag_page(request, category, tag, page):
+	context = {}
+	page = int(page)
+	category_id = get_object_or_404(Category, category=category)
+	questions = Question.objects.filter(category=category_id, tags__name__in=[tag]).order_by('-postDate')[page*(NUM_OF_QUESTIONS_PER_PAGE):(page+1)*NUM_OF_QUESTIONS_PER_PAGE]
+	for question in questions:
+		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
+	context['questions'] = questions
+	context['tag'] = tag
+	context['view'] = 'tag_page'
+
+	next_qset = Question.objects.filter(category=category_id, tags__name__in=[tag]).order_by('-postDate')[(page+1)*NUM_OF_QUESTIONS_PER_PAGE:(page+2)*NUM_OF_QUESTIONS_PER_PAGE]
+	if next_qset.exists():
+		context['next'] = page+1
+
+	if page >= 1:
+		prev_qset = Question.objects.filter(category=category_id, tags__name__in=[tag]).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
+		if prev_qset.exists():
+			context['prev'] = page-1
+
+	context['recent_tags'] = Tag.objects.order_by('-pk').all()[:NUM_OF_TAGS_IN_RECENT_TAGS]
+	context['common_tags'] = Question.tags.most_common()[:NUM_OF_TAGS_IN_COMMON_TAGS]
+
+	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
+
+@assert_qanda_user
 def most_recent_question(request):
 	try:
 		latest_question = Question.objects.latest('postDate')

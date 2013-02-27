@@ -8,6 +8,7 @@ from views import subscription_submit
 from views import most_recent_question
 from views import question_list
 from views import tag_page
+from views import categorized_tag_page
 from views import tag_list
 from views import relate_answer_single
 from views import relate_question_single
@@ -33,9 +34,10 @@ urlpatterns = patterns('qanda_app',
     url(r'^new/$', new_question_page, name='new_question_page'),
     url(r'^last/$', most_recent_question, name='most_recent_question'),
     url(r'^list/(?P<question_id>\d+)/$', question_list, name='question_list'),
-    url(r'^tags/(?P<page>\d+)/$', tag_list, name='tag_list'),
     url(r'^(?P<category>\w+)/list/(?P<question_id>\d+)/$', categorized_question_list, name='categorized_question_list'),
     url(r'^tag/(?P<tag>\w+)/(?P<page>\d+)$', tag_page, name='tag_page'),
+    url(r'^(?P<category>\w+)/tag/(?P<tag>\w+)/(?P<page>\d+)$', categorized_tag_page, name='categorized_tag_page'),
+    url(r'^tags/(?P<page>\d+)/$', tag_list, name='tag_list'),
     url(r'^categories/(?P<page>\d+)/$', category_list, name='category_list'),
     url(r'^(?P<question_id>\d+)/$', question_page, name='question_page'),
     url(r'^(?P<question_id>\d+)/searchdoc$', searchdoc, name='searchdoc'),
