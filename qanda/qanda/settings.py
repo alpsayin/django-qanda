@@ -137,9 +137,16 @@ TEMPLATE_CONTEXT_PROCESSORS={
     'django.core.context_processors.request',
     'qanda_app.context_processors.search_form',
     'qanda_app.context_processors.latest_questions',
+    'qanda_app.context_processors.site_settings',
 }
 
 LOGIN_URL = '/admin/'
+
+#used for left hand navbar brand
+SITE_NAME = 'Qanda'
+
+#must be a static address like below
+ROOT_URL = 'http://localhost:8000/qanda/'
 
 INTERNAL_IPS = ('127.0.0.1', 'localhost')
 
