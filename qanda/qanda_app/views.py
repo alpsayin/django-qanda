@@ -163,8 +163,9 @@ def question_list(request, question_id):
 	context['view'] = 'question_list'
 
 	next_qset = Question.objects.filter(pk__lte=int(question_id)+NUM_OF_QUESTIONS_PER_PAGE).order_by('-postDate')[:1]
-	if next_qset[0].pk > int(question_id):
-		context['next'] = int(question_id)+NUM_OF_QUESTIONS_PER_PAGE
+	if next_qset.exists():
+		if next_qset[0].pk > int(question_id):
+			context['next'] = int(question_id)+NUM_OF_QUESTIONS_PER_PAGE
 
 	prev_qset = Question.objects.filter(pk__lte=int(question_id)-NUM_OF_QUESTIONS_PER_PAGE).order_by('-postDate')[:1]
 	if prev_qset.exists():
