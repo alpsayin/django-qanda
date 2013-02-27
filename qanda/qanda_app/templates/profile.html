@@ -1,0 +1,22 @@
+{% extends "qanda_base.html" %}
+
+{% block head %}
+	<title> {{ SITE_NAME }} - {{ qandaUser.djangoUser }} </title>
+{% endblock %}
+
+{% block body %}
+
+	{% block profile %}
+
+		<div class="row">
+			<div class="span6">
+
+			</div>
+
+			{% include "righthand_tags.html" %}
+			
+		</div>
+
+	{% endblock %}
+
+{% endblock %}
