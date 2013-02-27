@@ -21,11 +21,11 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="#all">All</a>
+						<a href="{% url qanda_app.views.tag_page tag=tag page='0' %}">All</a>
 					</li>
 					{% for category in categories %}
 						<li>
-							<a href="#{{ category.name }}">{{ category.name }}</a>
+							<a href="{% url qanda_app.views.categorized_tag_page category=category.name tag=tag page='0' %}">{{ category.name }}</a>
 						</li>
 					{% endfor %}
 				</ul>
