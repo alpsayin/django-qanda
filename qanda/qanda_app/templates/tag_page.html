@@ -1,7 +1,7 @@
 {% extends "qanda_base.html" %}
 
 {% block head %}
-	<title> Qanda </title>
+	<title> {{ SITE_NAME }} - Questions with "{{ tag }}" tag </title>
 {% endblock %}
 
 {% block body %}
@@ -9,26 +9,29 @@
 	{% block question_list %}
 
 	<div class="row">
-		<h2>
-			Questions with "{{ tag }}" tag
-		</h2>
+		<div class="row">
+			<h2>
+				Questions with "{{ tag }}" tag
 
-		<div>
-			<div class="btn-group">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					Category Filter
-					<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="{% url qanda_app.views.tag_page tag=tag page='0' %}">All</a>
-					</li>
-					{% for category in categories %}
-						<li>
-							<a href="{% url qanda_app.views.categorized_tag_page category=category.name tag=tag page='0' %}">{{ category.name }}</a>
-						</li>
-					{% endfor %}
-				</ul>
+				<div class="pull-right">
+					<div class="btn-group btn-large">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							Category Filter
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="{% url qanda_app.views.tag_page tag=tag page='0' %}">All</a>
+							</li>
+							{% for category in categories %}
+								<li>
+									<a href="{% url qanda_app.views.categorized_tag_page category=category.name tag=tag page='0' %}">{{ category.name }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</h2>
 		</div>
 
 		<div class="row">

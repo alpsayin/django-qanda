@@ -1,7 +1,7 @@
 {% extends "qanda_base.html" %}
 
 {% block head %}
-	<title> Qanda </title>
+	<title> {{ SITE_NAME }} - Recent Questions </title>
 {% endblock %}
 
 {% block body %}
@@ -9,26 +9,29 @@
 	{% block question_list %}
 
 	<div class="row">
-		<h2>
-			Recent Questions
-		</h2>
+		<div class="row">
+			<h2>
+				Recent Questions
 
-		<div>
-			<div class="btn-group">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					Category Filter
-					<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="{% url qanda_app.views.question_list question_id='0' %}">All</a>
-					</li>
-					{% for category in categories %}
-						<li>
-							<a href="{% url qanda_app.views.categorized_question_list category=category.name question_id='0' %}">{{ category.name }}</a>
-						</li>
-					{% endfor %}
-				</ul>
+				<div class="pull-right">
+					<div class="btn-group btn-large">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							Category Filter
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="{% url qanda_app.views.question_list question_id='0' %}">All</a>
+							</li>
+							{% for category in categories %}
+								<li>
+									<a href="{% url qanda_app.views.categorized_question_list category=category.name question_id='0' %}">{{ category.name }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>	
+			</h2>
 		</div>
 
 		<div class="row">
