@@ -36,7 +36,7 @@
 				</div>
 				<div class="row">
 					<div class="span6">
-						by <i>{{ question.author }}</i> <br />
+						by <i><a href="{{ question.author.get_absolute_url }}">{{ question.author }}</a></i> <br />
 						submitted {{ question.postDate }} <br />
 					</div>
 					<div class="span3">
@@ -138,7 +138,7 @@
 					</div>
 					<div class="row">
 						<div class="span5 offset1">
-							by <i>{{ answer.author }}</i>
+							by <i><a href="{{ answer.author.get_absolute_url }}">{{ answer.author }}</a></i>
 						</div>
 						<div class="span1">
 							{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" subscribed=answer.subscribed %}
@@ -160,7 +160,7 @@
 								<div class="span6 offset2">
 									<hr>
 									{{ reply.text }} <br />
-									by <i>{{ reply.author }}</i> <br />
+									by <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author }}</a></i> <br />
 								</div>
 								{% endif %}
 							</div>

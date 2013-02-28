@@ -28,7 +28,7 @@
 							</span>
 						{% endif %}
 						<span class="questioninfo pull-right">
-							{{ question.postDate }} by {{ question.author }} 
+							<a class="questioninfo pull-right" href="{{ question.author.get_absolute_url }}">{{ question.postDate }} by {{ question.author }} </a>
 						</span>
 					</div>	
 				</a>
