@@ -230,6 +230,7 @@ def user_asked_questions_list(request, user_id, question_id, category):
 
 	context['categories'] = Category.objects.all()
 	context['qandaUser'] = qandaUser
+	context['category'] = category
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
@@ -276,6 +277,7 @@ def user_answered_questions_list(request, user_id, question_id, category):
 
 	context['categories'] = Category.objects.all()
 	context['qandaUser'] = qandaUser
+	context['category'] = category
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
@@ -322,6 +324,7 @@ def user_replied_questions_list(request, user_id, question_id, category):
 
 	context['categories'] = Category.objects.all()
 	context['qandaUser'] = qandaUser
+	context['category'] = category
 
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
