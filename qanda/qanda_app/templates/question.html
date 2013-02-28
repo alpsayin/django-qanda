@@ -169,7 +169,7 @@
 						<p></p>
 					</div>
 					<div class="row reply-box">
-						<div class="span5 offset2">
+						<div class="offset1">
 							{% if user.is_authenticated %}
 								{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
 							{% else %}

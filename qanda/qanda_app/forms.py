@@ -26,7 +26,7 @@ class ReplyForm(ModelForm):
 		model = Reply
 		fields = ( 'text', )
 		widgets = {
-			'text': Textarea(attrs={'cols': 80, 'rows': 2, 'class':'span6'}),
+			'text': Textarea(attrs={'cols': 120, 'rows': 2, 'class':'span7'}),
 		}
 
 class  SubscriptionForm(forms.Form):
