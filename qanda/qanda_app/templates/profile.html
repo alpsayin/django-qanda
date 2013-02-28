@@ -27,31 +27,31 @@
 			</div>
 			<div class="row profile-summary-element">
 					asked 
-					<a class="profile-important-link" href="{% url qanda_app.views.user_asked_questions_list user_id=qandaUser.pk question_id=0 %}">
+					<a class="profile-important-link" href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=0 %}">
 						{{ qandaUser.get_questions_asked }} question{{ qandaUser.get_questions_asked|pluralize }}.
 					</a>
 			</div>
 			<div class="row profile-summary-element">
 				answered 
-				<a class="profile-important-link" href="{% url qanda_app.views.user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
+				<a class="profile-important-link" href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
 					{{ qandaUser.get_questions_answered }} question{{ qandaUser.get_questions_answered|pluralize }}.
 				</a>
 			</div>
 			<div class="row profile-summary-element">
 				a total of
-				<a class="profile-important-link" href="{% url qanda_app.views.user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
+				<a class="profile-important-link" href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
 					{{ qandaUser.get_answers }} answer{{ qandaUser.get_answers|pluralize }}.
 				</a>
 			</div>
 			<div class="row profile-summary-element">
 				replied to  
-				<a class="profile-important-link" href="{% url qanda_app.views.user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
+				<a class="profile-important-link" href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
 					{{ qandaUser.get_answers_replied }} answer{{ qandaUser.get_answers_replied|pluralize }}.
 				</a>
 			</div>
 			<div class="row profile-summary-element">
 				a total of
-				<a class="profile-important-link" href="{% url qanda_app.views.user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
+				<a class="profile-important-link" href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
 					{{ qandaUser.get_replies }} repl{{ qandaUser.get_replies|pluralize:"y,ies" }}.
 				</a>
 			</div>
