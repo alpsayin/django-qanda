@@ -82,6 +82,9 @@ class QandaUser(models.Model):
     relatedUsers = models.ManyToManyField("self", symmetrical=False, through='UserRelations', related_name='relaterUsers')
     tags = TaggableManager(blank=True)
 
+    def get_absolute_url(self):
+        return reverse('qanda_app.views.profile_page', kwargs={ 'user_id' : self.pk,})
+
     def get_questions_asked(self):
         return self.questions.count()
     
