@@ -1,7 +1,18 @@
 {% extends "qanda_base.html" %}
 
 {% block head %}
-	<title> {{ SITE_NAME }} - Recent Questions </title>
+	<title> 
+		{{ SITE_NAME }} - 
+		{% if view == 'user_asked_questions_list' %}
+			Asked Questions by {{ qandaUser.djangoUser }}
+		{% elif view == 'user_answered_questions_list' %}
+			Answered Questions by {{ qandaUser.djangoUser }}
+		{% elif view == 'user_replied_questions_list' %}
+			Replied Questions by {{ qandaUser.djangoUser }}
+		{% elif view == 'question_list' %}
+			Recent Questions 
+    	{% endif %}
+	</title>
 {% endblock %}
 
 {% block body %}
@@ -11,7 +22,15 @@
 	<div class="row">
 		<div class="row">
 			<h2>
-				Recent Questions
+				{% if view == 'user_asked_questions_list' %}
+					Asked Questions by {{ qandaUser.djangoUser }}
+				{% elif view == 'user_answered_questions_list' %}
+					Answered Questions by {{ qandaUser.djangoUser }}
+				{% elif view == 'user_replied_questions_list' %}
+					Replied Questions by {{ qandaUser.djangoUser }}
+				{% elif view == 'question_list' %}
+					Recent Questions 
+		    	{% endif %}
 
 				<div class="pull-right">
 					<div class="btn-group btn-large">
@@ -51,7 +70,15 @@
 	<div class="pagination pagination-large text-center">
 	  <ul>
 		{% if prev or prev == 0 %}
-	    	<li class=""><a href="{% url qanda_app.views.question_list question_id=prev %}">Prev</a></li>
+			{% if view == 'user_asked_questions_list' %}
+	    		<li class=""><a href="{% url qanda_app.views.user_asked_questions_list user_id=qandaUser.pk question_id=prev %}">Prev</a></li>
+    		{% elif view == 'user_answered_questions_list' %}
+	    		<li class=""><a href="{% url qanda_app.views.user_answered_questions_list user_id=qandaUser.pk question_id=prev %}">Prev</a></li>
+    		{% elif view == 'user_replied_questions_list' %}
+	    		<li class=""><a href="{% url qanda_app.views.user_replied_questions_list user_id=qandaUser.pk question_id=prev %}">Prev</a></li>
+    		{% elif view == 'question_list' %}
+	    		<li class=""><a href="{% url qanda_app.views.question_list question_id=prev %}">Prev</a></li>
+	    	{% endif %}
     	{% else %}
 	    	<li class="disabled"><a href="#">Prev</a></li>
 		{% endif %}
@@ -59,7 +86,7 @@
 			<li class="disabled"><a href="#">_______________________</a></li>
 
 		{% if next %}
-	    	<li class=""><a href="{% url qanda_app.views.question_list question_id=next %}">Next</a></li>
+	    	<li class=""><a href="{% url qanda_app.views.user_asked_questions_list user_id=qandaUser.pk question_id=next %}">Next</a></li>
 	    {% else %}
 	    	<li class="disabled"><a href="#">Next</a></li>
 		{% endif %}
