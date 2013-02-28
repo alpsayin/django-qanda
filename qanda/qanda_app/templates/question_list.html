@@ -43,7 +43,11 @@
 				<div class="pull-right">
 					<div class="btn-group btn-large">
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-							Category Filter
+							{% if category %}
+								{{ category }}
+							{% else %}
+								Category Filter
+							{% endif %}
 							<span class="caret"></span>
 						</a>
 						{% if view == 'user_asked_questions_list' %}
