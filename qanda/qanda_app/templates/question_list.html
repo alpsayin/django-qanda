@@ -30,6 +30,7 @@
 					Replied Questions by {{ qandaUser.djangoUser }}
 				{% elif view == 'question_list' %}
 					Recent Questions 
+		    	{% endif %}
 
 				<div class="pull-right">
 					<div class="btn-group btn-large">
@@ -37,20 +38,53 @@
 							Category Filter
 							<span class="caret"></span>
 						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="{% url qanda_app.views.question_list question_id='0' %}">All</a>
-							</li>
-							{% for category in categories %}
+						{% if view == 'user_asked_questions_list' %}
+							<ul class="dropdown-menu">
 								<li>
-									<a href="{% url qanda_app.views.categorized_question_list category=category.name question_id='0' %}">{{ category.name }}</a>
+									<a href="{% url user_asked_questions_list user_id=qandaUser.pk question_id='0' %}">All</a>
 								</li>
-							{% endfor %}
-						</ul>
+								{% for category in categories %}
+									<li>
+										<a href="{% url categorized_user_asked_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% elif view == 'user_answered_questions_list' %}
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{% url user_answered_questions_list user_id=qandaUser.pk question_id='0' %}">All</a>
+								</li>
+								{% for category in categories %}
+									<li>
+										<a href="{% url categorized_user_answered_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% elif view == 'user_replied_questions_list' %}
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id='0' %}">All</a>
+								</li>
+								{% for category in categories %}
+									<li>
+										<a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% elif view == 'question_list' %}
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{% url qanda_app.views.question_list question_id='0' %}">All</a>
+								</li>
+								{% for category in categories %}
+									<li>
+										<a href="{% url qanda_app.views.categorized_question_list category=category.name question_id='0' %}">{{ category.name }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+				    	{% endif %}
 					</div>
 				</div>	
-				
-		    	{% endif %}
 			</h2>
 		</div>
 
