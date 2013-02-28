@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls import patterns
 from views import question_page
-from views import categorized_question_list
 from views import new_question_page
 from views import question_relation_submit
 from views import subscription_submit
@@ -37,8 +36,8 @@ urlpatterns = patterns('qanda_app',
     url(r'^qanda-login-redirect/(?P<redirect_url>.+)$', login_redirect, name='login_redirect'),
     url(r'^new/$', new_question_page, name='new_question_page'),
     url(r'^last/$', most_recent_question, name='most_recent_question'),
-    url(r'^list/(?P<question_id>\d+)/$', question_list, name='question_list'),
-    url(r'^(?P<category>\w+)/list/(?P<question_id>\d+)/$', categorized_question_list, name='categorized_question_list'),
+    url(r'^list/(?P<question_id>\d+)/$', question_list, {'category' : 'all'}, name='question_list'),
+    url(r'^(?P<category>\w+)/list/(?P<question_id>\d+)/$', question_list, name='categorized_question_list'),
     url(r'^tag/(?P<tag>\w+)/(?P<page>\d+)$', tag_page, name='tag_page'),
     url(r'^(?P<category>\w+)/tag/(?P<tag>\w+)/(?P<page>\d+)$', categorized_tag_page, name='categorized_tag_page'),
     url(r'^tags/(?P<page>\d+)/$', tag_list, name='tag_list'),

@@ -74,11 +74,11 @@
 						{% elif view == 'question_list' %}
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{% url qanda_app.views.question_list question_id='0' %}">All</a>
+									<a href="{% url question_list question_id='0' %}">All</a>
 								</li>
 								{% for category in categories %}
 									<li>
-										<a href="{% url qanda_app.views.categorized_question_list category=category.name question_id='0' %}">{{ category.name }}</a>
+										<a href="{% url categorized_question_list category=category.name question_id='0' %}">{{ category.name }}</a>
 									</li>
 								{% endfor %}
 							</ul>
@@ -124,7 +124,11 @@
 	    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=prev %}">Prev</a></li>
 	    		{% endif %}
     		{% elif view == 'question_list' %}
-	    			<li class=""><a href="{% url qanda_app.views.question_list question_id=prev %}">Prev</a></li>
+    			{% if category %}
+	    			<li class=""><a href="{% url categorized_question_list category=category.name question_id=prev %}">Prev</a></li>
+	    		{% else %}
+	    			<li class=""><a href="{% url question_list question_id=prev %}">Prev</a></li>
+	    		{% endif %}
 	    	{% endif %}
     	{% else %}
 	    	<li class="disabled"><a href="#">Prev</a></li>
@@ -152,7 +156,11 @@
 	    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=next %}">Next</a></li>
 	    		{% endif %}
     		{% elif view == 'question_list' %}
-	    			<li class=""><a href="{% url qanda_app.views.question_list question_id=next %}">Next</a></li>
+    			{% if category %}
+	    			<li class=""><a href="{% url categorized_question_list category=category question_id=next %}">Next</a></li>
+	    		{% else %}
+	    			<li class=""><a href="{% url question_list question_id=next %}">Next</a></li>
+	    		{% endif %}
 	    	{% endif %}
 	    {% else %}
 	    	<li class="disabled"><a href="#">Next</a></li>
