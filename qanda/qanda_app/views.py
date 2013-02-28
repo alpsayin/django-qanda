@@ -188,6 +188,96 @@ def question_list(request, question_id):
 	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
+def user_asked_questions_list(request, user_id, question_id):
+	context = {}
+	qandaUser = get_object_or_404(QandaUser, pk=user_id)
+	if int(question_id) <= 0:
+		try:
+			question_id = Question.objects.latest('pk').pk
+		except:
+			pass
+
+	questions = Question.objects.filter(author=qandaUser, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+	for question in questions:
+		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
+	context['questions'] = questions
+	context['view'] = 'user_asked_questions_list'
+
+	next_qset = Question.objects.filter(author=qandaUser, pk__lte=questions[0].pk+1).order_by('-postDate')[:1]
+	if next_qset.exists():
+		if next_qset[0].pk > int(question_id):
+			context['next'] = int(question_id)+NUM_OF_QUESTIONS_PER_PAGE
+
+	prev_qset = Question.objects.filter(author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+	if prev_qset.exists():
+		context['prev'] = prev_qset[0].pk
+
+	context['categories'] = Category.objects.all()
+	context['qandaUser'] = qandaUser
+
+	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
+
+@assert_qanda_user
+def user_answered_questions_list(request, user_id, question_id):
+	context = {}
+	qandaUser = get_object_or_404(QandaUser, pk=user_id)
+	if int(question_id) <= 0:
+		try:
+			question_id = Question.objects.filter(answers__author=qandaUser).latest('pk').pk
+		except:
+			pass
+
+	questions = Question.objects.filter(answers__author=qandaUser, pk__lte=question_id).order_by('-postDate').distinct()[:NUM_OF_QUESTIONS_PER_PAGE]
+	for question in questions:
+		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
+	context['questions'] = questions
+	context['view'] = 'user_answered_questions_list'
+
+	next_qset = Question.objects.filter(answers__author=qandaUser, pk__lte=questions[0].pk+1).order_by('-postDate').distinct()[:1]
+	if next_qset.exists():
+		if next_qset[0].pk > int(question_id):
+			context['next'] = int(question_id)+NUM_OF_QUESTIONS_PER_PAGE
+
+	prev_qset = Question.objects.filter(answers__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate').distinct()[:1]
+	if prev_qset.exists():
+		context['prev'] = prev_qset[0].pk
+
+	context['categories'] = Category.objects.all()
+	context['qandaUser'] = qandaUser
+
+	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
+
+@assert_qanda_user
+def user_replied_questions_list(request, user_id, question_id):
+	context = {}
+	qandaUser = get_object_or_404(QandaUser, pk=user_id)
+	if int(question_id) <= 0:
+		try:
+			question_id = Question.objects.filter(answers__replies__author=qandaUser).latest('pk').pk
+		except:
+			pass
+
+	questions = Question.objects.filter(answers__replies__author=qandaUser, pk__lte=question_id).order_by('-postDate').distinct()[:NUM_OF_QUESTIONS_PER_PAGE]
+	for question in questions:
+		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
+	context['questions'] = questions
+	context['view'] = 'user_replied_questions_list'
+
+	next_qset = Question.objects.filter(answers__replies__author=qandaUser, pk__lte=questions[0].pk+1).order_by('-postDate').distinct()[:1]
+	if next_qset.exists():
+		if next_qset[0].pk > int(question_id):
+			context['next'] = int(question_id)+NUM_OF_QUESTIONS_PER_PAGE
+
+	prev_qset = Question.objects.filter(answers__replies__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate').distinct()[:1]
+	if prev_qset.exists():
+		context['prev'] = prev_qset[0].pk
+
+	context['categories'] = Category.objects.all()
+	context['qandaUser'] = qandaUser
+
+	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
+
+@assert_qanda_user
 def categorized_question_list(request, category, question_id):
 	context = {}
 	category_id = get_object_or_404(Category, name=category)

@@ -18,6 +18,9 @@ from views import login_redirect
 from views import searchdoc
 from views import category_list
 from views import profile_page
+from views import user_asked_questions_list
+from views import user_answered_questions_list
+from views import user_replied_questions_list
 from tastypie.api import Api
 from api import UserResource, QandaUserResource, QuestionResource, AnswerResource, ReplyResource
 from django_notify.urls import get_pattern as get_notify_pattern
@@ -41,6 +44,9 @@ urlpatterns = patterns('qanda_app',
     url(r'^tags/(?P<page>\d+)/$', tag_list, name='tag_list'),
     url(r'^categories/(?P<page>\d+)/$', category_list, name='category_list'),
     url(r'^user/(?P<user_id>\d+)/$', profile_page, name='profile_page'),
+    url(r'^user/(?P<user_id>\d+)/asked/(?P<question_id>\d+)/$', user_asked_questions_list, name='user_asked_questions_list'),
+    url(r'^user/(?P<user_id>\d+)/answered/(?P<question_id>\d+)/$', user_answered_questions_list, name='user_answered_questions_list'),
+    url(r'^user/(?P<user_id>\d+)/replied/(?P<question_id>\d+)/$', user_replied_questions_list, name='user_replied_questions_list'),
     url(r'^(?P<question_id>\d+)/$', question_page, name='question_page'),
     url(r'^(?P<question_id>\d+)/searchdoc$', searchdoc, name='searchdoc'),
     url(r'^(?P<question_id>\d+)/(?P<answer_id>\d+)/subscribe/(?P<value>.+)/$', subscribe_answer, name='subscribe_answer'),
