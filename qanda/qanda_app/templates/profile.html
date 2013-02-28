@@ -22,32 +22,35 @@
 			<div class="row profile-summary">
 				<p>Summary</p>
 			</div>
+			<div class="row profile-summary-begin">
+					{{ qandaUser.djangoUser }} has 
+			</div>
 			<div class="row profile-summary-element">
-					{{ qandaUser.djangoUser }} has asked 
+					asked 
 					<a class="profile-important-link" href="#">
 						{{ qandaUser.get_questions_asked }} question{{ qandaUser.get_questions_asked|pluralize }}.
 					</a>
 			</div>
 			<div class="row profile-summary-element">
-				{{ qandaUser.djangoUser }} has answered 
+				answered 
 				<a class="profile-important-link" href="#">
 					{{ qandaUser.get_questions_answered }} question{{ qandaUser.get_questions_answered|pluralize }}.
 				</a>
 			</div>
 			<div class="row profile-summary-element">
-				{{ qandaUser.djangoUser }} has  
+				a total of
 				<a class="profile-important-link" href="#">
 					{{ qandaUser.get_answers }} answer{{ qandaUser.get_answers|pluralize }}.
 				</a>
 			</div>
 			<div class="row profile-summary-element">
-				{{ qandaUser.djangoUser }} replied to  
+				replied to  
 				<a class="profile-important-link" href="#">
 					{{ qandaUser.get_answers_replied }} answer{{ qandaUser.get_answers_replied|pluralize }}.
 				</a>
 			</div>
 			<div class="row profile-summary-element">
-				{{ qandaUser.djangoUser }} has  
+				a total of
 				<a class="profile-important-link" href="#">
 					{{ qandaUser.get_replies }} repl{{ qandaUser.get_replies|pluralize:"y,ies" }}.
 				</a>
