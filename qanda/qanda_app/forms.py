@@ -6,7 +6,7 @@ from django import forms
 class QuestionForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(QuestionForm, self).__init__(*args, **kwargs)
-        self.fields['category'].required = False
+		self.fields['category'].required = False
 
 	class Meta:
 		model = Question
