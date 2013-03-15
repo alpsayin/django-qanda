@@ -1,14 +1,19 @@
-from django.forms import ModelForm, Textarea, TextInput
+from django.forms import ModelForm, Textarea, TextInput, Select
 from models import Question, Answer, Reply
 from django import forms
 
 
 class QuestionForm(ModelForm):
+	def __init__(self, *args, **kwargs):
+		super(QuestionForm, self).__init__(*args, **kwargs)
+        self.fields['category'].required = False
+
 	class Meta:
 		model = Question
-		fields = ('title', 'text', 'tags')
+		fields = ('title', 'category', 'text', 'tags')
 		widgets = {
 			'title': TextInput(attrs={'size': 220, 'class':'span8'}),
+			'category' : Select(attrs={'class':'span7'},),
 			'text': Textarea(attrs={'cols': 120, 'rows': 20, 'class':'span8'}),
 			'tags': TextInput(attrs={'size': 220, 'class':'span8'}),
 		}
