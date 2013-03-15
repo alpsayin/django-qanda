@@ -184,21 +184,22 @@ def question_list(request, question_id, category):
 	context['questions'] = questions
 	context['view'] = 'question_list'
 
-	if category:
-		next_qset = Question.objects.filter(category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
-	else:
-		next_qset = Question.objects.filter(pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+	if len(questions) > 0:
+		if category:
+			next_qset = Question.objects.filter(category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		else:
+			next_qset = Question.objects.filter(pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
 
-	if next_qset.exists():
-		if next_qset[0].pk > int(question_id):
-			context['next'] = next_qset[0].pk
+		if next_qset.exists():
+			if next_qset[0].pk > int(question_id):
+				context['next'] = next_qset[0].pk
 
-	if category:
-		prev_qset = Question.objects.filter(category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
-	else:
-		prev_qset = Question.objects.filter(pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
-	if prev_qset.exists():
-		context['prev'] = prev_qset[0].pk
+		if category:
+			prev_qset = Question.objects.filter(category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		else:
+			prev_qset = Question.objects.filter(pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		if prev_qset.exists():
+			context['prev'] = prev_qset[0].pk
 
 	context['categories'] = Category.objects.all()
 	context['category'] = category
@@ -231,20 +232,21 @@ def user_asked_questions_list(request, user_id, question_id, category):
 	context['questions'] = questions
 	context['view'] = 'user_asked_questions_list'
 
-	if category:
-		next_qset = Question.objects.filter(author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
-	else:
-		next_qset = Question.objects.filter(author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
-	if next_qset.exists():
-		if next_qset[0].pk > int(question_id):
-			context['next'] = next_qset[0].pk
+	if len(questions) > 0:
+		if category:
+			next_qset = Question.objects.filter(author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		else:
+			next_qset = Question.objects.filter(author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		if next_qset.exists():
+			if next_qset[0].pk > int(question_id):
+				context['next'] = next_qset[0].pk
 
-	if category:
-		prev_qset = Question.objects.filter(author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
-	else:
-		prev_qset = Question.objects.filter(author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
-	if prev_qset.exists():
-		context['prev'] = prev_qset[0].pk
+		if category:
+			prev_qset = Question.objects.filter(author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		else:
+			prev_qset = Question.objects.filter(author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		if prev_qset.exists():
+			context['prev'] = prev_qset[0].pk
 
 	context['categories'] = Category.objects.all()
 	context['qandaUser'] = qandaUser
@@ -278,20 +280,21 @@ def user_answered_questions_list(request, user_id, question_id, category):
 	context['questions'] = questions
 	context['view'] = 'user_answered_questions_list'
 
-	if category:
-		next_qset = Question.objects.filter(answers__author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
-	else:
-		next_qset = Question.objects.filter(answers__author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
-	if next_qset.exists():
-		if next_qset[0].pk > int(question_id):
-			context['next'] = next_qset[0].pk
+	if len(questions) > 0:
+		if category:
+			next_qset = Question.objects.filter(answers__author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		else:
+			next_qset = Question.objects.filter(answers__author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		if next_qset.exists():
+			if next_qset[0].pk > int(question_id):
+				context['next'] = next_qset[0].pk
 
-	if category:
-		prev_qset = Question.objects.filter(answers__author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
-	else:
-		prev_qset = Question.objects.filter(answers__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
-	if prev_qset.exists():
-		context['prev'] = prev_qset[0].pk
+		if category:
+			prev_qset = Question.objects.filter(answers__author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		else:
+			prev_qset = Question.objects.filter(answers__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		if prev_qset.exists():
+			context['prev'] = prev_qset[0].pk
 
 	context['categories'] = Category.objects.all()
 	context['qandaUser'] = qandaUser
@@ -325,20 +328,21 @@ def user_replied_questions_list(request, user_id, question_id, category):
 	context['questions'] = questions
 	context['view'] = 'user_replied_questions_list'
 
-	if category:
-		next_qset = Question.objects.filter(replies__answers__author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
-	else:
-		next_qset = Question.objects.filter(replies__answers__author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
-	if next_qset.exists():
-		if next_qset[0].pk > int(question_id):
-			context['next'] = next_qset[0].pk
+	if len(questions) > 0:
+		if category:
+			next_qset = Question.objects.filter(replies__answers__author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		else:
+			next_qset = Question.objects.filter(replies__answers__author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		if next_qset.exists():
+			if next_qset[0].pk > int(question_id):
+				context['next'] = next_qset[0].pk
 
-	if category:
-		prev_qset = Question.objects.filter(replies__answers__author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
-	else:
-		prev_qset = Question.objects.filter(replies__answers__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
-	if prev_qset.exists():
-		context['prev'] = prev_qset[0].pk
+		if category:
+			prev_qset = Question.objects.filter(replies__answers__author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		else:
+			prev_qset = Question.objects.filter(replies__answers__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		if prev_qset.exists():
+			context['prev'] = prev_qset[0].pk
 
 	context['categories'] = Category.objects.all()
 	context['qandaUser'] = qandaUser
