@@ -29,6 +29,11 @@
 					</div>
 					<div class="span8">
 						<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
+						{% if question.author.djangoUser == user %}
+						<div class="span6">
+							<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">Edit Question</a>
+						</div>
+						{% endif %}
 					</div>
 				</div>
 				<div class="row">
