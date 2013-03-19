@@ -236,3 +236,31 @@
 	display: none;
 }
 
+.user-relations-block {
+	display: none;
+}
+
+.question-relations-block {
+	display: block;
+}
+
+.answer-relations-block {
+	display: block;
+}
+
+.question-stars-row {
+	display: none;
+}
+
+.question-flags-row {
+	display: none;
+}
+
+.answer-stars-row {
+	display: none;
+}
+
+.answer-flags-row {
+	display: none;
+}
+
