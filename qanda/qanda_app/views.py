@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm
 from taggit.models import Tag
+from django.http import Http404
 from view_helpers import *
 import pprint
 
@@ -459,6 +460,39 @@ def most_recent_question(request):
 		return HttpResponseRedirect(reverse(question_page, args=(latest_question.pk,)))
 	except:
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
+
+@assert_qanda_user
+@login_required
+def edit_question_page(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	if not question.author.djangoUser == get_user(request):
+		raise Http404
+	context = {}
+	context['type'] = 'new_question'
+
+	if request.method == 'POST':
+		if request.POST['type'] == 'new_question':
+			question_form = QuestionForm(request.POST)
+			context['question_form'] = question_form
+			if question_form.is_valid():
+				qandaUser = get_user(request).QandaUser
+				edited_data = question_form.cleaned_data
+				question.title = edited_data['title']
+				if edited_data['category']:
+					question.category = edited_data['category']
+				question.text = edited_data['text']
+				question.save()
+				question.tags.clear()
+				for tag in edited_data['tags']:
+					question.tags.add(tag)
+				return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+	else:
+		context['question_form'] = QuestionForm(instance=question)
+
+	context['view'] = 'new_question_page'
+	context['debug'] = ''
+
+	return render_to_response("edit_question.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 @login_required
