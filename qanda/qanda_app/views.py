@@ -533,13 +533,15 @@ def question_page(request, question_id):
 			question.relations = all_relations[0]
 			
 	answers = question.answers.filter(deleted=False)
+	for answer in answers:
+		answer.numOfVotes = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, upvote=True).count() - AnswerRelatedUsers.objects.filter(relatedAnswer=answer, downvote=True).count()
+	
 	if user.is_authenticated():
 		relations = question.user_relation.filter(relatedUser=user.QandaUser)
 		if relations.exists():
 			relations = relations[0]
 			question.relations = relations
 		for answer in answers:
-			answer.numOfVotes = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, upvote=True).count() - AnswerRelatedUsers.objects.filter(relatedAnswer=answer, downvote=True).count()
 			if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
 				answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
 
