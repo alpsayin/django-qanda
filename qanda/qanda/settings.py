@@ -144,7 +144,7 @@ TEMPLATE_CONTEXT_PROCESSORS={
 LOGIN_URL = '/admin/'
 
 #used for left hand navbar brand
-SITE_NAME = 'Inforigo'
+SITE_NAME = 'Qanda'
 
 #must be a static address like below
 ROOT_URL = 'http://localhost:8000/qanda/'
