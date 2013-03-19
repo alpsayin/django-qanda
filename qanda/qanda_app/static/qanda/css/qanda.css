@@ -56,7 +56,7 @@
 }
 
 .question-box:hover {
-	border: outset;
+	/*border: solid;*/
 	border-color: rgba(230, 230, 230, 1);
 }
 
