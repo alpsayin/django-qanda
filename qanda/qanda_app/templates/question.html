@@ -146,6 +146,9 @@
 					<div class="row">
 						<div class="span5 offset1">
 							by <i><a href="{{ answer.author.get_absolute_url }}">{{ answer.author }}</a></i>
+							{% if answer.author.djangoUser == user %}
+								<a class="edit-answer pull-right" href="{% url delete_answer answer_id=answer.pk %}">Delete Answer</a>
+							{% endif %}
 						</div>
 						<div class="span1">
 							{% include "subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" subscribed=answer.subscribed %}

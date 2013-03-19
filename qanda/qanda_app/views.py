@@ -516,6 +516,12 @@ def new_question_page(request):
 
 	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
 
+def delete_answer(request, answer_id):
+	answer = get_object_or_404(Answer, pk=answer_id)
+	if answer.author.djangoUser == get_user(request):
+		answer.deleted = True
+		answer.save()
+	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
 
 def question_page(request, question_id):
 	context = {}

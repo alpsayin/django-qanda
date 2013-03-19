@@ -3,6 +3,7 @@ from django.conf.urls import patterns
 from views import question_page
 from views import new_question_page
 from views import edit_question_page
+from views import delete_answer
 from views import question_relation_submit
 from views import subscription_submit
 from views import most_recent_question
@@ -37,6 +38,8 @@ urlpatterns = patterns('qanda_app',
     url(r'^qanda-login-redirect/(?P<redirect_url>.+)$', login_redirect, name='login_redirect'),
     url(r'^new/$', new_question_page, name='new_question_page'),
     url(r'^edit/(?P<question_id>\d+)/$', edit_question_page, name='edit_question_page'),
+    url(r'^answer/(?P<answer_id>\d+)/delete/$', delete_answer, name='delete_answer'),
+    url(r'^answer/(?P<answer_id>\d+)/edit/$', delete_answer, name='delete_answer'),
     url(r'^last/$', most_recent_question, name='most_recent_question'),
     url(r'^list/(?P<question_id>\d+)/$', question_list, {'category' : 'all'}, name='question_list'),
     url(r'^list/(?P<question_id>\d+)/(?P<category>\w+)/$', question_list, name='categorized_question_list'),
