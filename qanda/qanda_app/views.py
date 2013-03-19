@@ -535,7 +535,8 @@ def question_page(request, question_id):
 	answers = question.answers.filter(deleted=False)
 	for answer in answers:
 		answer.numOfVotes = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, upvote=True).count() - AnswerRelatedUsers.objects.filter(relatedAnswer=answer, downvote=True).count()
-	
+	answers = sorted(answers, key=lambda answer: -answer.numOfVotes)
+
 	if user.is_authenticated():
 		relations = question.user_relation.filter(relatedUser=user.QandaUser)
 		if relations.exists():
