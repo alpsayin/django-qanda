@@ -55,11 +55,12 @@
 					<!-- <div class="span2">
 						{% include "relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
 					</div> -->
-					<div class="span2">
+					<div class="span2 question-star-flag">
 						<a href="relate_single/star/{% if question.relations.star %}false{%else%}true{% endif %}" class="btn {% if question.relations.star %} active {% endif %}">
 							{% if question.relations.star %}
 								<i class="icon-star"></i> Starred
-							{% else %}									<i class="icon-star-empty"></i> Star
+							{% else %}									
+								<i class="icon-star-empty"></i> Star
 							{% endif %}
 						</a>
 						<br/>
@@ -119,11 +120,12 @@
 								{{ answer.text }} 
 							</blockquote>
 						</div>
-						<div class="pull-right">
+						<div class="pull-right answer-star-flag">
 							<a href="{{ answer.pk }}/star/{% if answer.relations.star %}false{%else%}true{% endif %}" class="btn {% if answer.relations.star %} active {% endif %}">
 								{% if answer.relations.star %}
 									<i class="icon-star"></i> Starred
-								{% else %}									<i class="icon-star-empty"></i> Star
+								{% else %}									
+									<i class="icon-star-empty"></i> Star
 								{% endif %}
 							</a>
 							<br/>
