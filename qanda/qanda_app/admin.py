@@ -20,7 +20,7 @@ class QuestionAdmin(admin.ModelAdmin):
     the_tags.short_description = 'Tags'
 
 class AnswerAdmin(admin.ModelAdmin):
-	fields = ['text', 'question', 'author']
+	fields = ['text', 'question', 'author', 'deleted']
 	list_display = ['pk', 'author', 'text', 'postDate', 'editDate', 'deleted']
 	list_filter = ['postDate', 'editDate', 'author']
 
