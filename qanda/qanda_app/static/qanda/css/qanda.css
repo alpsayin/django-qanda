@@ -128,7 +128,7 @@
 }
 
 .question:hover .question-useful {
-	display: block;
+	display: none;
 }
 
 .answer-useful {
@@ -136,7 +136,7 @@
 }
 
 .answer:hover .answer-useful {
-		display: block;
+		display: none;
 }
 
 .reply-box {
@@ -248,11 +248,27 @@
 	display: block;
 }
 
+.question-useful-row {
+	display: none;
+}
+
+.question-notUseful-row {
+	display: none;
+}
+
 .question-stars-row {
 	display: none;
 }
 
 .question-flags-row {
+	display: none;
+}
+
+.answer-useful-row {
+	display: none;
+}
+
+.answer-notUseful-row {
 	display: none;
 }
 
