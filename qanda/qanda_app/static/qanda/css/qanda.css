@@ -228,3 +228,11 @@
 	font-size: 9;
 }
 
+.question-star-flag {
+	display: none;
+}
+
+.answer-star-flag {
+	display: none;
+}
+
