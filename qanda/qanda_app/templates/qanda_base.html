@@ -1,20 +1,27 @@
+{% comment %}
+{% extends "base.html" %}
+{% endcomment %}
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}qanda/css/qanda.css" rel="stylesheet">
-    <link rel="icon" 
-          type="image/png" 
-          href="{{ STATIC_URL }}qanda/img/tree.png">
+    {% block meta %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <style>
+          body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+          }
+        </style>
+        <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}qanda/css/qanda.css" rel="stylesheet">
+        <link rel="icon" 
+              type="image/png" 
+              href="{{ STATIC_URL }}qanda/img/tree.png">
           
+    {% endblock %}
+
     {% block head %}
     {% endblock %}
 	
