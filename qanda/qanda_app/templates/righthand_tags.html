@@ -1,7 +1,8 @@
 
+{% load i18n %}
 <div class="pull-right span2">
 	<h4 class="recent-tags">
-		Recent Tags
+		{% trans "Recent Tags" %}
 	</h4>
 	<div class="tags-box">
 		{% for tag in recent_tags %}
@@ -12,7 +13,7 @@
 		{% endfor %}
 	</div>
 	<h4 class="common-tags">
-		Common Tags
+		{% trans "Common Tags" %}
 	</h4>
 	<div class="tags-box">
 		{% for tag in common_tags %}
