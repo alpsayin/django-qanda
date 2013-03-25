@@ -1,4 +1,5 @@
 {% extends "qanda_base.html" %}
+{% load i18n %}
 
 {% block head %}
 	<title> {{ SITE_NAME }} - {{ qandaUser.djangoUser }} </title>
@@ -11,7 +12,7 @@
 	<div class="row">
 		<div class="span10">
 			<h2>
-				Profile Page of {{ qandaUser.djangoUser }}
+				{% blocktrans with user=qandaUser.djangoUser %}Profile Page of {{ user }}{% endblocktrans %}
 			</h2>
 			<div class="row">
 				<p></p>
@@ -20,39 +21,54 @@
 				<p></p>
 			</div>
 			<div class="row profile-summary">
-				<p>Summary</p>
+				<p>{% trans "Summary" %}</p>
 			</div>
 			<div class="row profile-summary-begin">
-					{{ qandaUser.djangoUser }} has 
+					{{ qandaUser.djangoUser }} {% trans "has" %} 
 			</div>
 			<div class="row profile-summary-element">
-					asked 
 					<a class="profile-important-link" href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=0 %}">
-						{{ qandaUser.get_questions_asked }} question{{ qandaUser.get_questions_asked|pluralize }}.
+						{% blocktrans count counter=qandaUser.get_questions_asked %}
+							asked {{ counter }} question.
+						{% plural %}
+							asked {{ counter }} questions.
+						{% endblocktrans %}
 					</a>
 			</div>
 			<div class="row profile-summary-element">
-				answered 
 				<a class="profile-important-link" href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
-					{{ qandaUser.get_questions_answered }} question{{ qandaUser.get_questions_answered|pluralize }}.
+					{% blocktrans count counter=qandaUser.get_questions_answered %}
+						answered {{ counter }} question.
+					{% plural %}
+						answered {{ counter }} questions.
+					{% endblocktrans %}
 				</a>
 			</div>
 			<div class="row profile-summary-element">
-				a total of
 				<a class="profile-important-link" href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
-					{{ qandaUser.get_answers }} answer{{ qandaUser.get_answers|pluralize }}.
+					{% blocktrans count counter=qandaUser.get_answers %}
+						a total of {{ counter }} answer.
+					{% plural %}
+						a total of {{ counter }} answers.
+					{% endblocktrans %}
 				</a>
 			</div>
 			<div class="row profile-summary-element">
-				replied to  
 				<a class="profile-important-link" href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
-					{{ qandaUser.get_answers_replied }} answer{{ qandaUser.get_answers_replied|pluralize }}.
+					{% blocktrans count counter=qandaUser.get_answers_replied %}
+						replied to {{ counter }} answer.
+					{% plural %}
+						replied to {{ counter }} answers.
+					{% endblocktrans %}
 				</a>
 			</div>
 			<div class="row profile-summary-element">
-				a total of
 				<a class="profile-important-link" href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
-					{{ qandaUser.get_replies }} repl{{ qandaUser.get_replies|pluralize:"y,ies" }}.
+					{% blocktrans count counter=qandaUser.get_replies %}
+						written a total of {{ counter }} reply to answers.
+					{% plural %}
+						written a total of {{ counter }} replies to answers.
+					{% endblocktrans %}
 				</a>
 			</div>
 
@@ -73,15 +89,15 @@
 								{{ qandaUser.djangoUser }}
 							</th>
 							<th>
-								Taken
+								{% trans "Taken" %}
 							</th>
 							<th>
-								Given
+								{% trans "Given" %}
 							</th>
 						</tr>
 						<tr>
 							<td>
-								User Stars
+								{% trans "User Stars" %}
 							</td>
 							<td>
 								{{ qandaUser.get_user_stars_taken }}
@@ -92,7 +108,7 @@
 						</tr>
 						<tr>
 							<td>
-								User Flags
+								{% trans "User Flags" %}
 							</td>
 							<td>
 								{{ qandaUser.get_user_flags_taken }}
@@ -122,15 +138,15 @@
 								{{ qandaUser.djangoUser }}
 							</th>
 							<th>
-								Taken
+								{% trans "Taken" %}
 							</th>
 							<th>
-								Given
+								{% trans "Given" %}
 							</th>
 						</tr>
 						<tr>
 							<td>
-								Upvotes
+								{% trans "Upvotes" %}
 							</td>
 							<td>
 								{{ qandaUser.get_question_upvotes_taken }}
@@ -141,7 +157,7 @@
 						</tr>
 						<tr>
 							<td>
-								Downvotes
+								{% trans "Downvotes" %}
 							</td>
 							<td>
 								{{ qandaUser.get_question_downvotes_taken }}
@@ -152,7 +168,7 @@
 						</tr>
 						<tr class="question-useful-row">
 							<td>
-								Found Useful
+								{% trans "Found Useful" %}
 							</td>
 							<td>
 								{{ qandaUser.get_question_usefuls_taken }}
@@ -163,7 +179,7 @@
 						</tr>
 						<tr class="question-notUseful-row">
 							<td>
-								Didn't Found Useful
+								{% trans "Didn't Found Useful" %}
 							</td>
 							<td>
 								{{ qandaUser.get_question_notUsefuls_taken }}
@@ -174,7 +190,7 @@
 						</tr>
 						<tr class="question-stars-row">
 							<td>
-								Stars
+								{% trans "Stars" %}
 							</td>
 							<td>
 								{{ qandaUser.get_question_stars_taken }}
@@ -185,7 +201,7 @@
 						</tr>
 						<tr class="question-flags-row">
 							<td>
-								Flags
+								{% trans "Flags" %}
 							</td>
 							<td>
 								{{ qandaUser.get_question_flags_taken }}
@@ -215,15 +231,15 @@
 								{{ qandaUser.djangoUser }}
 							</th>
 							<th>
-								Taken
+								{% trans "Taken" %}
 							</th>
 							<th>
-								Given
+								{% trans "Given" %}
 							</th>
 						</tr>
 						<tr>
 							<td>
-								Upvotes
+								{% trans "Upvotes" %}
 							</td>
 							<td>
 								{{ qandaUser.get_answer_upvotes_taken }}
@@ -234,7 +250,7 @@
 						</tr>
 						<tr>
 							<td>
-								Downvotes
+								{% trans "Downvotes" %}
 							</td>
 							<td>
 								{{ qandaUser.get_answer_downvotes_taken }}
@@ -245,7 +261,7 @@
 						</tr>
 						<tr class="answer-useful-row">
 							<td>
-								Found Useful
+								{% trans "Found Useful" %}
 							</td>
 							<td>
 								{{ qandaUser.get_answer_usefuls_taken }}
@@ -256,7 +272,7 @@
 						</tr>
 						<tr class="answer-notUseful-row">
 							<td>
-								Didn't Found Useful
+								{% trans "Didn't Found Useful" %}
 							</td>
 							<td>
 								{{ qandaUser.get_answer_notUsefuls_taken }}
@@ -267,7 +283,7 @@
 						</tr>
 						<tr class="answer-stars-row">
 							<td>
-								Stars
+								{% trans "Stars" %}
 							</td>
 							<td>
 								{{ qandaUser.get_answer_stars_taken }}
@@ -278,7 +294,7 @@
 						</tr>
 						<tr class="answer-flags-row">
 							<td>
-								Flags
+								{% trans "Flags" %}
 							</td>
 							<td>
 								{{ qandaUser.get_answer_flags_taken }}
