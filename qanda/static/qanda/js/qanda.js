@@ -16,3 +16,19 @@ function checkUncheck(element1, element2)
 		}
 	}
 }
+
+function toggleElementVisibility(element, message_display, message_hide, speed)
+{
+	$(element).toggle(speed, function(){
+		if ( $(element).is(":visible") )
+		{
+			$(message_display).toggle()
+			$(message_hide).toggle()
+		}
+		else
+		{
+			$(message_display).toggle()
+			$(message_hide).toggle()
+		}
+	});
+}

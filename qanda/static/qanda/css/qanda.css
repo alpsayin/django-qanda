@@ -1,5 +1,6 @@
 
 .votecount-box {
+	font-size: 12;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-left: 10px;
@@ -15,6 +16,7 @@
 }
 
 .answercount-box {
+	font-size: 12;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-left: 10px;
@@ -30,6 +32,7 @@
 }
 
 .viewcount-box {
+	font-size: 12;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-left: 10px;
@@ -56,7 +59,7 @@
 }
 
 .question-box:hover {
-	border: outset;
+	/*border: solid;*/
 	border-color: rgba(230, 230, 230, 1);
 }
 
@@ -128,7 +131,7 @@
 }
 
 .question:hover .question-useful {
-	display: block;
+	display: none;
 }
 
 .answer-useful {
@@ -136,18 +139,147 @@
 }
 
 .answer:hover .answer-useful {
-		display: block;
-	}
+		display: none;
 }
 
 .reply-box {
-	border: double;
-	/*display: none;*/
+	display: none;
 }
 
 .answer:hover .reply-box {
-		display: block;
-	}
+	display: block;
 }
 
+.profile-summary {
+	font-size: 22;
+	font-weight: 700;
+}
+
+.profile-summary-begin {
+	font-size: 18;
+	font-weight: 700;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.profile-summary-element {
+	font-size: 18;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+}
+
+.profile-important-link:hover {
+	font-size: 22;
+	color: red;
+}
+
+.profile-rest {
+	padding-top: 20px;
+	font-size: 22;
+	font-weight: 700;
+}
+
+.profile-rest-table {
+	font-size: 16;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.profile-rest-table td {
+	width: 200px;
+	height: 60px;
+	border: inset;
+	border-color: rgba(240, 240, 240, 0.8);
+	vertical-align: center;
+	text-align: center;
+}
+
+.profile-rest-table th {
+	width: 200px;
+	height: 60px;
+	border: inset;
+	border-color: rgba(240, 240, 240, 0.8);
+	background-color: rgba(220, 220, 220, 0.8);
+	vertical-align: center;
+	text-align: center;
+}
+
+.profile-rest-table td:first-child {
+	background-color: rgba(230, 230, 230, 0.8);
+}
+
+.profile-rest-table td:first-child + td {
+	font-size: 22;
+	font-weight: 700;
+}
+
+.profile-rest-table td:first-child + td + td {
+	font-size: 22;
+	font-weight: 700;
+}
+
+.relations-title {
+	color: black;
+}
+
+.relations-table {
+	display: none;
+}
+
+.relations-message {
+	font-size: 9;
+}
+
+.question-star-flag {
+	display: none;
+}
+
+.answer-star-flag {
+	display: none;
+}
+
+.user-relations-block {
+	display: none;
+}
+
+.question-relations-block {
+	display: block;
+}
+
+.answer-relations-block {
+	display: block;
+}
+
+.question-useful-row {
+	display: none;
+}
+
+.question-notUseful-row {
+	display: none;
+}
+
+.question-stars-row {
+	display: none;
+}
+
+.question-flags-row {
+	display: none;
+}
+
+.answer-useful-row {
+	display: none;
+}
+
+.answer-notUseful-row {
+	display: none;
+}
+
+.answer-stars-row {
+	display: none;
+}
+
+.answer-flags-row {
+	display: none;
+}
 
