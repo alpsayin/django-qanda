@@ -136,10 +136,10 @@ msgid_plural ""
 "\t\t\t\t\t\t"
 msgstr[0] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s soru sordu"
+"\t\t\t\t\t\t%(counter)s soru sordu."
 msgstr[1] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s sorular sordu"
+"\t\t\t\t\t\t%(counter)s sorular sordu."
 
 #: templates/profile.html:40
 #, python-format
@@ -153,10 +153,10 @@ msgid_plural ""
 "\t\t\t\t\t"
 msgstr[0] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s soru cevapladı"
+"\t\t\t\t\t\t%(counter)s soru cevapladı."
 msgstr[1] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s sorular cevapladı"
+"\t\t\t\t\t\t%(counter)s sorular cevapladı."
 
 #: templates/profile.html:49
 #, python-format
@@ -170,10 +170,10 @@ msgid_plural ""
 "\t\t\t\t\t"
 msgstr[0] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s cevap yazdı"
+"\t\t\t\t\t\t%(counter)s cevap yazdı."
 msgstr[1] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s cevap yazdı"
+"\t\t\t\t\t\t%(counter)s cevap yazdı."
 
 #: templates/profile.html:58
 #, python-format
@@ -187,13 +187,13 @@ msgid_plural ""
 "\t\t\t\t\t"
 msgstr[0] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s cevaba yanıt yazdı"
+"\t\t\t\t\t\t%(counter)s cevaba yanıt yazdı."
 msgstr[1] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s cevaba yanıt yazdı"
+"\t\t\t\t\t\t%(counter)s cevaba yanıt yazdı."
 
 #: templates/profile.html:67
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\t\t\t\t\t\twritten a total of %(counter)s reply to answers.\n"
@@ -204,10 +204,10 @@ msgid_plural ""
 "\t\t\t\t\t"
 msgstr[0] ""
 "\n"
-"\t\t\t\t\t\ttoplamda %(counter)s defa cevap yanıtladı"
+"\t\t\t\t\t\ttoplamda %(counter)s defa cevap yanıtladı."
 msgstr[1] ""
 "\n"
-"\t\t\t\t\t\ttoplamda %(counter)s defa cevap yanıtladı"
+"\t\t\t\t\t\ttoplamda %(counter)s defa cevap yanıtladı."
 
 #: templates/profile.html:77
 msgid "User Relations"
