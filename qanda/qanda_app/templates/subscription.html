@@ -1,4 +1,5 @@
 {% block subscription %}
+{% load i18n %}
 
 <div class="span3">
 	{% if type == 'question_subscription' %}
@@ -8,9 +9,9 @@
 	{% endif %}
 			<i class="icon-envelope"></i>
 			{% if subscribed == 'True' %}
-				Subscribed
+				{% trans "Subscribed" %}
 			{% else %}
-				Subscribe
+				{% trans "Subscribe" %}
 			{% endif %}
 		</a>
 </div>
