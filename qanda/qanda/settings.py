@@ -130,6 +130,11 @@ INSTALLED_APPS = (
     'django_notify',
     'debug_toolbar',
     'haystack',
+    #userena
+    'userena',
+    'guardian',
+    'easy_thumbnails',
+    'accounts',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS={
@@ -143,7 +148,24 @@ TEMPLATE_CONTEXT_PROCESSORS={
     'qanda_app.context_processors.recent_and_common_tags',
 }
 
-LOGIN_URL = '/admin/'
+#USERENA
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+ANONYMOUS_USER_ID = -1
+
+AUTH_PROFILE_MODULE = 'accounts.QandaProfile'
+LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
+
+#QANDA_APP
+# LOGIN_URL = '/admin/'
 
 #used for left hand navbar brand
 SITE_NAME = 'Qanda'

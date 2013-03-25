@@ -21,6 +21,9 @@ urlpatterns = patterns('',
     #haystack
     (r'^search/', include('haystack.urls')),
 
+    #userena
+    (r'^accounts/', include('userena.urls')),
+
 )
 
 urlpatterns += staticfiles_urlpatterns()
