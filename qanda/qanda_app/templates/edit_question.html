@@ -1,7 +1,8 @@
 {% extends "qanda_base.html" %}
+{% load i18n %}
 
 {% block head %}
-	<title> {{ SITE_NAME }} - Edit Question </title>
+	<title> {{ SITE_NAME }} - {% trans "Edit Question" %} </title>
 {% endblock %}
 
 {% block body %}
@@ -18,7 +19,7 @@
 					<div class="questionTitleWrapper">
 				        <label for="id_title">
 							<h2>
-								Title:
+								{% trans "Title" %}:
 			        		</h2>
 			        	{{ question_form.title.errors }}
 				        {{ question_form.title }}
@@ -28,7 +29,7 @@
 					<div class="questionCategoryWrapper">
 				        <label for="id_category">
 				        	<h4>
-				        		Question Category:
+				        		{% trans "Question Category" %}:
 				        	</h4>
 				        {{ question_form.category.errors }}
 				        </label>
@@ -38,7 +39,7 @@
 					<div class="questionTextWrapper">
 				        <label for="id_text">
 				        	<h4>
-				        		Question Text:
+				        		{% trans "Question Text" %}:
 				        	</h4>
 				        {{ question_form.text.errors }}
 				        </label>
@@ -49,13 +50,13 @@
 				        {{ question_form.tags.errors }}
 				        <label for="id_tags">
 				        	<h4>
-				        		Tags:
+				        		{% trans "Tags" %}:
 				        	</h4>
 				        </label>
 				        {{ question_form.tags }}
 					</div>
 
-				<input type="submit" value="Submit" />
+				<input type="submit" value="{% trans 'Submit' %}" />
 				</form>
 			</div>
 
