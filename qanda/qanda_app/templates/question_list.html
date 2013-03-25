@@ -1,16 +1,17 @@
 {% extends "qanda_base.html" %}
+{% load i18n %}
 
 {% block head %}
 	<title> 
 		{{ SITE_NAME }} - 
 		{% if view == 'user_asked_questions_list' %}
-			Asked Questions by {{ qandaUser.djangoUser }}
+			{% blocktrans with user=qandaUser.djangoUser %}Asked Questions by {{ user }} {% endblocktrans %}
 		{% elif view == 'user_answered_questions_list' %}
-			Answered Questions by {{ qandaUser.djangoUser }}
+			{% blocktrans with user=qandaUser.djangoUser %}Answered Questions by {{ user }} {% endblocktrans %}
 		{% elif view == 'user_replied_questions_list' %}
-			Replied Questions by {{ qandaUser.djangoUser }}
+			{% blocktrans with user=qandaUser.djangoUser %}Replied Questions by {{ user }} {% endblocktrans %}
 		{% elif view == 'question_list' %}
-			Recent Questions 
+			{% trans "Recent Questions" %} 
     	{% endif %}
 		{% if category %}
     		-
@@ -27,13 +28,13 @@
 		<div class="row">
 			<h2>
 				{% if view == 'user_asked_questions_list' %}
-					Asked Questions by {{ qandaUser.djangoUser }}
+					{% blocktrans with user=qandaUser.djangoUser %}Asked Questions by {{ user }} {% endblocktrans %}
 				{% elif view == 'user_answered_questions_list' %}
-					Answered Questions by {{ qandaUser.djangoUser }}
+					{% blocktrans with user=qandaUser.djangoUser %}Answered Questions by {{ user }} {% endblocktrans %}
 				{% elif view == 'user_replied_questions_list' %}
-					Replied Questions by {{ qandaUser.djangoUser }}
+					{% blocktrans with user=qandaUser.djangoUser %}Replied Questions by {{ user }} {% endblocktrans %}
 				{% elif view == 'question_list' %}
-					Recent Questions 
+					{% trans "Recent Questions" %} 
 		    	{% endif %}
 				{% if category %}
 		    		-
@@ -46,14 +47,14 @@
 							{% if category %}
 								{{ category }}
 							{% else %}
-								Category Filter
+								{% trans "Category Filter" %}
 							{% endif %}
 							<span class="caret"></span>
 						</a>
 						{% if view == 'user_asked_questions_list' %}
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{% url user_asked_questions_list user_id=qandaUser.pk question_id='0' %}">All</a>
+									<a href="{% url user_asked_questions_list user_id=qandaUser.pk question_id='0' %}">{% trans "All" %}</a>
 								</li>
 								{% for category in categories %}
 									<li>
@@ -64,7 +65,7 @@
 						{% elif view == 'user_answered_questions_list' %}
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{% url user_answered_questions_list user_id=qandaUser.pk question_id='0' %}">All</a>
+									<a href="{% url user_answered_questions_list user_id=qandaUser.pk question_id='0' %}">{% trans "All" %}</a>
 								</li>
 								{% for category in categories %}
 									<li>
@@ -75,7 +76,7 @@
 						{% elif view == 'user_replied_questions_list' %}
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id='0' %}">All</a>
+									<a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id='0' %}">{% trans "All" %}</a>
 								</li>
 								{% for category in categories %}
 									<li>
@@ -86,7 +87,7 @@
 						{% elif view == 'question_list' %}
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{% url question_list question_id='0' %}">All</a>
+									<a href="{% url question_list question_id='0' %}">{% trans "All" %}</a>
 								</li>
 								{% for category in categories %}
 									<li>
@@ -121,29 +122,29 @@
 				{% if category %}
 		    		<li class=""><a href="{% url categorized_user_asked_questions_list user_id=qandaUser.pk category=category question_id=prev %}">Prev</a></li>
 				{% else %}
-		    		<li class=""><a href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=prev %}">Prev</a></li>
+		    		<li class=""><a href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=prev %}">{% trans "Prev" %}</a></li>
 		    	{% endif %}
     		{% elif view == 'user_answered_questions_list' %}
     			{% if category %}
-	    			<li class=""><a href="{% url categorized_user_answered_questions_list user_id=qandaUser.pk category=category question_id=prev %}">Prev</a></li>
+	    			<li class=""><a href="{% url categorized_user_answered_questions_list user_id=qandaUser.pk category=category question_id=prev %}">{% trans "Prev" %}</a></li>
 	    		{% else %}
-	    			<li class=""><a href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=prev %}">Prev</a></li>
+	    			<li class=""><a href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=prev %}">{% trans "Prev" %}</a></li>
     			{% endif %}
     		{% elif view == 'user_replied_questions_list' %}
     			{% if category %}
-	    			<li class=""><a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category question_id=prev %}">Prev</a></li>
+	    			<li class=""><a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category question_id=prev %}">{% trans "Prev" %}</a></li>
 	    		{% else %}
-	    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=prev %}">Prev</a></li>
+	    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=prev %}">{% trans "Prev" %}</a></li>
 	    		{% endif %}
     		{% elif view == 'question_list' %}
     			{% if category %}
-	    			<li class=""><a href="{% url categorized_question_list category=category.name question_id=prev %}">Prev</a></li>
+	    			<li class=""><a href="{% url categorized_question_list category=category.name question_id=prev %}">{% trans "Prev" %}</a></li>
 	    		{% else %}
-	    			<li class=""><a href="{% url question_list question_id=prev %}">Prev</a></li>
+	    			<li class=""><a href="{% url question_list question_id=prev %}">{% trans "Prev" %}</a></li>
 	    		{% endif %}
 	    	{% endif %}
     	{% else %}
-	    	<li class="disabled"><a href="#">Prev</a></li>
+	    	<li class="disabled"><a href="#">{% trans "Prev" %}</a></li>
 		{% endif %}
 			
 			<li class="disabled"><a href="#">_______________________</a></li>
@@ -151,31 +152,31 @@
 		{% if next %}
 			{% if view == 'user_asked_questions_list' %}
 				{% if category %}
-		    		<li class=""><a href="{% url categorized_user_asked_questions_list user_id=qandaUser.pk category=category question_id=next %}">Next</a></li>
+		    		<li class=""><a href="{% url categorized_user_asked_questions_list user_id=qandaUser.pk category=category question_id=next %}">{% trans "Next" %}</a></li>
 				{% else %}
-		    		<li class=""><a href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=next %}">Next</a></li>
+		    		<li class=""><a href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=next %}">{% trans "Next" %}</a></li>
 		    	{% endif %}
     		{% elif view == 'user_answered_questions_list' %}
     			{% if category %}
-	    			<li class=""><a href="{% url categorized_user_answered_questions_list user_id=qandaUser.pk category=category question_id=next %}">Next</a></li>
+	    			<li class=""><a href="{% url categorized_user_answered_questions_list user_id=qandaUser.pk category=category question_id=next %}">{% trans "Next" %}</a></li>
 	    		{% else %}
-	    			<li class=""><a href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=next %}">Next</a></li>
+	    			<li class=""><a href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=next %}">{% trans "Next" %}</a></li>
     			{% endif %}
     		{% elif view == 'user_replied_questions_list' %}
     			{% if category %}
-	    			<li class=""><a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category question_id=next %}">Next</a></li>
+	    			<li class=""><a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category question_id=next %}">{% trans "Next" %}</a></li>
 	    		{% else %}
-	    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=next %}">Next</a></li>
+	    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=next %}">{% trans "Next" %}</a></li>
 	    		{% endif %}
     		{% elif view == 'question_list' %}
     			{% if category %}
-	    			<li class=""><a href="{% url categorized_question_list category=category question_id=next %}">Next</a></li>
+	    			<li class=""><a href="{% url categorized_question_list category=category question_id=next %}">{% trans "Next" %}</a></li>
 	    		{% else %}
-	    			<li class=""><a href="{% url question_list question_id=next %}">Next</a></li>
+	    			<li class=""><a href="{% url question_list question_id=next %}">{% trans "Next" %}</a></li>
 	    		{% endif %}
 	    	{% endif %}
 	    {% else %}
-	    	<li class="disabled"><a href="#">Next</a></li>
+	    	<li class="disabled"><a href="#">{% trans "Next" %}</a></li>
 		{% endif %}
 	  </ul>
 	</div>
