@@ -1,17 +1,19 @@
+{% load i18n %}
+
 <div class="pagination pagination-large text-center">
   <ul>
 	{% if prev or prev == 0 %}
-    	<li class=""><a href="{{ prevhref }}">Prev</a></li>
+    	<li class=""><a href="{{ prevhref }}">{% trans "Prev" %}</a></li>
 	{% else %}
-    	<li class="disabled"><a href="#">Prev</a></li>
+    	<li class="disabled"><a href="#">{% trans "Prev" %}</a></li>
 	{% endif %}
 		
 		<li class="disabled"><a href="#">_______________________</a></li>
 
 	{% if next %}
-    	<li class=""><a href="{{ nexthref }}">Next</a></li>
+    	<li class=""><a href="{{ nexthref }}">{% trans "Next" %}</a></li>
     {% else %}
-    	<li class="disabled"><a href="#">Next</a></li>
+    	<li class="disabled"><a href="#">{% trans "Next" %}</a></li>
 	{% endif %}
   </ul>
 </div>
