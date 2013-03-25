@@ -17,16 +17,18 @@ function checkUncheck(element1, element2)
 	}
 }
 
-function toggleElementVisibility(element, message, speed)
+function toggleElementVisibility(element, message_display, message_hide, speed)
 {
 	$(element).toggle(speed, function(){
 		if ( $(element).is(":visible") )
 		{
-			$(message).html('(click the title to hide)')
+			$(message_display).toggle()
+			$(message_hide).toggle()
 		}
 		else
 		{
-			$(message).html('(click the title to display)')
+			$(message_display).toggle()
+			$(message_hide).toggle()
 		}
 	});
 }
