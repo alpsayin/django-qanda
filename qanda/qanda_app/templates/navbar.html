@@ -1,4 +1,5 @@
 {% block navbar %}
+{% load i18n %}
 
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
@@ -11,15 +12,15 @@
       <a class="brand" href="{{ ROOT_URL }}">{{ SITE_NAME }}</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li {% if view == "question_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.index %}">Home</a></li>
-          <li {% if view == "last_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.most_recent_question %}">Last Question</a></li>
-          <li {% if view == "tag_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.tag_list page="0" %}">Tags</a></li>
-          <li {% if view == "category_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.category_list page="0" %}">Categories</a></li>
-          <li {% if view == "new_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.new_question_page %}">New Question</a></li>
+          <li {% if view == "question_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.index %}">{% trans "Home" %}</a></li>
+          <li {% if view == "last_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.most_recent_question %}">{% blocktrans %}Last Question{% endblocktrans %}</a></li>
+          <li {% if view == "tag_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.tag_list page="0" %}">{% trans "Tags" %}</a></li>
+          <li {% if view == "category_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.category_list page="0" %}">{% trans "Categories" %}</a></li>
+          <li {% if view == "new_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.new_question_page %}">{% trans "New Question" %}</a></li>
           {% if request.user.is_authenticated %}
-          <li {% if view == "profile" %} class="active" {% endif %} ><a href="{% url qanda_app.views.profile_page user_id=request.user.QandaUser.pk %}">Profile</a></li>
+          <li {% if view == "profile" %} class="active" {% endif %} ><a href="{% url qanda_app.views.profile_page user_id=request.user.QandaUser.pk %}">{% trans "Profile" %}</a></li>
           {% else %}
-          <li {% if view == "login" %} class="active" {% endif %} ><a href="{{ LOGIN_URL }}">Login</a></li>
+          <li {% if view == "login" %} class="active" {% endif %} ><a href="{{ LOGIN_URL }}">{% trans "Login" %}</a></li>
           {% endif %}
         </ul>
 
@@ -30,7 +31,7 @@
           <span class="add-on">
             <i class="icon-search"></i>
             
-            <input type="text" name="{{ search_form.q.name }}" id="id_q" class="search-query" placeholder="Search"></input>
+            <input type="text" name="{{ search_form.q.name }}" id="id_q" class="search-query" placeholder="{% trans 'Search' %}"></input>
           </span>
         </div>
       </div>
