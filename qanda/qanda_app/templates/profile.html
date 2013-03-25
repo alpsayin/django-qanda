@@ -58,9 +58,12 @@
 
 			<div class="user-relations-block">
 				<div class="row profile-rest">
-					<a class="relations-title" href="#user-relations-table" onClick="toggleElementVisibility('#user-relations-table', '#user-relations-message', 500);">User Relations</a>
-					<div id="user-relations-message" class="relations-message">
-						(click the title to display)
+					<a class="relations-title" href="#user-relations-table" onClick="toggleElementVisibility('#user-relations-table', '#user-relations-message-display', '#user-relations-message-hide', 500);">{% trans "User Relations" %}</a>
+					<div id="user-relations-message-display" class="relations-message" style="display: block;">
+						({% trans "click the title to display" %})
+					</div>
+					<div id="user-relations-message-hide" class="relations-message" style="display: none;">
+						({% trans "click the title to hide" %})
 					</div>
 				</div>
 				<div id="user-relations-table" class="relations-table">
@@ -104,9 +107,12 @@
 
 			<div class="question-relations-block">
 				<div class="row profile-rest">
-					<a class="relations-title" href="#questions-table" onClick="toggleElementVisibility('#question-relations-table', '#question-relations-message', 500);">Question Relations</a>
-					<div id="question-relations-message" class="relations-message">
-						(click the title to display)
+					<a class="relations-title" href="#questions-table" onClick="toggleElementVisibility('#question-relations-table', '#question-relations-message-display', '#question-relations-message-hide', 500);">{% trans "Question Relations" %}</a>
+					<div id="question-relations-message-display" class="relations-message" style="display: block;">
+						({% trans "click the title to display" %})
+					</div>
+					<div id="question-relations-message-hide" class="relations-message" style="display: none;">
+						({% trans "click the title to hide" %})
 					</div>
 				</div>
 				<div id="question-relations-table" class="relations-table">
@@ -194,9 +200,12 @@
 
 			<div class="answer-relations-block">
 				<div class="row profile-rest">
-					<a class="relations-title" href="#relations-title" onClick="toggleElementVisibility('#answer-relations-table', '#answer-relations-message', 500);">Answer Relations</a>
-					<div id="answer-relations-message" class="relations-message">
-						(click the title to display)
+					<a class="relations-title" href="#relations-title" onClick="toggleElementVisibility('#answer-relations-table', '#answer-relations-message-display', '#answer-relations-message-hide', 500);">{% trans "Answer Relations" %}</a>
+					<div id="answer-relations-message-display" class="relations-message" style="display: block;">
+						({% trans "click the title to display" %})
+					</div>
+					<div id="answer-relations-message-hide" class="relations-message" style="display: none;">
+						({% trans "click the title to hide" %})
 					</div>
 				</div>
 				<div id="answer-relations-table" class="relations-table">
