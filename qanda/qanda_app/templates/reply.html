@@ -1,4 +1,6 @@
 {% block reply %}
+{% load i18n %}
+
 	<form method="post" action="{{ action_link }}">
 		{% csrf_token %}
 		{{ reply_form.non_field_errors }}
@@ -9,11 +11,11 @@
 	        {{ reply_form.text.errors }}
 	        <label for="id_text">
 	        	<h5>
-	        		Reply:
+	        		{% trans "Reply" %}:
 	        	</h5>
 	        	{{ reply_form.text }}
 	        </label>
 		</div>	
-		<input class="btn" type="submit" value="Submit">
+		<input class="btn" type="submit" value="{% trans 'Submit' %}">
 	</form>
 {% endblock %}
