@@ -19,6 +19,7 @@
           <li {% if view == "new_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.new_question_page %}">{% trans "New Question" %}</a></li>
           {% if request.user.is_authenticated %}
           <li {% if view == "profile" %} class="active" {% endif %} ><a href="{% url qanda_app.views.profile_page user_id=request.user.QandaUser.pk %}">{% trans "Profile" %}</a></li>
+          <li {% if view == "logout" %} class="active" {% endif %} ><a href="{{ LOGOUT_URL }}">{% trans "Logout" %}</a></li>
           {% else %}
           <li {% if view == "login" %} class="active" {% endif %} ><a href="{{ LOGIN_URL }}">{% trans "Login" %}</a></li>
           {% endif %}
