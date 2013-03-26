@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 20:43+0200\n"
+"POT-Creation-Date: 2013-03-26 17:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,392 +17,405 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/category_list.html:5 templates/category_list.html.py:14
-#: templates/navbar.html:18
+#: templates/qanda/category_list.html:5 templates/qanda/category_list.html:18
+#: templates/qanda/navbar.html:18
 msgid "Categories"
 msgstr ""
 
-#: templates/category_list.html:17 templates/tag_list.html:17
+#: templates/qanda/category_list.html:21 templates/qanda/tag_list.html:21
 msgid "in alphabetical order"
 msgstr ""
 
-#: templates/category_list.html:29 templates/profile.html:27
+#: templates/qanda/category_list.html:33 templates/qanda/profile.html:31
 msgid "has"
 msgstr ""
 
-#: templates/category_list.html:29
+#: templates/qanda/category_list.html:33
 msgid "question "
 msgid_plural " questions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/category_list.html:43 templates/category_list.html.py:45
-#: templates/pagination.html:6 templates/pagination.html.py:8
-#: templates/question_list.html:125 templates/question_list.html.py:129
-#: templates/question_list.html:131 templates/question_list.html.py:135
-#: templates/question_list.html:137 templates/question_list.html.py:141
-#: templates/question_list.html:143 templates/question_list.html.py:147
-#: templates/tag_list.html:47 templates/tag_list.html.py:49
-#: templates/tag_page.html:55 templates/tag_page.html.py:57
+#: templates/qanda/category_list.html:47 templates/qanda/category_list.html:49
+#: templates/qanda/pagination.html:6 templates/qanda/pagination.html.py:8
+#: templates/qanda/question_list.html:127
+#: templates/qanda/question_list.html:131
+#: templates/qanda/question_list.html:133
+#: templates/qanda/question_list.html:137
+#: templates/qanda/question_list.html:139
+#: templates/qanda/question_list.html:143
+#: templates/qanda/question_list.html:145
+#: templates/qanda/question_list.html:149 templates/qanda/tag_list.html:51
+#: templates/qanda/tag_list.html.py:53 templates/qanda/tag_page.html:59
+#: templates/qanda/tag_page.html.py:61
 msgid "Prev"
 msgstr ""
 
-#: templates/category_list.html:51 templates/category_list.html.py:53
-#: templates/pagination.html:14 templates/pagination.html.py:16
-#: templates/question_list.html:155 templates/question_list.html.py:157
-#: templates/question_list.html:161 templates/question_list.html.py:163
-#: templates/question_list.html:167 templates/question_list.html.py:169
-#: templates/question_list.html:173 templates/question_list.html.py:175
-#: templates/question_list.html:179 templates/tag_list.html:55
-#: templates/tag_list.html.py:57 templates/tag_page.html:63
-#: templates/tag_page.html.py:65
+#: templates/qanda/category_list.html:55 templates/qanda/category_list.html:57
+#: templates/qanda/pagination.html:14 templates/qanda/pagination.html.py:16
+#: templates/qanda/question_list.html:157
+#: templates/qanda/question_list.html:159
+#: templates/qanda/question_list.html:163
+#: templates/qanda/question_list.html:165
+#: templates/qanda/question_list.html:169
+#: templates/qanda/question_list.html:171
+#: templates/qanda/question_list.html:175
+#: templates/qanda/question_list.html:177
+#: templates/qanda/question_list.html:181 templates/qanda/tag_list.html:59
+#: templates/qanda/tag_list.html.py:61 templates/qanda/tag_page.html:67
+#: templates/qanda/tag_page.html.py:69
 msgid "Next"
 msgstr ""
 
-#: templates/edit_question.html:5 templates/question.html:31
+#: templates/qanda/edit_question.html:5 templates/qanda/question.html:35
 msgid "Edit Question"
 msgstr ""
 
-#: templates/edit_question.html:22 templates/new_question.html:22
+#: templates/qanda/edit_question.html:26 templates/qanda/new_question.html:26
 msgid "Title"
 msgstr ""
 
-#: templates/edit_question.html:32 templates/new_question.html:32
+#: templates/qanda/edit_question.html:36 templates/qanda/new_question.html:36
 msgid "Question Category"
 msgstr ""
 
-#: templates/edit_question.html:42 templates/new_question.html:42
+#: templates/qanda/edit_question.html:46 templates/qanda/new_question.html:46
 msgid "Question Text"
 msgstr ""
 
-#: templates/edit_question.html:53 templates/navbar.html:17
-#: templates/new_question.html:53 templates/question.html:78
-#: templates/tag_list.html:14
+#: templates/qanda/edit_question.html:57 templates/qanda/navbar.html:17
+#: templates/qanda/new_question.html:57 templates/qanda/question.html:82
+#: templates/qanda/tag_list.html:18
 msgid "Tags"
 msgstr ""
 
-#: templates/edit_question.html:59 templates/new_answer.html:21
-#: templates/new_question.html:59 templates/relations.html:26
-#: templates/reply.html:19
+#: templates/qanda/edit_question.html:63 templates/qanda/new_answer.html:21
+#: templates/qanda/new_question.html:63 templates/qanda/relations.html:26
+#: templates/qanda/reply.html:19
 msgid "Submit"
 msgstr ""
 
-#: templates/navbar.html:15
+#: templates/qanda/navbar.html:15
 msgid "Home"
 msgstr ""
 
-#: templates/navbar.html:16
+#: templates/qanda/navbar.html:16
 msgid "Last Question"
 msgstr ""
 
-#: templates/navbar.html:19 templates/new_question.html:5
+#: templates/qanda/navbar.html:19 templates/qanda/new_question.html:5
 msgid "New Question"
 msgstr ""
 
-#: templates/navbar.html:21
+#: templates/qanda/navbar.html:21
 msgid "Profile"
 msgstr ""
 
-#: templates/navbar.html:23
+#: templates/qanda/navbar.html:22
+msgid "Logout"
+msgstr ""
+
+#: templates/qanda/navbar.html:24
 msgid "Login"
 msgstr ""
 
-#: templates/navbar.html:34
+#: templates/qanda/navbar.html:35
 msgid "Search"
 msgstr ""
 
-#: templates/new_answer.html:15
+#: templates/qanda/new_answer.html:15
 msgid "Answer"
 msgstr ""
 
-#: templates/profile.html:15
+#: templates/qanda/profile.html:19
 #, python-format
 msgid "Profile Page of %(user)s"
 msgstr ""
 
-#: templates/profile.html:24
+#: templates/qanda/profile.html:28
 msgid "Summary"
 msgstr ""
 
-#: templates/profile.html:31
+#: templates/qanda/profile.html:35
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tasked %(counter)s question.\n"
+"\t\t\t\t\t\t\t\tasked %(counter)s question.\n"
+"\t\t\t\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t\t\t\tasked %(counter)s questions.\n"
+"\t\t\t\t\t\t\t"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/qanda/profile.html:44
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tanswered %(counter)s question.\n"
 "\t\t\t\t\t\t"
 msgid_plural ""
 "\n"
-"\t\t\t\t\t\t\tasked %(counter)s questions.\n"
+"\t\t\t\t\t\t\tanswered %(counter)s questions.\n"
 "\t\t\t\t\t\t"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/profile.html:40
+#: templates/qanda/profile.html:53
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\tanswered %(counter)s question.\n"
-"\t\t\t\t\t"
+"\t\t\t\t\t\t\ta total of %(counter)s answer.\n"
+"\t\t\t\t\t\t"
 msgid_plural ""
 "\n"
-"\t\t\t\t\t\tanswered %(counter)s questions.\n"
-"\t\t\t\t\t"
+"\t\t\t\t\t\t\ta total of %(counter)s answers.\n"
+"\t\t\t\t\t\t"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/profile.html:49
+#: templates/qanda/profile.html:62
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\ta total of %(counter)s answer.\n"
-"\t\t\t\t\t"
+"\t\t\t\t\t\t\treplied to %(counter)s answer.\n"
+"\t\t\t\t\t\t"
 msgid_plural ""
 "\n"
-"\t\t\t\t\t\ta total of %(counter)s answers.\n"
-"\t\t\t\t\t"
+"\t\t\t\t\t\t\treplied to %(counter)s answers.\n"
+"\t\t\t\t\t\t"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/profile.html:58
+#: templates/qanda/profile.html:71
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\treplied to %(counter)s answer.\n"
-"\t\t\t\t\t"
+"\t\t\t\t\t\t\twritten a total of %(counter)s reply to answers.\n"
+"\t\t\t\t\t\t"
 msgid_plural ""
 "\n"
-"\t\t\t\t\t\treplied to %(counter)s answers.\n"
-"\t\t\t\t\t"
+"\t\t\t\t\t\t\twritten a total of %(counter)s replies to answers.\n"
+"\t\t\t\t\t\t"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/profile.html:67
-#, python-format
-msgid ""
-"\n"
-"\t\t\t\t\t\twritten a total of %(counter)s reply to answers.\n"
-"\t\t\t\t\t"
-msgid_plural ""
-"\n"
-"\t\t\t\t\t\twritten a total of %(counter)s replies to answers.\n"
-"\t\t\t\t\t"
-msgstr[0] ""
-msgstr[1] ""
-
-#: templates/profile.html:77
+#: templates/qanda/profile.html:81
 msgid "User Relations"
 msgstr ""
 
-#: templates/profile.html:79 templates/profile.html.py:128
-#: templates/profile.html:221
+#: templates/qanda/profile.html:83 templates/qanda/profile.html.py:132
+#: templates/qanda/profile.html:225
 msgid "click the title to display"
 msgstr ""
 
-#: templates/profile.html:82 templates/profile.html.py:131
-#: templates/profile.html:224
+#: templates/qanda/profile.html:86 templates/qanda/profile.html.py:135
+#: templates/qanda/profile.html:228
 msgid "click the title to hide"
 msgstr ""
 
-#: templates/profile.html:92 templates/profile.html.py:141
-#: templates/profile.html:234
+#: templates/qanda/profile.html:96 templates/qanda/profile.html.py:145
+#: templates/qanda/profile.html:238
 msgid "Taken"
 msgstr ""
 
-#: templates/profile.html:95 templates/profile.html.py:144
-#: templates/profile.html:237
+#: templates/qanda/profile.html:99 templates/qanda/profile.html.py:148
+#: templates/qanda/profile.html:241
 msgid "Given"
 msgstr ""
 
-#: templates/profile.html:100
+#: templates/qanda/profile.html:104
 msgid "User Stars"
 msgstr ""
 
-#: templates/profile.html:111
+#: templates/qanda/profile.html:115
 msgid "User Flags"
 msgstr ""
 
-#: templates/profile.html:126
+#: templates/qanda/profile.html:130
 msgid "Question Relations"
 msgstr ""
 
-#: templates/profile.html:149 templates/profile.html.py:242
+#: templates/qanda/profile.html:153 templates/qanda/profile.html.py:246
 msgid "Upvotes"
 msgstr ""
 
-#: templates/profile.html:160 templates/profile.html.py:253
+#: templates/qanda/profile.html:164 templates/qanda/profile.html.py:257
 msgid "Downvotes"
 msgstr ""
 
-#: templates/profile.html:171 templates/profile.html.py:264
+#: templates/qanda/profile.html:175 templates/qanda/profile.html.py:268
 msgid "Found Useful"
 msgstr ""
 
-#: templates/profile.html:182 templates/profile.html.py:275
+#: templates/qanda/profile.html:186 templates/qanda/profile.html.py:279
 msgid "Didn't Found Useful"
 msgstr ""
 
-#: templates/profile.html:193 templates/profile.html.py:286
+#: templates/qanda/profile.html:197 templates/qanda/profile.html.py:290
 msgid "Stars"
 msgstr ""
 
-#: templates/profile.html:204 templates/profile.html.py:297
+#: templates/qanda/profile.html:208 templates/qanda/profile.html.py:301
 msgid "Flags"
 msgstr ""
 
-#: templates/profile.html:219
+#: templates/qanda/profile.html:223
 msgid "Answer Relations"
 msgstr ""
 
-#: templates/question.html:16 templates/question.html.py:109
+#: templates/qanda/question.html:20 templates/qanda/question.html.py:113
 msgid "Up"
 msgstr ""
 
-#: templates/question.html:25 templates/question.html.py:118
+#: templates/qanda/question.html:29 templates/qanda/question.html.py:122
 msgid "Down"
 msgstr ""
 
-#: templates/question.html:41 templates/question.html.py:145
-#: templates/question.html:170 templates/question_listing_base.html:32
+#: templates/qanda/question.html:45 templates/qanda/question.html.py:149
+#: templates/qanda/question.html:174
+#: templates/qanda/question_listing_base.html:32
 msgid "by"
 msgstr ""
 
-#: templates/question.html:63 templates/question.html.py:128
+#: templates/qanda/question.html:67 templates/qanda/question.html.py:132
 msgid "Starred"
 msgstr ""
 
-#: templates/question.html:65 templates/question.html.py:130
-#: templates/relations.html:24
+#: templates/qanda/question.html:69 templates/qanda/question.html.py:134
+#: templates/qanda/relations.html:24
 msgid "Star"
 msgstr ""
 
-#: templates/question.html:71 templates/question.html.py:136
-#: templates/relations.html:25
+#: templates/qanda/question.html:75 templates/qanda/question.html.py:140
+#: templates/qanda/relations.html:25
 msgid "Flag"
 msgstr ""
 
-#: templates/question.html:88
+#: templates/qanda/question.html:92
 msgid "Have you found this question useful?"
 msgstr ""
 
-#: templates/question.html:89 templates/question.html.py:158
+#: templates/qanda/question.html:93 templates/qanda/question.html.py:162
 msgid "Yes"
 msgstr ""
 
-#: templates/question.html:90 templates/question.html.py:159
+#: templates/qanda/question.html:94 templates/qanda/question.html.py:163
 msgid "No"
 msgstr ""
 
-#: templates/question.html:147
+#: templates/qanda/question.html:151
 msgid "Delete Answer"
 msgstr ""
 
-#: templates/question.html:157
+#: templates/qanda/question.html:161
 msgid "Have you found this answer useful?"
 msgstr ""
 
-#: templates/question.html:183
+#: templates/qanda/question.html:187
 msgid "Login to reply"
 msgstr ""
 
-#: templates/question.html:194
+#: templates/qanda/question.html:198
 msgid "Answer this question"
 msgstr ""
 
-#: templates/question_list.html:8 templates/question_list.html.py:31
+#: templates/qanda/question_list.html:7 templates/qanda/question_list.html:33
 #, python-format
 msgid "Asked Questions by %(user)s "
 msgstr ""
 
-#: templates/question_list.html:10 templates/question_list.html.py:33
+#: templates/qanda/question_list.html:9 templates/qanda/question_list.html:35
 #, python-format
 msgid "Answered Questions by %(user)s "
 msgstr ""
 
-#: templates/question_list.html:12 templates/question_list.html.py:35
+#: templates/qanda/question_list.html:11 templates/qanda/question_list.html:37
 #, python-format
 msgid "Replied Questions by %(user)s "
 msgstr ""
 
-#: templates/question_list.html:14 templates/question_list.html.py:37
+#: templates/qanda/question_list.html:13 templates/qanda/question_list.html:39
 msgid "Recent Questions"
 msgstr ""
 
-#: templates/question_list.html:50 templates/tag_page.html:20
+#: templates/qanda/question_list.html:52 templates/qanda/tag_page.html:24
 msgid "Category Filter"
 msgstr ""
 
-#: templates/question_list.html:57 templates/question_list.html.py:68
-#: templates/question_list.html:79 templates/question_list.html.py:90
-#: templates/tag_page.html:25
+#: templates/qanda/question_list.html:59 templates/qanda/question_list.html:70
+#: templates/qanda/question_list.html:81 templates/qanda/question_list.html:92
+#: templates/qanda/tag_page.html:29
 msgid "All"
 msgstr ""
 
-#: templates/question_listing_base.html:9
+#: templates/qanda/question_listing_base.html:9
 msgid "Votes"
 msgstr ""
 
-#: templates/question_listing_base.html:12
+#: templates/qanda/question_listing_base.html:12
 msgid "Answers"
 msgstr ""
 
-#: templates/question_listing_base.html:15
+#: templates/qanda/question_listing_base.html:15
 msgid "Views"
 msgstr ""
 
-#: templates/relations.html:20
+#: templates/qanda/relations.html:20
 msgid "Upvote"
 msgstr ""
 
-#: templates/relations.html:21
+#: templates/qanda/relations.html:21
 msgid "Downvote"
 msgstr ""
 
-#: templates/relations.html:22
+#: templates/qanda/relations.html:22
 msgid "Useful"
 msgstr ""
 
-#: templates/relations.html:23
+#: templates/qanda/relations.html:23
 msgid "Not Useful"
 msgstr ""
 
-#: templates/reply.html:14
+#: templates/qanda/reply.html:14
 msgid "Reply"
 msgstr ""
 
-#: templates/righthand_tags.html:5
+#: templates/qanda/righthand_tags.html:5
 msgid "Recent Tags"
 msgstr "Recent Tags"
 
-#: templates/righthand_tags.html:16
+#: templates/qanda/righthand_tags.html:16
 msgid "Common Tags"
 msgstr "Common Tags"
 
-#: templates/subscription.html:12
+#: templates/qanda/subscription.html:12
 msgid "Subscribed"
 msgstr ""
 
-#: templates/subscription.html:14
+#: templates/qanda/subscription.html:14
 msgid "Subscribe"
 msgstr ""
 
-#: templates/tag_list.html:5
+#: templates/qanda/tag_list.html:5
 msgid "Tag List"
 msgstr ""
 
-#: templates/tag_list.html:29
+#: templates/qanda/tag_list.html:33
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\t\t  - used %(counter)s time\n"
-"\t\t\t\t\t\t\t\t\t"
+"\t\t\t\t\t\t\t\t\t\t  - used %(counter)s time\n"
+"\t\t\t\t\t\t\t\t\t\t"
 msgid_plural ""
 "\n"
-"\t\t\t\t\t\t\t\t\t  - used %(counter)s times\n"
-"\t\t\t\t\t\t\t\t\t"
+"\t\t\t\t\t\t\t\t\t\t  - used %(counter)s times\n"
+"\t\t\t\t\t\t\t\t\t\t"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/tag_page.html:5 templates/tag_page.html.py:15
+#: templates/qanda/tag_page.html:5 templates/qanda/tag_page.html.py:19
 #, python-format
 msgid "Questions with \"%(tag)s\" tag "
 msgstr ""
