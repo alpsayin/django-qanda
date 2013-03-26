@@ -168,7 +168,7 @@ LOGOUT_URL = '/accounts/signout/'
 # LOGIN_URL = '/admin/'
 
 #used for left hand navbar brand
-SITE_NAME = 'Qanda'
+SITE_NAME = 'Inforigo'
 
 #must be a static address like below
 ROOT_URL = 'http://localhost:8000/qanda/'
