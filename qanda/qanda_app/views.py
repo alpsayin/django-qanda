@@ -158,7 +158,7 @@ def profile_page(request, user_id):
 	context = {}
 	qandaUser = get_object_or_404(QandaUser, pk=user_id)
 	context['qandaUser'] = qandaUser
-	return render_to_response("profile.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/profile.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 def question_list(request, question_id, category):
@@ -205,7 +205,7 @@ def question_list(request, question_id, category):
 	context['categories'] = Category.objects.all()
 	context['category'] = category
 
-	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 def user_asked_questions_list(request, user_id, question_id, category):
@@ -253,7 +253,7 @@ def user_asked_questions_list(request, user_id, question_id, category):
 	context['qandaUser'] = qandaUser
 	context['category'] = category
 
-	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 def user_answered_questions_list(request, user_id, question_id, category):
@@ -301,7 +301,7 @@ def user_answered_questions_list(request, user_id, question_id, category):
 	context['qandaUser'] = qandaUser
 	context['category'] = category
 
-	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 def user_replied_questions_list(request, user_id, question_id, category):
@@ -349,7 +349,7 @@ def user_replied_questions_list(request, user_id, question_id, category):
 	context['qandaUser'] = qandaUser
 	context['category'] = category
 
-	return render_to_response("question_list.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 def category_list(request, page):
@@ -374,7 +374,7 @@ def category_list(request, page):
 
 	context['current_page_number'] = page
 
-	return render_to_response("category_list.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/category_list.html", context, context_instance=RequestContext(request))
 
 
 @assert_qanda_user
@@ -400,7 +400,7 @@ def tag_list(request, page):
 
 	context['current_page_number'] = page
 
-	return render_to_response("tag_list.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/tag_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 def tag_page(request, tag, page):
@@ -425,7 +425,7 @@ def tag_page(request, tag, page):
 	context['categories'] = Category.objects.all()
 	context['current_page_number'] = page
 
-	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/tag_page.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 def categorized_tag_page(request, category, tag, page):
@@ -451,7 +451,7 @@ def categorized_tag_page(request, category, tag, page):
 	context['categories'] = Category.objects.all()
 	context['current_page_number'] = page
 
-	return render_to_response("tag_page.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/tag_page.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 def most_recent_question(request):
@@ -492,7 +492,7 @@ def edit_question_page(request, question_id):
 	context['view'] = 'new_question_page'
 	context['debug'] = ''
 
-	return render_to_response("edit_question.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/edit_question.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
 @login_required
@@ -514,7 +514,7 @@ def new_question_page(request):
 	context['view'] = 'new_question_page'
 	context['debug'] = ''
 
-	return render_to_response("new_question.html", context, context_instance=RequestContext(request))
+	return render_to_response("qanda/new_question.html", context, context_instance=RequestContext(request))
 
 def delete_answer(request, answer_id):
 	answer = get_object_or_404(Answer, pk=answer_id)
@@ -585,5 +585,5 @@ def question_page(request, question_id):
 
 
 	Question.objects.increment_view_count(question)
-	return render_to_response('question.html', context, context_instance=RequestContext(request))
+	return render_to_response('qanda/question.html', context, context_instance=RequestContext(request))
 

@@ -1,13 +1,13 @@
-{% extends "qanda_base.html" %}
+{% extends "qanda/qanda_base.html" %}
 {% load i18n %}
 
 {% block head %}
-	<title> {{ SITE_NAME }} - {% trans "New Question" %} </title>
+	<title> {{ SITE_NAME }} - {% trans "Edit Question" %} </title>
 {% endblock %}
 
 {% block body %}
 
-	{% block new_question %}
+	{% block edit_question %}
 
 		<div class="row">
 			<div class="span6">
@@ -60,7 +60,7 @@
 				</form>
 			</div>
 
-			{% include "righthand_tags.html" %}
+			{% include "qanda/righthand_tags.html" %}
 			
 		</div>
 
