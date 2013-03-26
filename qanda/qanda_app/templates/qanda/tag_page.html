@@ -1,79 +1,87 @@
 {% extends "qanda/qanda_base.html" %}
 {% load i18n %}
 
-{% block head %}
-	<title> {{ SITE_NAME }} - {% blocktrans with tag=tag %}Questions with "{{ tag }}" tag {% endblocktrans %}</title>
+{% block title %}
+	{{ SITE_NAME }} - {% blocktrans with tag=tag %}Questions with "{{ tag }}" tag {% endblocktrans %}
 {% endblock %}
 
 {% block body %}
 
-	{% block question_list %}
+	<div class="container">
 
-	<div class="row">
+	    {% include "qanda/navbar.html" %}
+
+		{% block question_list %}
+
 		<div class="row">
-			<h2>
-				{% blocktrans with tag=tag %}Questions with "{{ tag }}" tag {% endblocktrans %}
+			<div class="row">
+				<h2>
+					{% blocktrans with tag=tag %}Questions with "{{ tag }}" tag {% endblocktrans %}
 
-				<div class="pull-right">
-					<div class="btn-group btn-large">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-							{% trans "Category Filter" %}
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="{% url qanda_app.views.tag_page tag=tag page='0' %}">{% trans "All" %}</a>
-							</li>
-							{% for category in categories %}
+					<div class="pull-right">
+						<div class="btn-group btn-large">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								{% trans "Category Filter" %}
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
 								<li>
-									<a href="{% url qanda_app.views.categorized_tag_page category=category.name tag=tag page='0' %}">{{ category.name }}</a>
+									<a href="{% url qanda_app.views.tag_page tag=tag page='0' %}">{% trans "All" %}</a>
 								</li>
-							{% endfor %}
-						</ul>
+								{% for category in categories %}
+									<li>
+										<a href="{% url qanda_app.views.categorized_tag_page category=category.name tag=tag page='0' %}">{{ category.name }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
 					</div>
-				</div>
-			</h2>
+				</h2>
+			</div>
+
+			<div class="row">
+				<p></p>
+			</div>
+			
+			{% include "qanda/question_listing_base.html" %}
+
+			{% include "qanda/righthand_tags.html" %}
+
+		</div>
+		
+		<div class="row">
+			<p></p>
+		</div>
+
+		<div class="pagination pagination-large text-center">
+		  <ul>
+			{% if prev or prev == 0 %}
+		    	<li class=""><a href="{% url qanda_app.views.tag_page tag=tag page=prev %}">{% trans "Prev" %}</a></li>
+	    	{% else %}
+		    	<li class="disabled"><a href="#">{% trans "Prev" %}</a></li>
+			{% endif %}
+				
+				<li class="disabled"><a href="#">_______________________</a></li>
+				
+			{% if next %}
+		    	<li class=""><a href="{% url qanda_app.views.tag_page tag=tag page=next %}">{% trans "Next" %}</a></li>
+		    {% else %}
+		    	<li class="disabled"><a href="#">{% trans "Next" %}</a></li>
+			{% endif %}
+		  </ul>
 		</div>
 
 		<div class="row">
 			<p></p>
 		</div>
-		
-		{% include "qanda/question_listing_base.html" %}
+		<div class="row">
+			<p></p>
+		</div>
 
-		{% include "qanda/righthand_tags.html" %}
+		{% endblock %}
+
+		{% include "qanda/scripts.html" %}
 
 	</div>
-	
-	<div class="row">
-		<p></p>
-	</div>
-
-	<div class="pagination pagination-large text-center">
-	  <ul>
-		{% if prev or prev == 0 %}
-	    	<li class=""><a href="{% url qanda_app.views.tag_page tag=tag page=prev %}">{% trans "Prev" %}</a></li>
-    	{% else %}
-	    	<li class="disabled"><a href="#">{% trans "Prev" %}</a></li>
-		{% endif %}
-			
-			<li class="disabled"><a href="#">_______________________</a></li>
-			
-		{% if next %}
-	    	<li class=""><a href="{% url qanda_app.views.tag_page tag=tag page=next %}">{% trans "Next" %}</a></li>
-	    {% else %}
-	    	<li class="disabled"><a href="#">{% trans "Next" %}</a></li>
-		{% endif %}
-	  </ul>
-	</div>
-
-	<div class="row">
-		<p></p>
-	</div>
-	<div class="row">
-		<p></p>
-	</div>
-
-	{% endblock %}
 
 {% endblock %}

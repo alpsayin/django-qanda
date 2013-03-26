@@ -1,130 +1,69 @@
 {% extends "qanda/qanda_base.html" %}
 {% load i18n %}
 
-{% block head %}
-	<title> {{ SITE_NAME}} - {{ question.title }} </title>
+{% block title %}
+	{{ SITE_NAME}} - {{ question.title }}
 {% endblock %}
 
 {% block body %}
 
-	{{ debug }}
-	<div class="row">
-		<div class="span10">
-			<div class="question">
-				<div class="row">
-					<div class="pull-left">
-						<a href="relate_single/upvote/{% if question.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;{% trans "Up" %}&nbsp;&nbsp;&nbsp;</a>
-						<br/>
-						<h4 class="text-center">
-							{% if question.numOfVotes > 0 %}
-								+ {{ question.numOfVotes }}
-							{% else %}
-								{{ question.numOfVotes }}
-							{% endif %}
-						</h4>
-						<a href="relate_single/downvote/{% if question.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>{% trans "Down" %}</a>
-					</div>
-					<div class="span8">
-						<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
-						{% if question.author.djangoUser == user %}
-						<div class="span6">
-							<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a>
-						</div>
-						{% endif %}
-					</div>
-				</div>
-				<div class="row">
-					<p></p>
-				</div>
-				<div class="row">
-					<div class="span6">
-						{% trans "by" %}: <i><a href="{{ question.author.get_absolute_url }}">{{ question.author }}</a></i> <br />
-						{{ question.postDate }} <br />
-					</div>
-					<div class="span3">
-						{% include "qanda/subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" subscribed=question.subscribed %}
-					</div>
-				</div>
-				<div class="row">
-					<p></p>
-				</div>
-				<div class="row">
-					<div class="span8">
-						<blockquote>
-						{{ question.text }}  
-						</blockquote>
-					</div>
-					<!-- <div class="span2">
-						{% include "qanda/relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
-					</div> -->
-					<div class="span2 question-star-flag">
-						<a href="relate_single/star/{% if question.relations.star %}false{%else%}true{% endif %}" class="btn {% if question.relations.star %} active {% endif %}">
-							{% if question.relations.star %}
-								<i class="icon-star"></i> {% trans "Starred" %}
-							{% else %}									
-								<i class="icon-star-empty"></i> {% trans "Star" %}
-							{% endif %}
-						</a>
-						<br/>
-						<br/>
-						<a href="relate_single/flag/{% if question.relations.flag %}false{%else%}true{% endif %}" class="btn {% if question.relations.flag %} active {% endif %}">
-							<i class="icon-flag"></i> {% trans "Flag" %}
-						</a>
-					</div>
-				</div>
-				<div class="row">
-					<div class="span8">
-						<ul>
-							{% trans "Tags" %}:
-							{% for tag in question.tags.all %}
-								<a href="{% url qanda_app.views.tag_page tag=tag.name page="0" %}">{{ tag.name }},</a>
-							{% endfor %}
-						</ul>	
-					</div>
-				</div>
-				<div class="row">
-					<div class="span8 question-useful">
-						<h6>
-							{% trans "Have you found this question useful?" %}
-							<a href="relate_single/useful/{% if question.relations.useful %}false{%else%}true{% endif %}" class="btn {% if question.relations.useful %} active {% endif %}">{% trans "Yes" %}</a>
-							<a href="relate_single/notUseful/{% if question.relations.notUseful %}false{%else%}true{% endif %}" class="btn {% if question.relations.notUseful %} active {% endif %}">{% trans "No" %}</a>
-						</h6>
-					</div>
-				</div>
-			</div>
+	<div class="container">
 
-			<!-- <div class="row">
-				<div class="span8">
-					<a href="{% url new_question_page %}">Enter a new question</a> <br />
-				</div>
-			</div> -->
-			<hr>
+	    {% include "qanda/navbar.html" %}
 
-			{% for answer in answers %}
-			<div class ="row answer">
-				<div class="span9">
-				<p>
+		{{ debug }}
+		<div class="row">
+			<div class="span10">
+				<div class="question">
 					<div class="row">
 						<div class="pull-left">
-							<a href="{{ answer.pk }}/upvote/{% if answer.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;{% trans "Up" %}&nbsp;&nbsp;&nbsp;</a>
+							<a href="relate_single/upvote/{% if question.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;{% trans "Up" %}&nbsp;&nbsp;&nbsp;</a>
 							<br/>
 							<h4 class="text-center">
-								{% if answer.numOfVotes > 0 %}
-									+ {{ answer.numOfVotes }}
+								{% if question.numOfVotes > 0 %}
+									+ {{ question.numOfVotes }}
 								{% else %}
-									{{ answer.numOfVotes }}
+									{{ question.numOfVotes }}
 								{% endif %}
 							</h4>
-							<a href="{{ answer.pk }}/downvote/{% if answer.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>{% trans "Down" %}</a>
+							<a href="relate_single/downvote/{% if question.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>{% trans "Down" %}</a>
 						</div>
-						<div class="span7">
+						<div class="span8">
+							<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
+							{% if question.author.djangoUser == user %}
+							<div class="span6">
+								<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="row">
+						<p></p>
+					</div>
+					<div class="row">
+						<div class="span6">
+							{% trans "by" %}: <i><a href="{{ question.author.get_absolute_url }}">{{ question.author }}</a></i> <br />
+							{{ question.postDate }} <br />
+						</div>
+						<div class="span3">
+							{% include "qanda/subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" subscribed=question.subscribed %}
+						</div>
+					</div>
+					<div class="row">
+						<p></p>
+					</div>
+					<div class="row">
+						<div class="span8">
 							<blockquote>
-								{{ answer.text }} 
+							{{ question.text }}  
 							</blockquote>
 						</div>
-						<div class="pull-right answer-star-flag">
-							<a href="{{ answer.pk }}/star/{% if answer.relations.star %}false{%else%}true{% endif %}" class="btn {% if answer.relations.star %} active {% endif %}">
-								{% if answer.relations.star %}
+						<!-- <div class="span2">
+							{% include "qanda/relations.html" with relations=question.relations pk=question.pk type="question" action_link="relate/" %}
+						</div> -->
+						<div class="span2 question-star-flag">
+							<a href="relate_single/star/{% if question.relations.star %}false{%else%}true{% endif %}" class="btn {% if question.relations.star %} active {% endif %}">
+								{% if question.relations.star %}
 									<i class="icon-star"></i> {% trans "Starred" %}
 								{% else %}									
 									<i class="icon-star-empty"></i> {% trans "Star" %}
@@ -132,72 +71,141 @@
 							</a>
 							<br/>
 							<br/>
-							<a href="{{ answer.pk }}/flag/{% if answer.relations.flag %}false{%else%}true{% endif %}" class="btn {% if answer.relations.flag %} active {% endif %}">
+							<a href="relate_single/flag/{% if question.relations.flag %}false{%else%}true{% endif %}" class="btn {% if question.relations.flag %} active {% endif %}">
 								<i class="icon-flag"></i> {% trans "Flag" %}
 							</a>
 						</div>
-						<!-- <div class="span1">
-							{% include "qanda/relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
-						</div> -->
 					</div>
 					<div class="row">
-						<div class="span5 offset1">
-							{% trans "by" %}: <i><a href="{{ answer.author.get_absolute_url }}">{{ answer.author }}</a></i>
-							{% if answer.author.djangoUser == user %}
-								<a class="edit-answer pull-right" href="{% url delete_answer answer_id=answer.pk %}">{% trans "Delete Answer" %}</a>
-							{% endif %}
-						</div>
-						<div class="span1">
-							{% include "qanda/subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" subscribed=answer.subscribed %}
+						<div class="span8">
+							<ul>
+								{% trans "Tags" %}:
+								{% for tag in question.tags.all %}
+									<a href="{% url qanda_app.views.tag_page tag=tag.name page="0" %}">{{ tag.name }},</a>
+								{% endfor %}
+							</ul>	
 						</div>
 					</div>
-					<div class="row answer-useful">
-						<div class="span5 offset1">
+					<div class="row">
+						<div class="span8 question-useful">
 							<h6>
-								{% trans "Have you found this answer useful?" %}
-								<a href="{{ answer.pk }}/useful/{% if answer.relations.useful %}false{%else%}true{% endif %}" class="btn {% if answer.relations.useful %} active {% endif %}">{% trans "Yes" %}</a>
-								<a href="{{ answer.pk }}/notUseful/{% if answer.relations.notUseful %}false{%else%}true{% endif %}" class="btn {% if answer.relations.notUseful %} active {% endif %}">{% trans "No" %}</a>
+								{% trans "Have you found this question useful?" %}
+								<a href="relate_single/useful/{% if question.relations.useful %}false{%else%}true{% endif %}" class="btn {% if question.relations.useful %} active {% endif %}">{% trans "Yes" %}</a>
+								<a href="relate_single/notUseful/{% if question.relations.notUseful %}false{%else%}true{% endif %}" class="btn {% if question.relations.notUseful %} active {% endif %}">{% trans "No" %}</a>
 							</h6>
 						</div>
 					</div>
-					
-					{% for reply in answer.replies.all %}
-						{% if not reply.deleted %}
-							<div class="row">
-								<div class="span6 offset2">
-									<hr>
-									{{ reply.text }} <br />
-									{% trans "by" %} <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author }}</a></i> <br />
-								</div>
+				</div>
+
+				<!-- <div class="row">
+					<div class="span8">
+						<a href="{% url new_question_page %}">Enter a new question</a> <br />
+					</div>
+				</div> -->
+				<hr>
+
+				{% for answer in answers %}
+				<div class ="row answer">
+					<div class="span9">
+					<p>
+						<div class="row">
+							<div class="pull-left">
+								<a href="{{ answer.pk }}/upvote/{% if answer.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;{% trans "Up" %}&nbsp;&nbsp;&nbsp;</a>
+								<br/>
+								<h4 class="text-center">
+									{% if answer.numOfVotes > 0 %}
+										+ {{ answer.numOfVotes }}
+									{% else %}
+										{{ answer.numOfVotes }}
+									{% endif %}
+								</h4>
+								<a href="{{ answer.pk }}/downvote/{% if answer.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>{% trans "Down" %}</a>
+							</div>
+							<div class="span7">
+								<blockquote>
+									{{ answer.text }} 
+								</blockquote>
+							</div>
+							<div class="pull-right answer-star-flag">
+								<a href="{{ answer.pk }}/star/{% if answer.relations.star %}false{%else%}true{% endif %}" class="btn {% if answer.relations.star %} active {% endif %}">
+									{% if answer.relations.star %}
+										<i class="icon-star"></i> {% trans "Starred" %}
+									{% else %}									
+										<i class="icon-star-empty"></i> {% trans "Star" %}
+									{% endif %}
+								</a>
+								<br/>
+								<br/>
+								<a href="{{ answer.pk }}/flag/{% if answer.relations.flag %}false{%else%}true{% endif %}" class="btn {% if answer.relations.flag %} active {% endif %}">
+									<i class="icon-flag"></i> {% trans "Flag" %}
+								</a>
+							</div>
+							<!-- <div class="span1">
+								{% include "qanda/relations.html" with relations=answer.relations pk=answer.pk type="answer" action_link="relate/" %} <br />
+							</div> -->
+						</div>
+						<div class="row">
+							<div class="span5 offset1">
+								{% trans "by" %}: <i><a href="{{ answer.author.get_absolute_url }}">{{ answer.author }}</a></i>
+								{% if answer.author.djangoUser == user %}
+									<a class="edit-answer pull-right" href="{% url delete_answer answer_id=answer.pk %}">{% trans "Delete Answer" %}</a>
 								{% endif %}
 							</div>
-					{% endfor %}
-					<div class="row">
-						<p></p>
-					</div>
-					<div class="row reply-box">
-						<div class="offset1">
-							{% if user.is_authenticated %}
-								{% include "reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
-							{% else %}
-								<a href="{% url qanda_app.views.login_redirect request.path %}">{% trans "Login to reply" %}</a>
-							{% endif %}
+							<div class="span1">
+								{% include "qanda/subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" subscribed=answer.subscribed %}
+							</div>
 						</div>
+						<div class="row answer-useful">
+							<div class="span5 offset1">
+								<h6>
+									{% trans "Have you found this answer useful?" %}
+									<a href="{{ answer.pk }}/useful/{% if answer.relations.useful %}false{%else%}true{% endif %}" class="btn {% if answer.relations.useful %} active {% endif %}">{% trans "Yes" %}</a>
+									<a href="{{ answer.pk }}/notUseful/{% if answer.relations.notUseful %}false{%else%}true{% endif %}" class="btn {% if answer.relations.notUseful %} active {% endif %}">{% trans "No" %}</a>
+								</h6>
+							</div>
+						</div>
+						
+						{% for reply in answer.replies.all %}
+							{% if not reply.deleted %}
+								<div class="row">
+									<div class="span6 offset2">
+										<hr>
+										{{ reply.text }} <br />
+										{% trans "by" %} <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author }}</a></i> <br />
+									</div>
+									{% endif %}
+								</div>
+						{% endfor %}
+						<div class="row">
+							<p></p>
+						</div>
+						<div class="row reply-box">
+							<div class="offset1">
+								{% if user.is_authenticated %}
+									{% include "qanda/reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
+								{% else %}
+									<a href="{% url qanda_app.views.login_redirect request.path %}">{% trans "Login to reply" %}</a>
+								{% endif %}
+							</div>
+						</div>
+						<hr>
+					</p>
 					</div>
-					<hr>
-				</p>
+				</div>
+				{% endfor %}
+
+				<div class="row">
+					<h3> {% trans "Answer this question" %} </h3>
+
+					{% include "qanda/new_answer.html" with type="new_answer" action_link="relate/" %}
 				</div>
 			</div>
-			{% endfor %}
 
-			<div class="row">
-				<h3> {% trans "Answer this question" %} </h3>
+			{% include "qanda/righthand_tags.html" %}
 
-				{% include "qanda/new_answer.html" with type="new_answer" action_link="relate/" %}
-			</div>
 		</div>
 
-		{% include "qanda/righthand_tags.html" %}
+		{% include "qanda/scripts.html" %}
 
 	</div>
 

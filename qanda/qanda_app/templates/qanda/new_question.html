@@ -1,69 +1,77 @@
 {% extends "qanda/qanda_base.html" %}
 {% load i18n %}
 
-{% block head %}
-	<title> {{ SITE_NAME }} - {% trans "New Question" %} </title>
+{% block title %}
+	{{ SITE_NAME }} - {% trans "New Question" %}
 {% endblock %}
 
 {% block body %}
 
-	{% block new_question %}
+	<div class="container">
 
-		<div class="row">
-			<div class="span6">
-				<form method="post" action="{{ action_link }}">
-					{% csrf_token %}
-					{{ question_form.non_field_errors }}
-					<input type="hidden" name="pk" value="{{ pk }}">
-					<input type="hidden" name="type" value="{{ type }}">
-					<div class="questionTitleWrapper">
-				        <label for="id_title">
-							<h2>
-								{% trans "Title" %}:
-			        		</h2>
-			        	{{ question_form.title.errors }}
-				        {{ question_form.title }}
-						</label>
-					</div>
+	    {% include "qanda/navbar.html" %}
 
-					<div class="questionCategoryWrapper">
-				        <label for="id_category">
-				        	<h4>
-				        		{% trans "Question Category" %}:
-				        	</h4>
-				        {{ question_form.category.errors }}
-				        </label>
-				        {{ question_form.category }}
-					</div>
+		{% block new_question %}
 
-					<div class="questionTextWrapper">
-				        <label for="id_text">
-				        	<h4>
-				        		{% trans "Question Text" %}:
-				        	</h4>
-				        {{ question_form.text.errors }}
-				        </label>
-				        {{ question_form.text }}
-					</div>
+			<div class="row">
+				<div class="span6">
+					<form method="post" action="{{ action_link }}">
+						{% csrf_token %}
+						{{ question_form.non_field_errors }}
+						<input type="hidden" name="pk" value="{{ pk }}">
+						<input type="hidden" name="type" value="{{ type }}">
+						<div class="questionTitleWrapper">
+					        <label for="id_title">
+								<h2>
+									{% trans "Title" %}:
+				        		</h2>
+				        	{{ question_form.title.errors }}
+					        {{ question_form.title }}
+							</label>
+						</div>
 
-					<div class="questionTagsWrapper">
-				        {{ question_form.tags.errors }}
-				        <label for="id_tags">
-				        	<h4>
-				        		{% trans "Tags" %}:
-				        	</h4>
-				        </label>
-				        {{ question_form.tags }}
-					</div>
+						<div class="questionCategoryWrapper">
+					        <label for="id_category">
+					        	<h4>
+					        		{% trans "Question Category" %}:
+					        	</h4>
+					        {{ question_form.category.errors }}
+					        </label>
+					        {{ question_form.category }}
+						</div>
 
-				<input type="submit" value="{% trans 'Submit' %}" />
-				</form>
+						<div class="questionTextWrapper">
+					        <label for="id_text">
+					        	<h4>
+					        		{% trans "Question Text" %}:
+					        	</h4>
+					        {{ question_form.text.errors }}
+					        </label>
+					        {{ question_form.text }}
+						</div>
+
+						<div class="questionTagsWrapper">
+					        {{ question_form.tags.errors }}
+					        <label for="id_tags">
+					        	<h4>
+					        		{% trans "Tags" %}:
+					        	</h4>
+					        </label>
+					        {{ question_form.tags }}
+						</div>
+
+					<input type="submit" value="{% trans 'Submit' %}" />
+					</form>
+				</div>
+
+				{% include "qanda/righthand_tags.html" %}
+				
 			</div>
 
-			{% include "qanda/righthand_tags.html" %}
-			
-		</div>
+		{% endblock %}
 
-	{% endblock %}
+		{% include "qanda/scripts.html" %}
+
+	</div>
 
 {% endblock %}

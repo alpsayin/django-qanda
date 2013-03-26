@@ -1,69 +1,77 @@
 {% extends "qanda/qanda_base.html" %}
 {% load i18n %}
 
-{% block head %}
-	<title> {{ SITE_NAME }} - {% trans "Tag List" %} </title>
+{% block title %}
+	{{ SITE_NAME }} - {% trans "Tag List" %}
 {% endblock %}
 
 {% block body %}
 
-	{% block tag_list %}
+	<div class="container">
 
-	{{ debug }}
-	<h3>
-		{% trans "Tags" %}
-	</h3>
-	<h5>
-		{% trans "in alphabetical order" %}
-	</h5>
-	<div class="row">
-		<div class="span10">
-			<div class="row">
-				<div class="span10">
-					{% for tag in tags %}
-								<div class="span3">
-									<a class="tag-list-element" href="{% url qanda_app.views.tag_page tag=tag page="0" %}">
-										#{{ tag }}
-									</a>
-									<span class="tag-list-used">
-									{% blocktrans count counter=tag.count %}
-									  - used {{ counter }} time
-									{% plural %}
-									  - used {{ counter }} times
-									{% endblocktrans %}
-									</span>
-								</div>	
-					{% endfor %}
+	    {% include "qanda/navbar.html" %}
+
+		{% block tag_list %}
+
+		{{ debug }}
+		<h3>
+			{% trans "Tags" %}
+		</h3>
+		<h5>
+			{% trans "in alphabetical order" %}
+		</h5>
+		<div class="row">
+			<div class="span10">
+				<div class="row">
+					<div class="span10">
+						{% for tag in tags %}
+									<div class="span3">
+										<a class="tag-list-element" href="{% url qanda_app.views.tag_page tag=tag page="0" %}">
+											#{{ tag }}
+										</a>
+										<span class="tag-list-used">
+										{% blocktrans count counter=tag.count %}
+										  - used {{ counter }} time
+										{% plural %}
+										  - used {{ counter }} times
+										{% endblocktrans %}
+										</span>
+									</div>	
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="row">
+					<p></p>
+				</div>
+
+				<div class="pagination pagination-large text-center">
+				  <ul>
+					{% if prev or prev == 0 %}
+				    	<li class=""><a href="{% url qanda_app.views.tag_list page=prev %}">{% trans "Prev" %}</a></li>
+			    	{% else %}
+				    	<li class="disabled"><a href="#">{% trans "Prev" %}</a></li>
+					{% endif %}
+						
+						<li class="disabled"><a href="#">_______________________</a></li>
+
+					{% if next %}
+				    	<li class=""><a href="{% url qanda_app.views.tag_list page=next %}">{% trans "Next" %}</a></li>
+				    {% else %}
+				    	<li class="disabled"><a href="#">{% trans "Next" %}</a></li>
+					{% endif %}
+				  </ul>
 				</div>
 			</div>
 
-			<div class="row">
-				<p></p>
-			</div>
+			{% include "qanda/righthand_tags.html" %}
 
-			<div class="pagination pagination-large text-center">
-			  <ul>
-				{% if prev or prev == 0 %}
-			    	<li class=""><a href="{% url qanda_app.views.tag_list page=prev %}">{% trans "Prev" %}</a></li>
-		    	{% else %}
-			    	<li class="disabled"><a href="#">{% trans "Prev" %}</a></li>
-				{% endif %}
-					
-					<li class="disabled"><a href="#">_______________________</a></li>
-
-				{% if next %}
-			    	<li class=""><a href="{% url qanda_app.views.tag_list page=next %}">{% trans "Next" %}</a></li>
-			    {% else %}
-			    	<li class="disabled"><a href="#">{% trans "Next" %}</a></li>
-				{% endif %}
-			  </ul>
-			</div>
 		</div>
 
-		{% include "qanda/righthand_tags.html" %}
+		{% endblock %}
+
+		{% include "qanda/scripts.html" %}
 
 	</div>
-
-	{% endblock %}
 
 {% endblock %}

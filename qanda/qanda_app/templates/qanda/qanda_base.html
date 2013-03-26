@@ -1,10 +1,6 @@
-{% comment %}
 {% extends "base.html" %}
-{% endcomment %}
-<html>
-<head profile="http://www.w3.org/2005/10/profile">
 
-    {% block meta %}
+{% block meta %}
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
@@ -19,28 +15,5 @@
         <link rel="icon" 
               type="image/png" 
               href="{{ STATIC_URL }}qanda/img/tree.png">
-          
-    {% endblock %}
 
-    {% block head %}
-    {% endblock %}
-        
-</head>
-<body>
-    
-        {% block navbar %}
-        {% include "qanda/navbar.html" %}
-        {% endblock %}
-
-    <div class="container">
-
-        {% block body %}
-        {% endblock %}
-
-    </div>
-        <script src="{{ STATIC_URL }}/jquery/jquery-1.9.1.js"></script>
-    <script src="{{ STATIC_URL }}qanda/js/qanda.js"></script>
-    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
-    
-</body>
-</html>
+{% endblock %}
