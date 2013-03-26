@@ -122,15 +122,15 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'taggit',
-    'south',
-    'qanda_app',
-    'django_extensions',
-    'tastypie',
-    'django_notify',
-    'debug_toolbar',
-    'haystack',
-    #userena
+    'taggit', #required
+    'south', #required
+    'qanda_app', #required
+    'django_extensions', #optional for debugging
+    'tastypie', #optional if you want REST Api
+    'django_notify', #required
+    'debug_toolbar', #optional for debugging
+    'haystack', #optional if you want search
+    #userena - #optional for test project
     'userena',
     'guardian',
     'easy_thumbnails',
