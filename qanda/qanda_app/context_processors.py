@@ -21,6 +21,8 @@ def site_settings(request):
 		'SITE_NAME' : settings.SITE_NAME,
 		'ROOT_URL' : settings.ROOT_URL,
 		'LOGIN_URL' : settings.LOGIN_URL,
+		'LOGOUT_URL' : settings.LOGOUT_URL,
+		'LOGIN_REDIRECT_URL' : settings.LOGIN_REDIRECT_URL,
 	}
 
 def recent_and_common_tags(request):
