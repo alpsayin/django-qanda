@@ -1,325 +1,333 @@
 {% extends "qanda/qanda_base.html" %}
 {% load i18n %}
 
-{% block head %}
-	<title> {{ SITE_NAME }} - {{ qandaUser.djangoUser }} </title>
+{% block title %}
+	{{ SITE_NAME }} - {{ qandaUser.djangoUser }}
 {% endblock %}
 
 {% block body %}
 
-	{% block profile %}
+	<div class="container">
 
-	<div class="row">
-		<div class="span10">
-			<h2>
-				{% blocktrans with user=qandaUser.djangoUser %}Profile Page of {{ user }}{% endblocktrans %}
-			</h2>
-			<div class="row">
-				<p></p>
-			</div>
-			<div class="row">
-				<p></p>
-			</div>
-			<div class="row profile-summary">
-				<p>{% trans "Summary" %}</p>
-			</div>
-			<div class="row profile-summary-begin">
-					{{ qandaUser.djangoUser }} {% trans "has" %} 
-			</div>
-			<div class="row profile-summary-element">
-					<a class="profile-important-link" href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=0 %}">
-						{% blocktrans count counter=qandaUser.get_questions_asked %}
-							asked {{ counter }} question.
+	    {% include "qanda/navbar.html" %}
+
+		{% block profile %}
+
+		<div class="row">
+			<div class="span10">
+				<h2>
+					{% blocktrans with user=qandaUser.djangoUser %}Profile Page of {{ user }}{% endblocktrans %}
+				</h2>
+				<div class="row">
+					<p></p>
+				</div>
+				<div class="row">
+					<p></p>
+				</div>
+				<div class="row profile-summary">
+					<p>{% trans "Summary" %}</p>
+				</div>
+				<div class="row profile-summary-begin">
+						{{ qandaUser.djangoUser }} {% trans "has" %} 
+				</div>
+				<div class="row profile-summary-element">
+						<a class="profile-important-link" href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=0 %}">
+							{% blocktrans count counter=qandaUser.get_questions_asked %}
+								asked {{ counter }} question.
+							{% plural %}
+								asked {{ counter }} questions.
+							{% endblocktrans %}
+						</a>
+				</div>
+				<div class="row profile-summary-element">
+					<a class="profile-important-link" href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
+						{% blocktrans count counter=qandaUser.get_questions_answered %}
+							answered {{ counter }} question.
 						{% plural %}
-							asked {{ counter }} questions.
+							answered {{ counter }} questions.
 						{% endblocktrans %}
 					</a>
-			</div>
-			<div class="row profile-summary-element">
-				<a class="profile-important-link" href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
-					{% blocktrans count counter=qandaUser.get_questions_answered %}
-						answered {{ counter }} question.
-					{% plural %}
-						answered {{ counter }} questions.
-					{% endblocktrans %}
-				</a>
-			</div>
-			<div class="row profile-summary-element">
-				<a class="profile-important-link" href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
-					{% blocktrans count counter=qandaUser.get_answers %}
-						a total of {{ counter }} answer.
-					{% plural %}
-						a total of {{ counter }} answers.
-					{% endblocktrans %}
-				</a>
-			</div>
-			<div class="row profile-summary-element">
-				<a class="profile-important-link" href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
-					{% blocktrans count counter=qandaUser.get_answers_replied %}
-						replied to {{ counter }} answer.
-					{% plural %}
-						replied to {{ counter }} answers.
-					{% endblocktrans %}
-				</a>
-			</div>
-			<div class="row profile-summary-element">
-				<a class="profile-important-link" href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
-					{% blocktrans count counter=qandaUser.get_replies %}
-						written a total of {{ counter }} reply to answers.
-					{% plural %}
-						written a total of {{ counter }} replies to answers.
-					{% endblocktrans %}
-				</a>
+				</div>
+				<div class="row profile-summary-element">
+					<a class="profile-important-link" href="{% url user_answered_questions_list user_id=qandaUser.pk question_id=0 %}">
+						{% blocktrans count counter=qandaUser.get_answers %}
+							a total of {{ counter }} answer.
+						{% plural %}
+							a total of {{ counter }} answers.
+						{% endblocktrans %}
+					</a>
+				</div>
+				<div class="row profile-summary-element">
+					<a class="profile-important-link" href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
+						{% blocktrans count counter=qandaUser.get_answers_replied %}
+							replied to {{ counter }} answer.
+						{% plural %}
+							replied to {{ counter }} answers.
+						{% endblocktrans %}
+					</a>
+				</div>
+				<div class="row profile-summary-element">
+					<a class="profile-important-link" href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=0 %}">
+						{% blocktrans count counter=qandaUser.get_replies %}
+							written a total of {{ counter }} reply to answers.
+						{% plural %}
+							written a total of {{ counter }} replies to answers.
+						{% endblocktrans %}
+					</a>
+				</div>
+
+				<div class="user-relations-block">
+					<div class="row profile-rest">
+						<a class="relations-title" href="#user-relations-table" onClick="toggleElementVisibility('#user-relations-table', '#user-relations-message-display', '#user-relations-message-hide', 500);">{% trans "User Relations" %}</a>
+						<div id="user-relations-message-display" class="relations-message" style="display: block;">
+							({% trans "click the title to display" %})
+						</div>
+						<div id="user-relations-message-hide" class="relations-message" style="display: none;">
+							({% trans "click the title to hide" %})
+						</div>
+					</div>
+					<div id="user-relations-table" class="relations-table">
+						<table class="profile-rest-table">
+							<tr>
+								<th>
+									{{ qandaUser.djangoUser }}
+								</th>
+								<th>
+									{% trans "Taken" %}
+								</th>
+								<th>
+									{% trans "Given" %}
+								</th>
+							</tr>
+							<tr>
+								<td>
+									{% trans "User Stars" %}
+								</td>
+								<td>
+									{{ qandaUser.get_user_stars_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_user_stars_given }}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									{% trans "User Flags" %}
+								</td>
+								<td>
+									{{ qandaUser.get_user_flags_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_user_flags_given }}
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="question-relations-block">
+					<div class="row profile-rest">
+						<a class="relations-title" href="#questions-table" onClick="toggleElementVisibility('#question-relations-table', '#question-relations-message-display', '#question-relations-message-hide', 500);">{% trans "Question Relations" %}</a>
+						<div id="question-relations-message-display" class="relations-message" style="display: block;">
+							({% trans "click the title to display" %})
+						</div>
+						<div id="question-relations-message-hide" class="relations-message" style="display: none;">
+							({% trans "click the title to hide" %})
+						</div>
+					</div>
+					<div id="question-relations-table" class="relations-table">
+						<table class="profile-rest-table">
+							<tr>
+								<th>
+									{{ qandaUser.djangoUser }}
+								</th>
+								<th>
+									{% trans "Taken" %}
+								</th>
+								<th>
+									{% trans "Given" %}
+								</th>
+							</tr>
+							<tr>
+								<td>
+									{% trans "Upvotes" %}
+								</td>
+								<td>
+									{{ qandaUser.get_question_upvotes_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_question_upvotes_given }}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									{% trans "Downvotes" %}
+								</td>
+								<td>
+									{{ qandaUser.get_question_downvotes_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_question_downvotes_given }}
+								</td>
+							</tr>
+							<tr class="question-useful-row">
+								<td>
+									{% trans "Found Useful" %}
+								</td>
+								<td>
+									{{ qandaUser.get_question_usefuls_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_question_usefuls_given }}
+								</td>
+							</tr>
+							<tr class="question-notUseful-row">
+								<td>
+									{% trans "Didn't Found Useful" %}
+								</td>
+								<td>
+									{{ qandaUser.get_question_notUsefuls_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_question_notUsefuls_given }}
+								</td>
+							</tr>
+							<tr class="question-stars-row">
+								<td>
+									{% trans "Stars" %}
+								</td>
+								<td>
+									{{ qandaUser.get_question_stars_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_question_stars_given }}
+								</td>
+							</tr>
+							<tr class="question-flags-row">
+								<td>
+									{% trans "Flags" %}
+								</td>
+								<td>
+									{{ qandaUser.get_question_flags_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_question_flags_given }}
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="answer-relations-block">
+					<div class="row profile-rest">
+						<a class="relations-title" href="#relations-title" onClick="toggleElementVisibility('#answer-relations-table', '#answer-relations-message-display', '#answer-relations-message-hide', 500);">{% trans "Answer Relations" %}</a>
+						<div id="answer-relations-message-display" class="relations-message" style="display: block;">
+							({% trans "click the title to display" %})
+						</div>
+						<div id="answer-relations-message-hide" class="relations-message" style="display: none;">
+							({% trans "click the title to hide" %})
+						</div>
+					</div>
+					<div id="answer-relations-table" class="relations-table">
+						<table class="profile-rest-table">
+							<tr>
+								<th>
+									{{ qandaUser.djangoUser }}
+								</th>
+								<th>
+									{% trans "Taken" %}
+								</th>
+								<th>
+									{% trans "Given" %}
+								</th>
+							</tr>
+							<tr>
+								<td>
+									{% trans "Upvotes" %}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_upvotes_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_upvotes_given }}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									{% trans "Downvotes" %}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_downvotes_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_downvotes_given }}
+								</td>
+							</tr>
+							<tr class="answer-useful-row">
+								<td>
+									{% trans "Found Useful" %}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_usefuls_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_usefuls_given }}
+								</td>
+							</tr>
+							<tr class="answer-notUseful-row">
+								<td>
+									{% trans "Didn't Found Useful" %}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_notUsefuls_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_notUsefuls_given }}
+								</td>
+							</tr>
+							<tr class="answer-stars-row">
+								<td>
+									{% trans "Stars" %}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_stars_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_stars_given }}
+								</td>
+							</tr>
+							<tr class="answer-flags-row">
+								<td>
+									{% trans "Flags" %}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_flags_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_answer_flags_given }}
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="row">
+					<p></p>
+				</div>
+				<div class="row">
+					<p></p>
+				</div>
+
 			</div>
 
-			<div class="user-relations-block">
-				<div class="row profile-rest">
-					<a class="relations-title" href="#user-relations-table" onClick="toggleElementVisibility('#user-relations-table', '#user-relations-message-display', '#user-relations-message-hide', 500);">{% trans "User Relations" %}</a>
-					<div id="user-relations-message-display" class="relations-message" style="display: block;">
-						({% trans "click the title to display" %})
-					</div>
-					<div id="user-relations-message-hide" class="relations-message" style="display: none;">
-						({% trans "click the title to hide" %})
-					</div>
-				</div>
-				<div id="user-relations-table" class="relations-table">
-					<table class="profile-rest-table">
-						<tr>
-							<th>
-								{{ qandaUser.djangoUser }}
-							</th>
-							<th>
-								{% trans "Taken" %}
-							</th>
-							<th>
-								{% trans "Given" %}
-							</th>
-						</tr>
-						<tr>
-							<td>
-								{% trans "User Stars" %}
-							</td>
-							<td>
-								{{ qandaUser.get_user_stars_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_user_stars_given }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								{% trans "User Flags" %}
-							</td>
-							<td>
-								{{ qandaUser.get_user_flags_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_user_flags_given }}
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-			<div class="question-relations-block">
-				<div class="row profile-rest">
-					<a class="relations-title" href="#questions-table" onClick="toggleElementVisibility('#question-relations-table', '#question-relations-message-display', '#question-relations-message-hide', 500);">{% trans "Question Relations" %}</a>
-					<div id="question-relations-message-display" class="relations-message" style="display: block;">
-						({% trans "click the title to display" %})
-					</div>
-					<div id="question-relations-message-hide" class="relations-message" style="display: none;">
-						({% trans "click the title to hide" %})
-					</div>
-				</div>
-				<div id="question-relations-table" class="relations-table">
-					<table class="profile-rest-table">
-						<tr>
-							<th>
-								{{ qandaUser.djangoUser }}
-							</th>
-							<th>
-								{% trans "Taken" %}
-							</th>
-							<th>
-								{% trans "Given" %}
-							</th>
-						</tr>
-						<tr>
-							<td>
-								{% trans "Upvotes" %}
-							</td>
-							<td>
-								{{ qandaUser.get_question_upvotes_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_question_upvotes_given }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								{% trans "Downvotes" %}
-							</td>
-							<td>
-								{{ qandaUser.get_question_downvotes_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_question_downvotes_given }}
-							</td>
-						</tr>
-						<tr class="question-useful-row">
-							<td>
-								{% trans "Found Useful" %}
-							</td>
-							<td>
-								{{ qandaUser.get_question_usefuls_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_question_usefuls_given }}
-							</td>
-						</tr>
-						<tr class="question-notUseful-row">
-							<td>
-								{% trans "Didn't Found Useful" %}
-							</td>
-							<td>
-								{{ qandaUser.get_question_notUsefuls_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_question_notUsefuls_given }}
-							</td>
-						</tr>
-						<tr class="question-stars-row">
-							<td>
-								{% trans "Stars" %}
-							</td>
-							<td>
-								{{ qandaUser.get_question_stars_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_question_stars_given }}
-							</td>
-						</tr>
-						<tr class="question-flags-row">
-							<td>
-								{% trans "Flags" %}
-							</td>
-							<td>
-								{{ qandaUser.get_question_flags_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_question_flags_given }}
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-			<div class="answer-relations-block">
-				<div class="row profile-rest">
-					<a class="relations-title" href="#relations-title" onClick="toggleElementVisibility('#answer-relations-table', '#answer-relations-message-display', '#answer-relations-message-hide', 500);">{% trans "Answer Relations" %}</a>
-					<div id="answer-relations-message-display" class="relations-message" style="display: block;">
-						({% trans "click the title to display" %})
-					</div>
-					<div id="answer-relations-message-hide" class="relations-message" style="display: none;">
-						({% trans "click the title to hide" %})
-					</div>
-				</div>
-				<div id="answer-relations-table" class="relations-table">
-					<table class="profile-rest-table">
-						<tr>
-							<th>
-								{{ qandaUser.djangoUser }}
-							</th>
-							<th>
-								{% trans "Taken" %}
-							</th>
-							<th>
-								{% trans "Given" %}
-							</th>
-						</tr>
-						<tr>
-							<td>
-								{% trans "Upvotes" %}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_upvotes_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_upvotes_given }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								{% trans "Downvotes" %}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_downvotes_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_downvotes_given }}
-							</td>
-						</tr>
-						<tr class="answer-useful-row">
-							<td>
-								{% trans "Found Useful" %}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_usefuls_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_usefuls_given }}
-							</td>
-						</tr>
-						<tr class="answer-notUseful-row">
-							<td>
-								{% trans "Didn't Found Useful" %}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_notUsefuls_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_notUsefuls_given }}
-							</td>
-						</tr>
-						<tr class="answer-stars-row">
-							<td>
-								{% trans "Stars" %}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_stars_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_stars_given }}
-							</td>
-						</tr>
-						<tr class="answer-flags-row">
-							<td>
-								{% trans "Flags" %}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_flags_taken }}
-							</td>
-							<td>
-								{{ qandaUser.get_answer_flags_given }}
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-			<div class="row">
-				<p></p>
-			</div>
-			<div class="row">
-				<p></p>
-			</div>
-
+			{% include "qanda/righthand_tags.html" %}
+			
 		</div>
 
-		{% include "qanda/righthand_tags.html" %}
-		
-	</div>
+		{% endblock %}
 
-	{% endblock %}
+		{% include "qanda/scripts.html" %}
+
+	</div>
 
 {% endblock %}
