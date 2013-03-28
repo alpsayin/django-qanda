@@ -1,6 +1,6 @@
 
 .votecount-box {
-	font-size: 12;
+	font-size: 12px !important;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-left: 10px;
@@ -16,7 +16,7 @@
 }
 
 .answercount-box {
-	font-size: 12;
+	font-size: 12px !important;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-left: 10px;
@@ -32,7 +32,7 @@
 }
 
 .viewcount-box {
-	font-size: 12;
+	font-size: 12px !important;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-left: 10px;
