@@ -1,6 +1,11 @@
 
 {% load i18n %}
 <div class="pull-right span2">
+	<a href="{% url qanda_app.views.new_question_page %}">
+		<button class="btn btn-large btn-primary {% if view == 'new_question_page' %} active {% endif %}" type="button" > 
+			{% trans "Ask a new Question" %}
+		</button>
+	</a>
 	<h4 class="recent-tags">
 		{% trans "Recent Tags" %}
 	</h4>
