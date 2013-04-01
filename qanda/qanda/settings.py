@@ -28,7 +28,7 @@ TIME_ZONE = 'Europe/Istanbul'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'tr'
 
 SITE_ID = 1
 
@@ -172,7 +172,7 @@ TAGGIT_FORCE_LOWERCASE = True
 TAGGIT_STOPWORDS = [u'a', u'an', u'and', u'be', u'from', u'of']
 
 #used for left hand navbar brand
-SITE_NAME = 'Qanda'
+SITE_NAME = 'Inforigo'
 SITE_TITLE = 'Forum'
 
 #must be a static address like below
