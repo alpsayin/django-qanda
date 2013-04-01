@@ -224,7 +224,7 @@
 }
 
 .relations-table {
-	display: none;
+	display: block;
 }
 
 .relations-message {
