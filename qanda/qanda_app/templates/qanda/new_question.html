@@ -25,9 +25,14 @@
 								<h2>
 									{% trans "Title" %}:
 				        		</h2>
-				        	{{ question_form.title.errors }}
-					        {{ question_form.title }}
+				        		{% if question_form.title.errors %}
+					        		<div class="alert alert-error">
+					        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+							        	<strong>{% trans "Error in Title" %}</strong>{{ question_form.title.errors }}
+							        </div>
+						        {% endif %}
 							</label>
+					        {{ question_form.title }}
 						</div>
 
 						<div class="questionCategoryWrapper">
@@ -35,7 +40,12 @@
 					        	<h4>
 					        		{% trans "Question Category" %}:
 					        	</h4>
-					        {{ question_form.category.errors }}
+					        	{% if question_form.category.errors %}
+					        		<div class="alert alert-error">
+					        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+							        	<strong>{% trans "Error in Category" %}</strong>{{ question_form.category.errors }}
+							        </div>
+						        {% endif %}
 					        </label>
 					        {{ question_form.category }}
 						</div>
@@ -45,17 +55,27 @@
 					        	<h4>
 					        		{% trans "Question Text" %}:
 					        	</h4>
-					        {{ question_form.text.errors }}
+					        	{% if question_form.text.errors %}
+					        		<div class="alert alert-error">
+					        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+							        	<strong>{% trans "Error in Question Text" %}</strong>{{ question_form.text.errors }}
+							        </div>
+						        {% endif %}
 					        </label>
 					        {{ question_form.text }}
 						</div>
 
 						<div class="questionTagsWrapper">
-					        {{ question_form.tags.errors }}
 					        <label for="id_tags">
 					        	<h4>
 					        		{% trans "Tags" %}:
 					        	</h4>
+					        	{% if question_form.tags.errors %}
+					        		<div class="alert alert-error">
+					        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+							        	<strong>{% trans "Error in Tags" %}</strong>{{ question_form.tags.errors }}
+							        </div>
+						        {% endif %}
 					        </label>
 					        {{ question_form.tags }}
 						</div>
