@@ -235,17 +235,17 @@ def user_starred_questions_list(request, user_id, question_id, category):
 
 	if len(questions) > 0:
 		if category:
-			next_qset = Question.objects.filter(category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
 		else:
-			next_qset = Question.objects.filter(pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
 		if next_qset.exists():
 			if next_qset[0].pk > int(question_id):
 				context['next'] = next_qset[0].pk
 
 		if category:
-			prev_qset = Question.objects.filter(category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
 		else:
-			prev_qset = Question.objects.filter(pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
 		if prev_qset.exists():
 			context['prev'] = prev_qset[0].pk
 
