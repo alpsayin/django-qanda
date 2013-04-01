@@ -31,6 +31,15 @@
 						{{ qandaUser.djangoUser }} {% trans "has" %} 
 				</div>
 				<div class="row profile-summary-element">
+						<a class="profile-important-link" href="{% url user_starred_questions_list user_id=qandaUser.pk question_id=0 %}">
+							{% blocktrans count counter=qandaUser.get_question_stars_given %}
+								starred {{ counter }} question.
+							{% plural %}
+								starred {{ counter }} questions.
+							{% endblocktrans %}
+						</a>
+				</div>
+				<div class="row profile-summary-element">
 						<a class="profile-important-link" href="{% url user_asked_questions_list user_id=qandaUser.pk question_id=0 %}">
 							{% blocktrans count counter=qandaUser.get_questions_asked %}
 								asked {{ counter }} question.
