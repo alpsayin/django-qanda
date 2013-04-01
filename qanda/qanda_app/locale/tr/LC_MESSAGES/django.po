@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-26 17:36+0200\n"
+"POT-Creation-Date: 2013-04-01 20:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: templates/qanda/category_list.html:5 templates/qanda/category_list.html:18
-#: templates/qanda/navbar.html:18
+#: templates/qanda/navbar.html:19
 msgid "Categories"
 msgstr "Kategoriler"
 
@@ -67,7 +67,7 @@ msgstr "Geri"
 msgid "Next"
 msgstr "İleri"
 
-#: templates/qanda/edit_question.html:5 templates/qanda/question.html:35
+#: templates/qanda/edit_question.html:5 templates/qanda/question.html:43
 msgid "Edit Question"
 msgstr "Soru Değiştir"
 
@@ -75,23 +75,42 @@ msgstr "Soru Değiştir"
 msgid "Title"
 msgstr "Başlık"
 
-#: templates/qanda/edit_question.html:36 templates/qanda/new_question.html:36
+#: templates/qanda/edit_question.html:31 templates/qanda/new_question.html:31
+msgid "Error in Title"
+msgstr ""
+
+#: templates/qanda/edit_question.html:41 templates/qanda/new_question.html:41
 msgid "Question Category"
 msgstr "Soru Kategorisi"
 
 #: templates/qanda/edit_question.html:46 templates/qanda/new_question.html:46
+#, fuzzy
+msgid "Error in Category"
+msgstr "Soru Kategorisi"
+
+#: templates/qanda/edit_question.html:56 templates/qanda/new_question.html:56
 msgid "Question Text"
 msgstr "Soru Metni"
 
-#: templates/qanda/edit_question.html:57 templates/qanda/navbar.html:17
-#: templates/qanda/new_question.html:57 templates/qanda/question.html:82
+#: templates/qanda/edit_question.html:61 templates/qanda/new_question.html:61
+#, fuzzy
+msgid "Error in Question Text"
+msgstr "Soru Metni"
+
+#: templates/qanda/edit_question.html:71 templates/qanda/navbar.html:18
+#: templates/qanda/new_question.html:71 templates/qanda/question.html:90
 #: templates/qanda/tag_list.html:18
 msgid "Tags"
 msgstr "Etiketler"
 
-#: templates/qanda/edit_question.html:63 templates/qanda/new_answer.html:21
-#: templates/qanda/new_question.html:63 templates/qanda/relations.html:26
-#: templates/qanda/reply.html:19
+#: templates/qanda/edit_question.html:76 templates/qanda/new_question.html:76
+#: templates/qanda/reply.html:18
+msgid "Error in Tags"
+msgstr ""
+
+#: templates/qanda/edit_question.html:83 templates/qanda/new_answer.html:26
+#: templates/qanda/new_question.html:83 templates/qanda/relations.html:26
+#: templates/qanda/reply.html:24
 msgid "Submit"
 msgstr "Gönder"
 
@@ -99,33 +118,33 @@ msgstr "Gönder"
 msgid "Home"
 msgstr "Anasayfa"
 
-#: templates/qanda/navbar.html:16
-msgid "Last Question"
-msgstr "Son Soru"
-
-#: templates/qanda/navbar.html:19 templates/qanda/new_question.html:5
+#: templates/qanda/navbar.html:20 templates/qanda/new_question.html:5
 msgid "New Question"
 msgstr "Yeni Soru"
 
-#: templates/qanda/navbar.html:21
+#: templates/qanda/navbar.html:22
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/qanda/navbar.html:22
+#: templates/qanda/navbar.html:23
 msgid "Logout"
 msgstr "Çıkış"
 
-#: templates/qanda/navbar.html:24
+#: templates/qanda/navbar.html:25
 msgid "Login"
 msgstr "Giriş"
 
-#: templates/qanda/navbar.html:35
+#: templates/qanda/navbar.html:36
 msgid "Search"
 msgstr "Arama"
 
-#: templates/qanda/new_answer.html:15
+#: templates/qanda/new_answer.html:14
 msgid "Answer"
 msgstr "Cevap"
+
+#: templates/qanda/new_answer.html:19
+msgid "Error in Answer Text"
+msgstr ""
 
 #: templates/qanda/profile.html:19
 #, python-format
@@ -137,7 +156,24 @@ msgid "Summary"
 msgstr "Özet"
 
 #: templates/qanda/profile.html:35
-#, fuzzy, python-format
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\tstarred %(counter)s question.\n"
+"\t\t\t\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t\t\t\tstarred %(counter)s questions.\n"
+"\t\t\t\t\t\t\t"
+msgstr[0] ""
+"\n"
+"\t\t\t\t\t\t%(counter)s soruyu favorisi olarak işaretledi (yıldızladı)."
+msgstr[1] ""
+"\n"
+"\t\t\t\t\t\t%(counter)s soruyu favorisi olarak işaretledi (yıldızladı)."
+
+#: templates/qanda/profile.html:44
+#, python-format
 msgid ""
 "\n"
 "\t\t\t\t\t\t\t\tasked %(counter)s question.\n"
@@ -153,8 +189,8 @@ msgstr[1] ""
 "\n"
 "\t\t\t\t\t\t%(counter)s sorular sordu."
 
-#: templates/qanda/profile.html:44
-#, fuzzy, python-format
+#: templates/qanda/profile.html:53
+#, python-format
 msgid ""
 "\n"
 "\t\t\t\t\t\t\tanswered %(counter)s question.\n"
@@ -170,8 +206,8 @@ msgstr[1] ""
 "\n"
 "\t\t\t\t\t\t%(counter)s sorular cevapladı."
 
-#: templates/qanda/profile.html:53
-#, fuzzy, python-format
+#: templates/qanda/profile.html:62
+#, python-format
 msgid ""
 "\n"
 "\t\t\t\t\t\t\ta total of %(counter)s answer.\n"
@@ -187,8 +223,8 @@ msgstr[1] ""
 "\n"
 "\t\t\t\t\t\t%(counter)s cevap yazdı."
 
-#: templates/qanda/profile.html:62
-#, fuzzy, python-format
+#: templates/qanda/profile.html:71
+#, python-format
 msgid ""
 "\n"
 "\t\t\t\t\t\t\treplied to %(counter)s answer.\n"
@@ -204,8 +240,8 @@ msgstr[1] ""
 "\n"
 "\t\t\t\t\t\t%(counter)s cevaba yanıt yazdı."
 
-#: templates/qanda/profile.html:71
-#, fuzzy, python-format
+#: templates/qanda/profile.html:80
+#, python-format
 msgid ""
 "\n"
 "\t\t\t\t\t\t\twritten a total of %(counter)s reply to answers.\n"
@@ -221,126 +257,136 @@ msgstr[1] ""
 "\n"
 "\t\t\t\t\t\ttoplamda %(counter)s defa cevap yanıtladı."
 
-#: templates/qanda/profile.html:81
+#: templates/qanda/profile.html:90
 msgid "User Relations"
 msgstr "Kullanıcı İstatistikleri"
 
-#: templates/qanda/profile.html:83 templates/qanda/profile.html.py:132
-#: templates/qanda/profile.html:225
+#: templates/qanda/profile.html:92 templates/qanda/profile.html.py:141
+#: templates/qanda/profile.html:234
 msgid "click the title to display"
 msgstr "göstermek için başlığa tıklayın"
 
-#: templates/qanda/profile.html:86 templates/qanda/profile.html.py:135
-#: templates/qanda/profile.html:228
+#: templates/qanda/profile.html:95 templates/qanda/profile.html.py:144
+#: templates/qanda/profile.html:237
 msgid "click the title to hide"
 msgstr "gizlemek için başlığa tıklayın"
 
-#: templates/qanda/profile.html:96 templates/qanda/profile.html.py:145
-#: templates/qanda/profile.html:238
+#: templates/qanda/profile.html:105 templates/qanda/profile.html.py:154
+#: templates/qanda/profile.html:247
 msgid "Taken"
 msgstr "Alınan"
 
-#: templates/qanda/profile.html:99 templates/qanda/profile.html.py:148
-#: templates/qanda/profile.html:241
+#: templates/qanda/profile.html:108 templates/qanda/profile.html.py:157
+#: templates/qanda/profile.html:250
 msgid "Given"
 msgstr "Verilen"
 
-#: templates/qanda/profile.html:104
+#: templates/qanda/profile.html:113
 msgid "User Stars"
 msgstr "Kullanıcı Yıldızları"
 
-#: templates/qanda/profile.html:115
+#: templates/qanda/profile.html:124
 msgid "User Flags"
 msgstr "Kullanıcı Bayrakları"
 
-#: templates/qanda/profile.html:130
+#: templates/qanda/profile.html:139
 msgid "Question Relations"
 msgstr "Soru İstatistikleri"
 
-#: templates/qanda/profile.html:153 templates/qanda/profile.html.py:246
+#: templates/qanda/profile.html:162 templates/qanda/profile.html.py:255
 msgid "Upvotes"
 msgstr "Yukarı Oylar"
 
-#: templates/qanda/profile.html:164 templates/qanda/profile.html.py:257
+#: templates/qanda/profile.html:173 templates/qanda/profile.html.py:266
 msgid "Downvotes"
 msgstr "Aşağı Oylar"
 
-#: templates/qanda/profile.html:175 templates/qanda/profile.html.py:268
+#: templates/qanda/profile.html:184 templates/qanda/profile.html.py:277
 msgid "Found Useful"
 msgstr "Kullanışlı Bulunan"
 
-#: templates/qanda/profile.html:186 templates/qanda/profile.html.py:279
+#: templates/qanda/profile.html:195 templates/qanda/profile.html.py:288
 msgid "Didn't Found Useful"
 msgstr "Gereksiz Bulunan"
 
-#: templates/qanda/profile.html:197 templates/qanda/profile.html.py:290
+#: templates/qanda/profile.html:206 templates/qanda/profile.html.py:299
 msgid "Stars"
 msgstr "Yıldızlar"
 
-#: templates/qanda/profile.html:208 templates/qanda/profile.html.py:301
+#: templates/qanda/profile.html:217 templates/qanda/profile.html.py:310
 msgid "Flags"
 msgstr "Bayraklar"
 
-#: templates/qanda/profile.html:223
+#: templates/qanda/profile.html:232
 msgid "Answer Relations"
 msgstr "Cevap İstatistikleri"
 
-#: templates/qanda/question.html:20 templates/qanda/question.html.py:113
+#: templates/qanda/question.html:20 templates/qanda/question.html.py:121
 msgid "Up"
 msgstr "Yukarı"
 
-#: templates/qanda/question.html:29 templates/qanda/question.html.py:122
+#: templates/qanda/question.html:36 templates/qanda/question.html.py:130
 msgid "Down"
 msgstr "Aşağı"
 
-#: templates/qanda/question.html:45 templates/qanda/question.html.py:149
-#: templates/qanda/question.html:174
+#: templates/qanda/question.html:53 templates/qanda/question.html.py:157
+#: templates/qanda/question.html:185
 #: templates/qanda/question_listing_base.html:32
 msgid "by"
 msgstr "yazar"
 
-#: templates/qanda/question.html:67 templates/qanda/question.html.py:132
+#: templates/qanda/question.html:75 templates/qanda/question.html.py:140
 #, fuzzy
 msgid "Starred"
 msgstr "Yıldızlar"
 
-#: templates/qanda/question.html:69 templates/qanda/question.html.py:134
+#: templates/qanda/question.html:77 templates/qanda/question.html.py:142
 #: templates/qanda/relations.html:24
 #, fuzzy
 msgid "Star"
 msgstr "Yıldızlar"
 
-#: templates/qanda/question.html:75 templates/qanda/question.html.py:140
+#: templates/qanda/question.html:83 templates/qanda/question.html.py:148
 #: templates/qanda/relations.html:25
 #, fuzzy
 msgid "Flag"
 msgstr "Bayraklar"
 
-#: templates/qanda/question.html:92
+#: templates/qanda/question.html:100
 msgid "Have you found this question useful?"
 msgstr "Bu soruyu faydalı buldunuz mu?"
 
-#: templates/qanda/question.html:93 templates/qanda/question.html.py:162
+#: templates/qanda/question.html:101 templates/qanda/question.html.py:173
 msgid "Yes"
 msgstr "Evet"
 
-#: templates/qanda/question.html:94 templates/qanda/question.html.py:163
+#: templates/qanda/question.html:102 templates/qanda/question.html.py:174
 msgid "No"
 msgstr "Hayır"
 
-#: templates/qanda/question.html:151
+#: templates/qanda/question.html:159
 msgid "Delete Answer"
 msgstr "Cevabı Sil"
 
-#: templates/qanda/question.html:161
+#: templates/qanda/question.html:172
 msgid "Have you found this answer useful?"
 msgstr "Bu cevabı faydalı buldunuz mu?"
 
-#: templates/qanda/question.html:187
+#: templates/qanda/question.html:197
+#, fuzzy
+msgid "Click to reply"
+msgstr "Yanıtlamak için giriş yapın"
+
+#: templates/qanda/question.html:200
+#, fuzzy
+msgid "Click to hide reply"
+msgstr "Yanıtlamak için giriş yapın"
+
+#: templates/qanda/question.html:206
 msgid "Login to reply"
 msgstr "Yanıtlamak için giriş yapın"
 
-#: templates/qanda/question.html:198
+#: templates/qanda/question.html:217
 msgid "Answer this question"
 msgstr "Bu soruyu cevapla"
 
@@ -405,15 +451,19 @@ msgstr "Kullanışlı Bulunan"
 msgid "Not Useful"
 msgstr "Kullanışlı Bulunan"
 
-#: templates/qanda/reply.html:14
+#: templates/qanda/reply.html:13
 msgid "Reply"
 msgstr "Yanıt"
 
-#: templates/qanda/righthand_tags.html:5
+#: templates/qanda/righthand_tags.html:6
+msgid "Ask a new Question"
+msgstr "Yeni Soru Sor"
+
+#: templates/qanda/righthand_tags.html:10
 msgid "Recent Tags"
 msgstr "Son Kullanılan Etiketler"
 
-#: templates/qanda/righthand_tags.html:16
+#: templates/qanda/righthand_tags.html:21
 msgid "Common Tags"
 msgstr "Sık Kullanılan Etiketler"
 
@@ -450,3 +500,6 @@ msgstr[1] ""
 #, python-format
 msgid "Questions with \"%(tag)s\" tag "
 msgstr "\"%(tag)s\" Etiketli Sorular "
+
+#~ msgid "Last Question"
+#~ msgstr "Son Soru"
