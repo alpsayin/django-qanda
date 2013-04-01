@@ -8,11 +8,16 @@
 		<input type="hidden" name="pk" value="{{ pk }}">
 		<input type="hidden" name="type" value="{{ type }}">	
 		<div class="replyTextWrapper">
-	        {{ reply_form.text.errors }}
 	        <label for="id_text">
 	        	<h5>
 	        		{% trans "Reply" %}:
 	        	</h5>
+	        	{% if reply_form.text.errors %}
+	        		<div class="alert alert-error">
+	        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			        	<strong>{% trans "Error in Tags" %}</strong>{{ reply_form.text.errors }}
+			        </div>
+		        {% endif %}
 	        	{{ reply_form.text }}
 	        </label>
 		</div>	
