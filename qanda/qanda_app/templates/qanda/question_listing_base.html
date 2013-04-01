@@ -29,7 +29,7 @@
 							</span>
 						{% endif %}
 						<span class="questioninfo pull-right">
-							<a class="questioninfo pull-right" href="{{ question.author.get_absolute_url }}">{{ question.postDate }} {% trans "by" %} {{ question.author }} </a>
+							<a class="questioninfo pull-right" href="{{ question.author.get_absolute_url }}">{{ question.postDate }} {% trans "by" %} {{ question.author.djangoUser }} </a>
 						</span>
 					</div>	
 				</a>
