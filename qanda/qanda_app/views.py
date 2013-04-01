@@ -208,6 +208,54 @@ def question_list(request, question_id, category):
 	return render_to_response("qanda/question_list.html", context, context_instance=RequestContext(request))
 
 @assert_qanda_user
+def user_starred_questions_list(request, user_id, question_id, category):
+	context = {}
+	qandaUser = get_object_or_404(QandaUser, pk=user_id)
+	category = Category.objects.filter(name=category)
+	if category.exists():
+		category = category[0]
+	else:
+		category = None
+
+	if int(question_id) <= 0:
+		try:
+			question_id = Question.objects.latest('pk').pk
+		except:
+			pass
+
+	if category:
+		questions = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+	else:
+		questions = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+	
+	for question in questions:
+		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
+	context['questions'] = questions
+	context['view'] = 'user_starred_questions_list'
+
+	if len(questions) > 0:
+		if category:
+			next_qset = Question.objects.filter(category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		else:
+			next_qset = Question.objects.filter(pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+		if next_qset.exists():
+			if next_qset[0].pk > int(question_id):
+				context['next'] = next_qset[0].pk
+
+		if category:
+			prev_qset = Question.objects.filter(category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		else:
+			prev_qset = Question.objects.filter(pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+		if prev_qset.exists():
+			context['prev'] = prev_qset[0].pk
+
+	context['categories'] = Category.objects.all()
+	context['qandaUser'] = qandaUser
+	context['category'] = category
+
+	return render_to_response("qanda/question_list.html", context, context_instance=RequestContext(request))
+
+@assert_qanda_user
 def user_asked_questions_list(request, user_id, question_id, category):
 	context = {}
 	qandaUser = get_object_or_404(QandaUser, pk=user_id)

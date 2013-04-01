@@ -22,6 +22,7 @@ from views import profile_page
 from views import user_asked_questions_list
 from views import user_answered_questions_list
 from views import user_replied_questions_list
+from views import user_starred_questions_list
 from tastypie.api import Api
 from api import UserResource, QandaUserResource, QuestionResource, AnswerResource, ReplyResource
 from django_notify.urls import get_pattern as get_notify_pattern
@@ -46,8 +47,10 @@ urlpatterns = patterns('qanda_app',
     url(r'^tag/(?P<tag>\w+)/(?P<page>\d+)$', tag_page, name='tag_page'),
     url(r'^(?P<category>\w+)/tag/(?P<tag>\w+)/(?P<page>\d+)$', categorized_tag_page, name='categorized_tag_page'),
     url(r'^tags/(?P<page>\d+)/$', tag_list, name='tag_list'),
-    url(r'^categories/(?P<page>\d+)/$', category_list, name='category_list'),
+    url(r'^categories/(?P<page>\d+)/$', category_list, name='category_list'),               
     url(r'^user/(?P<user_id>\d+)/$', profile_page, name='profile_page'),
+    url(r'^user/(?P<user_id>\d+)/starred/(?P<question_id>\d+)/$', user_starred_questions_list, {'category' : 'all'}, name='user_starred_questions_list'),
+    url(r'^user/(?P<user_id>\d+)/starred/(?P<question_id>\d+)/(?P<category>\w+)/$', user_starred_questions_list, name='categorized_user_starred_questions_list'),
     url(r'^user/(?P<user_id>\d+)/asked/(?P<question_id>\d+)/$', user_asked_questions_list, {'category' : 'all'}, name='user_asked_questions_list'),
     url(r'^user/(?P<user_id>\d+)/asked/(?P<question_id>\d+)/(?P<category>\w+)/$', user_asked_questions_list, name='categorized_user_asked_questions_list'),
     url(r'^user/(?P<user_id>\d+)/answered/(?P<question_id>\d+)/$', user_answered_questions_list, {'category' : 'all'}, name='user_answered_questions_list'),
