@@ -25,7 +25,7 @@
 								{% else %}
 									{{ question.numOfVotes }}
 								{% endif %}
-								<a href="relate_single/star/{% if question.relations.star %}false{%else%}true{% endif %}" class="btn {% if question.relations.star %} active {% endif %}">
+								<a href="relate_single/star/{% if question.relations.star %}false{%else%}true{% endif %}" class="btn {% if question.relations.star %} active {% endif %} {% if question.relations.star %} btn-warning {% endif %}">
 									{% if question.relations.star %}
 										<i class="icon-star"></i>
 									{% else %}									
