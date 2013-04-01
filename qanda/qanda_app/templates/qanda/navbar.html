@@ -13,7 +13,7 @@
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li {% if view == "question_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.index %}">{% trans "Home" %}</a></li>
-          <li {% if view == "last_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.most_recent_question %}">{% blocktrans %}Last Question{% endblocktrans %}</a></li>
+          {% comment %}<li {% if view == "last_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.most_recent_question %}">{% blocktrans %}Last Question{% endblocktrans %}</a></li> {% endcomment %}
           <li {% if view == "tag_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.tag_list page="0" %}">{% trans "Tags" %}</a></li>
           <li {% if view == "category_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.category_list page="0" %}">{% trans "Categories" %}</a></li>
           <li {% if view == "new_question_page" %} class="active" {% endif %} ><a href="{% url qanda_app.views.new_question_page %}">{% trans "New Question" %}</a></li>
