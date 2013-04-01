@@ -50,7 +50,7 @@
 					</div>
 					<div class="row">
 						<div class="span6">
-							{% trans "by" %}: <i><a href="{{ question.author.get_absolute_url }}">{{ question.author }}</a></i> <br />
+							{% trans "by" %}: <i><a href="{{ question.author.get_absolute_url }}">{{ question.author.djangoUser }}</a></i> <br />
 							{{ question.postDate }} <br />
 						</div>
 						<div class="span3">
@@ -154,7 +154,7 @@
 						</div>
 						<div class="row">
 							<div class="span5 offset1">
-								{% trans "by" %}: <i><a href="{{ answer.author.get_absolute_url }}">{{ answer.author }}</a></i>
+								{% trans "by" %}: <i><a href="{{ answer.author.get_absolute_url }}">{{ answer.author.djangoUser }}</a></i>
 								{% if answer.author.djangoUser == user %}
 									<a class="edit-answer pull-right" href="{% url delete_answer answer_id=answer.pk %}">{% trans "Delete Answer" %}</a>
 								{% endif %}
@@ -179,7 +179,7 @@
 									<div class="span6 offset2">
 										<hr>
 										{{ reply.text }} <br />
-										{% trans "by" %} <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author }}</a></i> <br />
+										{% trans "by" %} <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author.djangoUser }}</a></i> <br />
 									</div>
 									{% endif %}
 								</div>
