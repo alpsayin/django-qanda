@@ -160,7 +160,9 @@
 								{% endif %}
 							</div>
 							<div class="span1">
+								{% comment %}
 								{% include "qanda/subscription.html" with pk=answer.pk type="answer_subscription" action_link="subscribe/" subscribed=answer.subscribed %}
+								{% endcomment %}
 							</div>
 						</div>
 						<div class="row answer-useful">
