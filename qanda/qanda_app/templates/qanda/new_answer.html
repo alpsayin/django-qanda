@@ -9,11 +9,16 @@
 		<input type="hidden" name="type" value="{{ type }}">
 
 		<div class="answerTextWrapper">
-	        {{ answer_form.text.errors }}
 	        <label for="id_text">
 	        	<h5>
 		        	{% trans "Answer" %}:
 		        </h5>
+	        	{% if answer_form.text.errors %}
+	        		<div class="alert alert-error">
+	        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			        	<strong>{% trans "Error in Answer Text" %}</strong>{{ answer_form.text.errors }}
+			        </div>
+		        {% endif %}
 	        </label> 
 	        {{ answer_form.text }}
 		</div>
