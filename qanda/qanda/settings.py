@@ -173,6 +173,7 @@ TAGGIT_STOPWORDS = [u'a', u'an', u'and', u'be', u'from', u'of']
 
 #used for left hand navbar brand
 SITE_NAME = 'Qanda'
+SITE_TITLE = 'Forum'
 
 #must be a static address like below
 ROOT_URL = 'http://localhost:8000/qanda/'

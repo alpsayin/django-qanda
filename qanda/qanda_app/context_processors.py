@@ -19,6 +19,7 @@ def latest_questions(request):
 def site_settings(request):
 	return {
 		'SITE_NAME' : settings.SITE_NAME,
+		'SITE_TITLE' : settings.SITE_TITLE,
 		'ROOT_URL' : settings.ROOT_URL,
 		'LOGIN_URL' : settings.LOGIN_URL,
 		'LOGOUT_URL' : settings.LOGOUT_URL,

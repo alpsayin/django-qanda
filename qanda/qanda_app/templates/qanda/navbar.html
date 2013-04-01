@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="{{ ROOT_URL }}">{{ SITE_NAME }}</a>
+      <a class="brand" href="{{ ROOT_URL }}">{{ SITE_NAME }} {{ SITE_TITLE }}</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li {% if view == "question_list" %} class="active" {% endif %} ><a href="{% url qanda_app.views.index %}">{% trans "Home" %}</a></li>
