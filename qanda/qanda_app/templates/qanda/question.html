@@ -192,7 +192,15 @@
 						<div class="row reply-box">
 							<div class="offset1">
 								{% if user.is_authenticated %}
-									{% include "qanda/reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
+									<div id="reply{{ answer.pk }}-display">
+										<a href="#reply{{ answer.pk }}-display" onClick="toggleElementVisibility('#reply{{ answer.pk }}', '#reply{{ answer.pk }}-display', '#reply{{ answer.pk }}-hide', 0);">{% trans "Click to reply" %}</a>
+									</div>
+									<div id="reply{{ answer.pk }}-hide" style="display:none;">
+										<a href="#reply{{ answer.pk }}-hide" onClick="toggleElementVisibility('#reply{{ answer.pk }}', '#reply{{ answer.pk }}-display', '#reply{{ answer.pk }}-hide', 0);">{% trans "Click to hide reply" %}</a>
+										<div id="reply{{ answer.pk }}" style="display:none;">
+											{% include "qanda/reply.html" with pk=answer.pk type="new_reply" action_link="relate/" %}
+										</div>
+									</div>
 								{% else %}
 									<a href="{% url qanda_app.views.login_redirect request.path %}">{% trans "Login to reply" %}</a>
 								{% endif %}

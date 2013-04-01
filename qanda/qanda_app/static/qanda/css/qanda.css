@@ -143,11 +143,11 @@
 }
 
 .reply-box {
-	display: none;
+	display: block;
 }
 
 .answer:hover .reply-box {
-	display: block;
+	/*display: block;*/
 }
 
 .profile-summary {
