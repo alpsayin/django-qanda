@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm
 from taggit.models import Tag
 from django.http import Http404
+from django.conf import settings
 from view_helpers import *
 import pprint
 
@@ -621,6 +622,7 @@ def question_page(request, question_id):
 
 	context['question'] = question
 	context['answers'] = answers
+	context['is_editor'] = user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors'))
 	context['debug'] = ''
 
 	try:
