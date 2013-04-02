@@ -169,7 +169,7 @@ LOGOUT_URL = '/accounts/signout/'
 
 #force lowercase in tags -> git://github.com/shacker/django-taggit.git
 TAGGIT_FORCE_LOWERCASE = True
-TAGGIT_STOPWORDS = [u'a', u'an', u'and', u'be', u'from', u'of']
+TAGGIT_STOPWORDS = [u'a', u'an', u'and', u'be', u'from', u'of', u'the']
 
 #used for left hand navbar brand
 SITE_NAME = 'Inforigo'
