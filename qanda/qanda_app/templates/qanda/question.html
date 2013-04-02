@@ -96,7 +96,7 @@
 							<ul>
 								{% trans "Tags" %}:
 								{% for tag in question.tags.all %}
-									<a href="{% url qanda_app.views.tag_page tag=tag.name page="0" %}">{{ tag.name }},</a>
+									<a class="tag-link" href="{% url qanda_app.views.tag_page tag=tag.name page="0" %}">{{ tag.name }},</a>
 								{% endfor %}
 							</ul>	
 						</div>

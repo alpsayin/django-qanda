@@ -78,13 +78,17 @@
 }
 
 .tag-link {
-	color: rgba(0, 0, 0, 1);
-	font-size: 14;
+	color: #3E6D8E;
+	background-color: #E0EAF1;
+	border-bottom: 1px solid #b3cee1;
+	border-right: 1px solid #b3cee1;
+	border-color: rgba(0, 0, 0, 0.2);
+	font-size: 12;
 }
 
 .tag-link:hover {
-	color: rgba(255, 0, 0, 1);
-	font-size: 18;
+	background-color: #b3cee1;
+	font-size: 15;
 }
 
 .title {
@@ -94,12 +98,15 @@
 
 .short-question-text {
 	text-align: right;
-	font-size: 10px;
+	font-size: 11px;
+	position: relative;
 }
 
 .questiontag {
-	color: rgb(255, 255, 255);
-	background-color: #faa732;
+	color: #3E6D8E;
+	background-color: #E0EAF1;
+	border-bottom: 1px solid #b3cee1;
+	border-right: 1px solid #b3cee1;
 	border-color: rgba(0, 0, 0, 0.2);
 	margin-right: 2px;
 	font-size: 12;
@@ -112,19 +119,26 @@
 
 .recent-tags {
 	text-align: center;
+	font-size: 14px;
 }
 
 .common-tags {
 	text-align: center;
+	font-size: 14px;
 }
 
 .tag-list-element {
-	font-size: 15;
-	color: rgba(0, 0, 0, 1);
+	color: #3E6D8E;
+	background-color: #E0EAF1;
+	border-bottom: 1px solid #b3cee1;
+	border-right: 1px solid #b3cee1;
+	border-color: rgba(0, 0, 0, 0.2);
+	font-size: 12;
 }
 
 .tag-list-element:hover {
-	color: rgba(255, 0, 0, 1);
+	background-color: #b3cee1;
+	font-size: 13;
 }
 
 .tag-list-used {
