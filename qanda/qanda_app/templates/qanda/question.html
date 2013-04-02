@@ -1,5 +1,6 @@
 {% extends "qanda/qanda_base.html" %}
 {% load i18n %}
+{% load qanda_extras %}
 
 {% block title %}
 	{{ SITE_NAME}} - {{ question.title }}
@@ -62,8 +63,8 @@
 					</div>
 					<div class="row">
 						<div class="span8">
-							<blockquote>
-							{{ question.text }}  
+							<blockquote class="">
+								{{ question.text|urlizetrunc:48|url_target_blank }}  
 							</blockquote>
 						</div>
 						<!-- <div class="span2">
@@ -131,7 +132,7 @@
 							</div>
 							<div class="span7">
 								<blockquote>
-									{{ answer.text }} 
+									{{ answer.text|urlizetrunc:48|url_target_blank }} 
 								</blockquote>
 							</div>
 							<div class="pull-right answer-star-flag">
@@ -180,7 +181,7 @@
 								<div class="row">
 									<div class="span6 offset2">
 										<hr>
-										{{ reply.text }} <br />
+										{{ reply.text|urlizetrunc:48|url_target_blank }} <br />
 										{% trans "by" %} <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author.djangoUser }}</a></i> <br />
 									</div>
 									{% endif %}
