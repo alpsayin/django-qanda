@@ -38,12 +38,16 @@
 							<br />
 						</div>
 						<div class="span8">
-							<h6> {% trans "Category:" %} {{ question.category }}</h6>
+							<h6> {% trans "Category:" %} {% if question.category %}{{ question.category }}{% else %}{% trans "None" %}{% endif %}</h6>
 							<h2> {{ question.title }} </h2> 
 							<h6> {% blocktrans with viewCount=question.viewCount %} Views {{ viewCount }} {% endblocktrans %}</h6>
-							{% if question.author.djangoUser == user %}
+							{% if is_editor or request.user.is_superuser or question.author.djangoUser == user %}
 							<div class="span6">
-								<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a>
+								<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a> 
+								| <a class="delete-question" href="#">{% trans "Delete Question" %}</a> 
+								{% if is_editor or request.user.is_superuser %}
+								| <a class="close-question" href="#">{% trans "Close Question" %}</a>
+								{% endif %}
 							</div>
 							{% endif %}
 						</div>
@@ -160,8 +164,8 @@
 						<div class="row">
 							<div class="span5 offset1">
 								{% trans "by" %}: <i><a href="{{ answer.author.get_absolute_url }}">{{ answer.author.djangoUser }}</a></i>
-								{% if answer.author.djangoUser == user %}
-									<a class="edit-answer pull-right" href="{% url delete_answer answer_id=answer.pk %}">{% trans "Delete Answer" %}</a>
+								{% if is_editor or request.user.is_superuser or question.author.djangoUser == user %}
+									<a class="delete-answer pull-right" href="{% url delete_answer answer_id=answer.pk %}">{% trans "Delete Answer" %}</a>
 								{% endif %}
 							</div>
 							<div class="span1">
@@ -180,15 +184,29 @@
 							</div>
 						</div>
 						
+						{% if answer.replies.count != 0 %}
+						<div class="row">
+							<div class="span6 offset2">
+								<h6>{% trans "Comments" %}</h6>
+							</div>
+						</div>
+						{% endif %}
 						{% for reply in answer.replies.all %}
 							{% if not reply.deleted %}
 								<div class="row">
-									<div class="span6 offset2">
-										<hr>
-										<span style="word-wrap:break-word;">
+									<div class="reply-text-box span6 offset2">
+										<span class="reply-text">
 										{{ reply.text|urlizetrunc:48|url_target_blank }}
 										</span> <br />
-										{% trans "by" %} <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author.djangoUser }}</a></i> <br />
+										<span>
+											{% trans "by" %} <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author.djangoUser }}</a></i>
+										</span> 
+										{% if is_editor or request.user.is_superuser or question.author.djangoUser == user %}
+											<span class="delete-comment">
+												<a href="#">{% trans "Delete comment" %}</a>
+											</span>
+										{% endif %}
+										{% if not forloop.last %}<hr>{% endif %}
 									</div>
 									{% endif %}
 								</div>
