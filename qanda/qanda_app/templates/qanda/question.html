@@ -18,7 +18,7 @@
 				<div class="question">
 					<div class="row">
 						<div class="pull-left">
-							<a href="relate_single/upvote/{% if question.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;{% trans "Up" %}&nbsp;&nbsp;&nbsp;</a>
+							<a href="relate_single/upvote/{% if question.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if question.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>{% trans "&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;" %}</a>
 							<br/>
 							<h4 class="text-center">
 								{% if question.numOfVotes > 0 %}
@@ -119,7 +119,7 @@
 					<p>
 						<div class="row">
 							<div class="pull-left">
-								<a href="{{ answer.pk }}/upvote/{% if answer.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>&nbsp;&nbsp;{% trans "Up" %}&nbsp;&nbsp;&nbsp;</a>
+								<a href="{{ answer.pk }}/upvote/{% if answer.relations.upvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.upvote %} active {% endif %}"><i class="icon-arrow-up"></i>{% trans "&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;" %}</a>
 								<br/>
 								<h4 class="text-center">
 									{% if answer.numOfVotes > 0 %}
