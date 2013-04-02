@@ -30,7 +30,8 @@
 
 		<div class="row">
 			<div class="row">
-				<h2>
+				<div>
+				<span class="page-title">
 					{% if view == 'user_asked_questions_list' %}
 						{% blocktrans with user=qandaUser.djangoUser %}Asked Questions by {{ user }} {% endblocktrans %}
 					{% elif view == 'user_answered_questions_list' %}
@@ -46,7 +47,7 @@
 			    		-
 						{{ category }}
 					{% endif %}
-
+				</span>
 					<div class="pull-right">
 						<div class="btn-group btn-large">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -115,7 +116,7 @@
 					    	{% endif %}
 						</div>
 					</div>	
-				</h2>
+				</div>
 			</div>
 
 			<div class="row">
