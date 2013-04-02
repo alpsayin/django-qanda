@@ -259,8 +259,32 @@
 	display: none;
 }
 
+.question-title-row {
+
+}
+
+.question-upvotes-row {
+
+}
+
+.question-downvotes-row {
+
+}
+
+.answer-title-row {
+	
+}
+
+.answer-upvotes-row {
+
+}
+
+.answer-downvotes-row {
+
+}
+
 .question-stars-row {
-	display: none;
+	/*display: none;*/
 }
 
 .question-flags-row {

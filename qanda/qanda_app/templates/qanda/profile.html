@@ -146,7 +146,7 @@
 					</div>
 					<div id="question-relations-table" class="relations-table">
 						<table class="profile-rest-table">
-							<tr>
+							<tr class="question-title-row">
 								<th>
 									{{ qandaUser.djangoUser }}
 								</th>
@@ -157,7 +157,7 @@
 									{% trans "Given" %}
 								</th>
 							</tr>
-							<tr>
+							<tr class="question-upvotes-row">
 								<td>
 									{% trans "Upvotes" %}
 								</td>
@@ -168,7 +168,7 @@
 									{{ qandaUser.get_question_upvotes_given }}
 								</td>
 							</tr>
-							<tr>
+							<tr class="question-downvotes-row">
 								<td>
 									{% trans "Downvotes" %}
 								</td>
@@ -177,6 +177,17 @@
 								</td>
 								<td>
 									{{ qandaUser.get_question_downvotes_given }}
+								</td>
+							</tr>
+							<tr class="question-stars-row">
+								<td>
+									{% trans "Stars" %}
+								</td>
+								<td>
+									{{ qandaUser.get_question_stars_taken }}
+								</td>
+								<td>
+									{{ qandaUser.get_question_stars_given }}
 								</td>
 							</tr>
 							<tr class="question-useful-row">
@@ -199,17 +210,6 @@
 								</td>
 								<td>
 									{{ qandaUser.get_question_notUsefuls_given }}
-								</td>
-							</tr>
-							<tr class="question-stars-row">
-								<td>
-									{% trans "Stars" %}
-								</td>
-								<td>
-									{{ qandaUser.get_question_stars_taken }}
-								</td>
-								<td>
-									{{ qandaUser.get_question_stars_given }}
 								</td>
 							</tr>
 							<tr class="question-flags-row">
@@ -239,7 +239,7 @@
 					</div>
 					<div id="answer-relations-table" class="relations-table">
 						<table class="profile-rest-table">
-							<tr>
+							<tr class="answer-title-row">
 								<th>
 									{{ qandaUser.djangoUser }}
 								</th>
@@ -250,7 +250,7 @@
 									{% trans "Given" %}
 								</th>
 							</tr>
-							<tr>
+							<tr class="answer-upvotes-row">
 								<td>
 									{% trans "Upvotes" %}
 								</td>
@@ -261,7 +261,7 @@
 									{{ qandaUser.get_answer_upvotes_given }}
 								</td>
 							</tr>
-							<tr>
+							<tr class="answer-downvotes-row">
 								<td>
 									{% trans "Downvotes" %}
 								</td>
