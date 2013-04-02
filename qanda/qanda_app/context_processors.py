@@ -18,12 +18,12 @@ def latest_questions(request):
 
 def site_settings(request):
 	return {
-		'SITE_NAME' : settings.SITE_NAME,
-		'SITE_TITLE' : settings.SITE_TITLE,
-		'ROOT_URL' : settings.ROOT_URL,
-		'LOGIN_URL' : settings.LOGIN_URL,
-		'LOGOUT_URL' : settings.LOGOUT_URL,
-		'LOGIN_REDIRECT_URL' : settings.LOGIN_REDIRECT_URL,
+		'SITE_NAME' : getattr(settings, 'SITE_NAME', 'Qanda'),
+		'SITE_TITLE' : getattr(settings, 'SITE_TITLE', 'Forum'),
+		'ROOT_URL' : getattr(settings, 'ROOT_URL', 'http://127.0.0.1:8000/qanda/'),
+		'LOGIN_URL' : getattr(settings, 'LOGIN_URL', '/admin/login'),
+		'LOGOUT_URL' : getattr(settings, 'LOGOUT_URL', '/admin/logout'),
+		'LOGIN_REDIRECT_URL' : getattr(settings, 'LOGIN_REDIRECT_URL', '/qanda/'),
 	}
 
 def recent_and_common_tags(request):
