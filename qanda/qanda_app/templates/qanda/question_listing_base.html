@@ -16,7 +16,11 @@
 					</div>	
 					<div class="span6 question-box">
 							<span class="title">
-								{{ question.title }}<br/>
+								{{ question.title }} 
+								<span class="short-question-text">
+									{{ question.text|truncatechars:64 }}
+								</span>
+								<br/>
 							</span>
 						{% for tag in question.tags.all %}
 							<span class="questiontag">						
