@@ -9,6 +9,8 @@
 			{% blocktrans with user=qandaUser.djangoUser %}Answered Questions by {{ user }} {% endblocktrans %}
 		{% elif view == 'user_replied_questions_list' %}
 			{% blocktrans with user=qandaUser.djangoUser %}Replied Questions by {{ user }} {% endblocktrans %}
+		{% elif view == 'user_starred_questions_list' %}
+			{% blocktrans with user=qandaUser.djangoUser %}Starred Questions by {{ user }} {% endblocktrans %}
 		{% elif view == 'question_list' %}
 			{% trans "Recent Questions" %} 
     	{% endif %}
@@ -35,6 +37,8 @@
 						{% blocktrans with user=qandaUser.djangoUser %}Answered Questions by {{ user }} {% endblocktrans %}
 					{% elif view == 'user_replied_questions_list' %}
 						{% blocktrans with user=qandaUser.djangoUser %}Replied Questions by {{ user }} {% endblocktrans %}
+					{% elif view == 'user_starred_questions_list' %}
+						{% blocktrans with user=qandaUser.djangoUser %}Starred Questions by {{ user }} {% endblocktrans %}
 					{% elif view == 'question_list' %}
 						{% trans "Recent Questions" %} 
 			    	{% endif %}
@@ -83,6 +87,17 @@
 									{% for category in categories %}
 										<li>
 											<a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
+										</li>
+									{% endfor %}
+								</ul>
+							{% elif view == 'user_starred_questions_list' %}
+								<ul class="dropdown-menu">
+									<li>
+										<a href="{% url user_starred_questions_list user_id=qandaUser.pk question_id='0' %}">{% trans "All" %}</a>
+									</li>
+									{% for category in categories %}
+										<li>
+											<a href="{% url categorized_user_starred_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
 										</li>
 									{% endfor %}
 								</ul>
@@ -138,6 +153,12 @@
 		    		{% else %}
 		    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=prev %}">{% trans "Prev" %}</a></li>
 		    		{% endif %}
+	    		{% elif view == 'user_starred_questions_list' %}
+	    			{% if category %}
+		    			<li class=""><a href="{% url categorized_user_starred_questions_list user_id=qandaUser.pk category=category question_id=prev %}">{% trans "Prev" %}</a></li>
+		    		{% else %}
+		    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=prev %}">{% trans "Prev" %}</a></li>
+		    		{% endif %}
 	    		{% elif view == 'question_list' %}
 	    			{% if category %}
 		    			<li class=""><a href="{% url categorized_question_list category=category.name question_id=prev %}">{% trans "Prev" %}</a></li>
@@ -167,6 +188,12 @@
 	    		{% elif view == 'user_replied_questions_list' %}
 	    			{% if category %}
 		    			<li class=""><a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category question_id=next %}">{% trans "Next" %}</a></li>
+		    		{% else %}
+		    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=next %}">{% trans "Next" %}</a></li>
+		    		{% endif %}
+	    		{% elif view == 'user_starred_questions_list' %}
+	    			{% if category %}
+		    			<li class=""><a href="{% url categorized_user_starred_questions_list user_id=qandaUser.pk category=category question_id=next %}">{% trans "Next" %}</a></li>
 		    		{% else %}
 		    			<li class=""><a href="{% url user_replied_questions_list user_id=qandaUser.pk question_id=next %}">{% trans "Next" %}</a></li>
 		    		{% endif %}
