@@ -44,9 +44,9 @@
 							{% if is_editor or request.user.is_superuser or question.author.djangoUser == user %}
 							<div class="span6">
 								<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a> 
-								| <a class="delete-question" href="#">{% trans "Delete Question" %}</a> 
+								| <a class="delete-question" href="{% url delete_question question_id=question.pk %}">{% trans "Delete Question" %}</a> 
 								{% if is_editor or request.user.is_superuser %}
-								| <a class="close-question" href="#">{% trans "Close Question" %}</a>
+								| <a class="close-question" href="{% url close_question_page question_id=question.pk %}">{% trans "Close Question" %}</a>
 								{% endif %}
 							</div>
 							{% endif %}
@@ -204,7 +204,7 @@
 										</span> 
 										{% if is_editor or request.user.is_superuser or question.author.djangoUser == user %}
 											<span class="delete-comment">
-												<a href="#">{% trans "Delete comment" %}</a>
+												<a href="{% url delete_reply reply_id=reply.pk %}">{% trans "Delete comment" %}</a>
 											</span>
 										{% endif %}
 										{% if not forloop.last %}<hr>{% endif %}
