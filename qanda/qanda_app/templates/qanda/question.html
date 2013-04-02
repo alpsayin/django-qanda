@@ -122,6 +122,7 @@
 				<h3>{% trans "Answers" %}</h3>
 				<h6> {% blocktrans count counter=answers|length %} There is one answer. {% plural %} There are {{ counter }} answers. {% endblocktrans %} </h6>
 				{% for answer in answers %}
+				{% if not answer.deleted %}
 				<div class ="row answer">
 					<div class="span9">
 					<p>
@@ -235,6 +236,7 @@
 					</p>
 					</div>
 				</div>
+				{% endif %}
 				{% endfor %}
 
 				<div class="row">
