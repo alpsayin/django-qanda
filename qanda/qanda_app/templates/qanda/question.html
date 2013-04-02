@@ -65,7 +65,7 @@
 					</div>
 					<div class="row">
 						<div class="span8">
-							<blockquote class="">
+							<blockquote style="word-wrap:break-word;">
 								{{ question.text|urlizetrunc:48|url_target_blank }}  
 							</blockquote>
 						</div>
@@ -134,7 +134,7 @@
 								<a href="{{ answer.pk }}/downvote/{% if answer.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>{% trans "Down" %}</a>
 							</div>
 							<div class="span7">
-								<blockquote>
+								<blockquote style="word-wrap:break-word;">
 									{{ answer.text|urlizetrunc:48|url_target_blank }} 
 								</blockquote>
 							</div>
@@ -184,7 +184,9 @@
 								<div class="row">
 									<div class="span6 offset2">
 										<hr>
-										{{ reply.text|urlizetrunc:48|url_target_blank }} <br />
+										<span style="word-wrap:break-word;">
+										{{ reply.text|urlizetrunc:48|url_target_blank }}
+										</span> <br />
 										{% trans "by" %} <i><a href="{{ reply.author.get_absolute_url }}">{{ reply.author.djangoUser }}</a></i> <br />
 									</div>
 									{% endif %}
