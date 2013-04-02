@@ -38,7 +38,9 @@
 							<br />
 						</div>
 						<div class="span8">
-							<h2> {{ question.title }} - {{ question.viewCount }} </h2> 
+							<h6> {% trans "Category:" %} {{ question.category }}</h6>
+							<h2> {{ question.title }} </h2> 
+							<h6> {% blocktrans with viewCount=question.viewCount %} Views {{ viewCount }} {% endblocktrans %}</h6>
 							{% if question.author.djangoUser == user %}
 							<div class="span6">
 								<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a>
