@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-02 05:04+0300\n"
+"POT-Creation-Date: 2013-04-02 05:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -299,11 +299,11 @@ msgstr ""
 msgid "Answer Relations"
 msgstr ""
 
-#: templates/qanda/question.html:21 templates/qanda/question.html.py:125
+#: templates/qanda/question.html:21 templates/qanda/question.html.py:126
 msgid "&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;"
 msgstr ""
 
-#: templates/qanda/question.html:37 templates/qanda/question.html.py:134
+#: templates/qanda/question.html:37 templates/qanda/question.html.py:135
 msgid "Down"
 msgstr ""
 
@@ -316,22 +316,22 @@ msgstr ""
 msgid " Views %(viewCount)s "
 msgstr ""
 
-#: templates/qanda/question.html:56 templates/qanda/question.html.py:161
-#: templates/qanda/question.html:191
+#: templates/qanda/question.html:56 templates/qanda/question.html.py:162
+#: templates/qanda/question.html:192
 #: templates/qanda/question_listing_base.html:32
 msgid "by"
 msgstr ""
 
-#: templates/qanda/question.html:78 templates/qanda/question.html.py:144
+#: templates/qanda/question.html:78 templates/qanda/question.html.py:145
 msgid "Starred"
 msgstr ""
 
-#: templates/qanda/question.html:80 templates/qanda/question.html.py:146
+#: templates/qanda/question.html:80 templates/qanda/question.html.py:147
 #: templates/qanda/relations.html:24
 msgid "Star"
 msgstr ""
 
-#: templates/qanda/question.html:86 templates/qanda/question.html.py:152
+#: templates/qanda/question.html:86 templates/qanda/question.html.py:153
 #: templates/qanda/relations.html:25
 msgid "Flag"
 msgstr ""
@@ -340,11 +340,11 @@ msgstr ""
 msgid "Have you found this question useful?"
 msgstr ""
 
-#: templates/qanda/question.html:104 templates/qanda/question.html.py:177
+#: templates/qanda/question.html:104 templates/qanda/question.html.py:178
 msgid "Yes"
 msgstr ""
 
-#: templates/qanda/question.html:105 templates/qanda/question.html.py:178
+#: templates/qanda/question.html:105 templates/qanda/question.html.py:179
 msgid "No"
 msgstr ""
 
@@ -353,27 +353,34 @@ msgstr ""
 msgid "Answers"
 msgstr ""
 
-#: templates/qanda/question.html:163
+#: templates/qanda/question.html:119
+#, python-format
+msgid " There is one answer. "
+msgid_plural " There are %(counter)s answers. "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/qanda/question.html:164
 msgid "Delete Answer"
 msgstr ""
 
-#: templates/qanda/question.html:176
+#: templates/qanda/question.html:177
 msgid "Have you found this answer useful?"
 msgstr ""
 
-#: templates/qanda/question.html:203
+#: templates/qanda/question.html:204
 msgid "Click to reply"
 msgstr ""
 
-#: templates/qanda/question.html:206
+#: templates/qanda/question.html:207
 msgid "Click to hide reply"
 msgstr ""
 
-#: templates/qanda/question.html:212
+#: templates/qanda/question.html:213
 msgid "Login to reply"
 msgstr ""
 
-#: templates/qanda/question.html:223
+#: templates/qanda/question.html:224
 msgid "Answer this question"
 msgstr ""
 
