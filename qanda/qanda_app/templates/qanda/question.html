@@ -197,7 +197,7 @@
 							<p></p>
 						</div>
 						<div class="row reply-box">
-							<div class="offset1">
+							<div class="{% if answer.replies.count == 0 %}offset1{% else %}offset2{% endif %}">
 								{% if user.is_authenticated %}
 									<div id="reply{{ answer.pk }}-display">
 										<a href="#reply{{ answer.pk }}-display" onClick="toggleElementVisibility('#reply{{ answer.pk }}', '#reply{{ answer.pk }}-display', '#reply{{ answer.pk }}-hide', 0);">{% trans "Click to reply" %}</a>
