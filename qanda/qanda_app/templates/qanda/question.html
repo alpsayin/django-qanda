@@ -3,7 +3,7 @@
 {% load qanda_extras %}
 
 {% block title %}
-	{{ SITE_NAME}} - {{ question.title }}
+	{{ SITE_NAME }} - {{ question.title }}
 {% endblock %}
 
 {% block body %}
@@ -12,7 +12,6 @@
 
 	    {% include "qanda/navbar.html" %}
 
-		{{ debug }}
 		<div class="row">
 			<div class="span10">
 				<div class="question">
@@ -39,7 +38,7 @@
 						</div>
 						<div class="span8">
 							<h6> {% trans "Category:" %} {% if question.category %}{{ question.category }}{% else %}{% trans "None" %}{% endif %}</h6>
-							<h2> {{ question.title }} </h2> 
+							<h3> {{ question.title }} </h3> 
 							<h6> {% blocktrans with viewCount=question.viewCount %} Views {{ viewCount }} {% endblocktrans %}</h6>
 							{% if is_editor or request.user.is_superuser or question.author.djangoUser == user %}
 							<div class="span6">
@@ -69,7 +68,7 @@
 					</div>
 					<div class="row">
 						<div class="span8">
-							<blockquote style="word-wrap:break-word;">
+							<blockquote class="question-text">
 								{{ question.text|urlizetrunc:48|url_target_blank }}  
 							</blockquote>
 						</div>
@@ -119,7 +118,7 @@
 				</div> -->
 				<hr>
 
-				<h3>{% trans "Answers" %}</h3>
+				<h4>{% trans "Answers" %}</h4>
 				<h6> {% blocktrans count counter=answers|length %} There is one answer. {% plural %} There are {{ counter }} answers. {% endblocktrans %} </h6>
 				{% for answer in answers %}
 				{% if not answer.deleted %}
@@ -140,7 +139,7 @@
 								<a href="{{ answer.pk }}/downvote/{% if answer.relations.downvote %}false{%else%}true{% endif %}" class="btn {% if answer.relations.downvote %} active {% endif %}"><i class="icon-arrow-down"></i>{% trans "Down" %}</a>
 							</div>
 							<div class="span7">
-								<blockquote style="word-wrap:break-word;">
+								<blockquote class="answer-text">
 									{{ answer.text|urlizetrunc:48|url_target_blank }} 
 								</blockquote>
 							</div>
@@ -240,7 +239,7 @@
 				{% endfor %}
 
 				<div class="row">
-					<h3> {% trans "Answer this question" %} </h3>
+					<h4> {% trans "Answer this question" %} </h4>
 
 					{% include "qanda/new_answer.html" with type="new_answer" action_link="relate/" %}
 				</div>

@@ -14,7 +14,7 @@ class QuestionForm(ModelForm):
 		widgets = {
 			'title': TextInput(attrs={'size': 220, 'class':'span8'}),
 			'category' : Select(attrs={'class':'span7'},),
-			'text': Textarea(attrs={'cols': 120, 'rows': 20, 'class':'span8'}),
+			'text': Textarea(attrs={'cols': 120, 'rows': 16, 'class':'span8'}),
 			# 'tags': TextInput(attrs={'size': 220, 'class':'span8'}),
 		}
 

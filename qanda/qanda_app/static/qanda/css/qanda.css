@@ -102,6 +102,16 @@
 	position: relative;
 }
 
+.question-text {
+	word-wrap:break-word;
+	font-size: 13px;
+}
+
+.answer-text {
+	word-wrap:break-word;
+	font-size: 13px;
+}
+
 .questiontag {
 	color: #3E6D8E;
 	background-color: #E0EAF1;
@@ -171,37 +181,37 @@
 }
 
 .profile-summary {
-	font-size: 22;
+	font-size: 16;
 	font-weight: 700;
 }
 
 .profile-summary-begin {
-	font-size: 18;
+	font-size: 14;
 	font-weight: 700;
 	margin-top: 10px;
 	margin-bottom: 20px;
 }
 
 .profile-summary-element {
-	font-size: 18;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-left: 20px;
+	font-size: 13;
+	/*margin-top: 10px;*/
+	/*margin-bottom: 10px;*/
+	margin-left: 0px;
 }
 
 .profile-important-link:hover {
-	font-size: 22;
+	font-size: 14;
 	color: red;
 }
 
 .profile-rest {
 	padding-top: 20px;
-	font-size: 22;
+	font-size: 15;
 	font-weight: 700;
 }
 
 .profile-rest-table {
-	font-size: 16;
+	font-size: 15;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
@@ -230,12 +240,12 @@
 }
 
 .profile-rest-table td:first-child + td {
-	font-size: 22;
+	font-size: 15;
 	font-weight: 700;
 }
 
 .profile-rest-table td:first-child + td + td {
-	font-size: 22;
+	font-size: 16;
 	font-weight: 700;
 }
 
