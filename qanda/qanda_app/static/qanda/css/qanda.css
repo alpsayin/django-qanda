@@ -92,9 +92,14 @@
 	color: rgb(0, 0, 0);
 }
 
+.short-question-text {
+	text-align: right;
+	font-size: 10px;
+}
+
 .questiontag {
 	color: rgb(255, 255, 255);
-	background-color: rgba(240, 80, 0, 1);
+	background-color: #faa732;
 	border-color: rgba(0, 0, 0, 0.2);
 	margin-right: 2px;
 	font-size: 12;
@@ -144,6 +149,7 @@
 
 .reply-box {
 	display: block;
+	font-size: 11px;
 }
 
 .answer:hover .reply-box {
@@ -305,5 +311,41 @@
 
 .answer-flags-row {
 	display: none;
+}
+
+.reply-text-box {
+	background-color: #eee;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.reply-text {
+	word-wrap: break-word;
+	font-size: 11px;
+	background-color: #eee;
+}
+
+.delete-question {
+	font-size: 11px;
+}
+
+.edit-question {
+	font-size: 11px;
+}
+
+.close-question {
+	font-size: 11px;
+}
+
+.delete-answer {
+	font-size: 11px;
+}
+
+.delete-comment {
+	font-size: 11px;
+	text-align: right; 
+	left: 65%; 
+	position: relative;
 }
 
