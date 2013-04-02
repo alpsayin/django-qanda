@@ -555,11 +555,11 @@ def createReplyNotifications(sender, **kwargs):
         reply = kwargs['instance']
         Answer.objects.subscribe_to_answer(reply.answer, reply.author, True)
 
-    new_notifications = Notification.create_notifications(key='new_reply', 
-                                                        object_id=str(reply.answer.pk),
-                                                        message='New reply to your answer in '+str(reply.answer.question.title),
-                                                        url=reverse('qanda_app.views.question_page', kwargs={'question_id':reply.answer.question.pk,}),
-                                                        )
+        new_notifications = Notification.create_notifications(key='new_reply', 
+                                                            object_id=str(reply.answer.pk),
+                                                            message='New reply to your answer in '+str(reply.answer.question.title),
+                                                            url=reverse('qanda_app.views.question_page', kwargs={'question_id':reply.answer.question.pk,}),
+                                                            )
          
            
 signals.post_save.connect(createAnswerNotifications, sender=Question)
