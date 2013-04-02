@@ -131,6 +131,64 @@ def subscription_submit(request, **kwargs):
 
 	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
+
+
+##############################################
+#
+# EDITOR VIEWS
+#
+##############################################
+
+
+@login_required
+@assert_qanda_user
+def close_question_page(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
+	if user  == question.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')):
+		print 'function call: close_question'
+	return HttpResponseRedirect(reverse(question_list, args=(0,)))
+
+@login_required
+@assert_qanda_user
+def delete_question(request, question_id):
+	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
+	if user  == question.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')):
+		question.deleted = True
+		question.save()
+	return HttpResponseRedirect(reverse(question_list, args=(0,)))
+
+@login_required
+@assert_qanda_user
+def edit_answer_page(request, answer_id):
+	answer = get_object_or_404(Answer, pk=answer_id)
+	user = get_user(request)
+	if user  == answer.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')):
+		print 'function call: edit_question'
+	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
+
+@login_required
+@assert_qanda_user
+def delete_answer(request, answer_id):
+	answer = get_object_or_404(Answer, pk=answer_id)
+	user = get_user(request)
+	if user  == answer.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')):
+		answer.deleted = True
+		answer.save()
+	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
+
+@login_required
+@assert_qanda_user
+def delete_reply(request, reply_id):
+	reply = get_object_or_404(Reply, pk=reply_id)
+	user = get_user(request)
+	if user  == reply.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()):
+		reply.deleted = True
+        reply.save()
+	return HttpResponseRedirect(reverse(question_page, args=(reply.answer.question.pk,)))
+
+
 ##############################################
 #
 # INDEX PAGES
@@ -564,13 +622,6 @@ def new_question_page(request):
 	context['debug'] = ''
 
 	return render_to_response("qanda/new_question.html", context, context_instance=RequestContext(request))
-
-def delete_answer(request, answer_id):
-	answer = get_object_or_404(Answer, pk=answer_id)
-	if answer.author.djangoUser == get_user(request):
-		answer.deleted = True
-		answer.save()
-	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
 
 def question_page(request, question_id):
 	context = {}
