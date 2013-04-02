@@ -2,8 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls import patterns
 from views import question_page
 from views import new_question_page
-from views import edit_question_page
-from views import delete_answer
+from views import edit_question_page, edit_answer_page
 from views import question_relation_submit
 from views import subscription_submit
 from views import most_recent_question
@@ -23,6 +22,8 @@ from views import user_asked_questions_list
 from views import user_answered_questions_list
 from views import user_replied_questions_list
 from views import user_starred_questions_list
+from views import delete_question, delete_answer, delete_reply
+from views import close_question_page 
 from tastypie.api import Api
 from api import UserResource, QandaUserResource, QuestionResource, AnswerResource, ReplyResource
 from django_notify.urls import get_pattern as get_notify_pattern
@@ -38,9 +39,12 @@ urlpatterns = patterns('qanda_app',
     url(r'^$', 'views.index', name='index'),
     url(r'^qanda-login-redirect/(?P<redirect_url>.+)$', login_redirect, name='login_redirect'),
     url(r'^new/$', new_question_page, name='new_question_page'),
-    url(r'^edit/(?P<question_id>\d+)/$', edit_question_page, name='edit_question_page'),
-    url(r'^answer/(?P<answer_id>\d+)/delete/$', delete_answer, name='delete_answer'),
-    url(r'^answer/(?P<answer_id>\d+)/edit/$', delete_answer, name='delete_answer'),
+    url(r'^edit/question/(?P<question_id>\d+)/$', edit_question_page, name='edit_question_page'),
+    url(r'^edit/answer/(?P<answer_id>\d+)/$', edit_answer_page, name='edit_question_page'),
+    url(r'^delete/question/(?P<question_id>\d+)/$', delete_question, name='delete_question'),
+    url(r'^delete/answer/(?P<answer_id>\d+)/$', delete_answer, name='delete_answer'),
+    url(r'^delete/reply/(?P<reply_id>\d+)/$', delete_reply, name='delete_reply'),
+    url(r'^close/question/(?P<question_id>\d+)/$', close_question_page, name='close_question_page'),
     url(r'^last/$', most_recent_question, name='most_recent_question'),
     url(r'^list/(?P<question_id>\d+)/$', question_list, {'category' : 'all'}, name='question_list'),
     url(r'^list/(?P<question_id>\d+)/(?P<category>\w+)/$', question_list, name='categorized_question_list'),
