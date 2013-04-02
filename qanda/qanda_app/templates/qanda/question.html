@@ -185,14 +185,14 @@
 							</div>
 						</div>
 						
-						{% if answer.replies.count != 0 %}
+						{% if answer.get_undeleted_replies.count != 0 %}
 						<div class="row">
 							<div class="span6 offset2">
 								<h6>{% trans "Comments" %}</h6>
 							</div>
 						</div>
 						{% endif %}
-						{% for reply in answer.replies.all %}
+						{% for reply in answer.get_undeleted_replies %}
 							{% if not reply.deleted %}
 								<div class="row">
 									<div class="reply-text-box span6 offset2">
@@ -216,7 +216,7 @@
 							<p></p>
 						</div>
 						<div class="row reply-box">
-							<div class="{% if answer.replies.count == 0 %}offset1{% else %}offset2{% endif %}">
+							<div class="{% if answer.get_undeleted_replies.count == 0 %}offset1{% else %}offset2{% endif %}">
 								{% if user.is_authenticated %}
 									<div id="reply{{ answer.pk }}-display">
 										<a href="#reply{{ answer.pk }}-display" onClick="toggleElementVisibility('#reply{{ answer.pk }}', '#reply{{ answer.pk }}-display', '#reply{{ answer.pk }}-hide', 0);">{% trans "Click to reply" %}</a>

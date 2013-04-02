@@ -310,6 +310,9 @@ class Question(models.Model):
     def get_absolute_url(self):
         return reverse('qanda_app.views.question_page', args=(self.pk,))
 
+    def get_undeleted_answers(self):
+        return self.answers.filter(deleted=False)
+
     def __unicode__(self):
         return u'%d %s' % (self.pk, self.title)
 
@@ -421,6 +424,9 @@ class Answer(models.Model):
 
     def get_absolute_url(self):
         return self.question.get_absolute_url()
+
+    def get_undeleted_replies(self):
+        return self.replies.filter(deleted=False)
 
     def __unicode__(self):
         return u'%d by %s' % (self.pk, self.author.djangoUser)
