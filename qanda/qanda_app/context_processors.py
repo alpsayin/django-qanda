@@ -24,6 +24,7 @@ def site_settings(request):
 		'LOGIN_URL' : getattr(settings, 'LOGIN_URL', '/admin/login'),
 		'LOGOUT_URL' : getattr(settings, 'LOGOUT_URL', '/admin/logout'),
 		'LOGIN_REDIRECT_URL' : getattr(settings, 'LOGIN_REDIRECT_URL', '/qanda/'),
+		'QANDA_EDITORS_GROUP_NAME' : getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors'),
 	}
 
 def recent_and_common_tags(request):

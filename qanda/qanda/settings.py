@@ -166,6 +166,7 @@ LOGOUT_URL = '/accounts/signout/'
 
 #QANDA_APP
 # LOGIN_URL = '/admin/'
+QANDA_EDITORS_GROUP_NAME = 'Editors'
 
 #force lowercase in tags -> git://github.com/shacker/django-taggit.git
 TAGGIT_FORCE_LOWERCASE = True
