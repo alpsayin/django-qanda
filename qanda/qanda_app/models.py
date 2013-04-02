@@ -185,7 +185,7 @@ class QandaUser(models.Model):
         return AnswerRelatedUsers.objects.filter(relatedAnswer__author=self, star=True).count()
 
     class Meta:
-        verbose_name = 'Qanda User'
+        verbose_name = 'User'
     def __unicode__(self):
         return u'%s %s' % (self.djangoUser.first_name, self.djangoUser.last_name)
 
@@ -305,7 +305,7 @@ class Question(models.Model):
     #answers - foreign key of Answer
     relatedUsers = models.ManyToManyField(QandaUser, through='QuestionRelatedUsers', related_name='related_questions')
     class Meta:
-        verbose_name = 'Qanda Question'
+        verbose_name = 'Question'
 
     def get_absolute_url(self):
         return reverse('qanda_app.views.question_page', args=(self.pk,))
@@ -417,7 +417,7 @@ class Answer(models.Model):
     editDate = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField()
     class Meta:
-        verbose_name = 'Qanda Answer'
+        verbose_name = 'Answer'
 
     def get_absolute_url(self):
         return self.question.get_absolute_url()
@@ -448,8 +448,8 @@ class Reply(models.Model):
     editDate = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField()
     class Meta:
-        verbose_name = 'Qanda Reply'
-        verbose_name_plural = 'Qanda Replies'
+        verbose_name = 'Reply'
+        verbose_name_plural = 'Replies'
     def __unicode__(self):
         return u'%d by %s' % (self.pk, self.author.djangoUser)
 
@@ -460,8 +460,8 @@ class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
     about = models.TextField()
     class Meta:
-        verbose_name = "Qanda Category"
-        verbose_name_plural = "Qanda Categories"
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
     def __unicode__(self):
         return u'%s' % (self.name)
 
@@ -474,7 +474,7 @@ class UserRelations(models.Model):
     star = models.BooleanField()
     flag = models.BooleanField()
     class Meta:
-        verbose_name = 'Qanda User Relationship'
+        verbose_name = 'User Relationship'
     def __unicode__(self):
         return u'%s -> %s : [S:%d, F:%d]' % (self.relater.djangoUser.username, self.related.djangoUser.username, self.star, self.flag)
 
@@ -498,7 +498,7 @@ class QuestionRelatedUsers(models.Model):
     star = models.BooleanField()
     flag = models.BooleanField()
     class Meta:
-        verbose_name = 'Qanda Question/User Relationship'
+        verbose_name = 'Question/User Relationship'
 
 class AnswerRelatedUsers(models.Model):
     """
@@ -519,7 +519,7 @@ class AnswerRelatedUsers(models.Model):
     star = models.BooleanField()
     flag = models.BooleanField()
     class Meta:
-        verbose_name = 'Qanda Answer/User Relationship'
+        verbose_name = 'Answer/User Relationship'
         
 class QuestionSubscription(notify_models.Subscription):
     question = models.ForeignKey(Question, related_name='subscriptions')
