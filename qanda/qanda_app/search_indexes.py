@@ -16,7 +16,7 @@ class QuestionIndex(SearchIndex):
 		return Question
 
 	def index_queryset(self, using=None):
-		return self.get_model().objects.filter(postDate__lte=datetime.datetime.now())
+		return self.get_model().objects.filter(postDate__lte=datetime.datetime.now(), deleted=False)
 
 	def prepare_author(self, obj):
 		return '%s' % obj.author.djangoUser.username
