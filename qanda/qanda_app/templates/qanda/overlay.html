@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load qanda_extras %}
 	<!-- <div id="overlay" onClick="toggleElementVisibility('#overlay', '', '', 500);"> -->
-	<div id="overlay" onClick="window.location.replace({% url qanda_index %});" style="{% if visible %}display:block;{% endif %}">
+	<div id="overlay" onClick="window.location.href = ({% url qanda_index %});" style="{% if visible %}display:block;{% endif %}">
 		<div id="overlay-box">
 			<div id="overlay-content">
 				<div id="overlay-title">{% trans "This Question is Closed!" %}</div>
