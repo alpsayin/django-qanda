@@ -17,7 +17,6 @@ class QandaUserManager(models.Manager):
     """
     def create_user(self, django_user):
         newQandaUser=self.create(djangoUser=django_user, deleted=False)
-        newQandaUserStat=QandaUserStats.create(qandaUser=newQandaUser)
         return newQandaUser
 
     def star(self, qandaUser1, qandaUser2):
