@@ -23,6 +23,7 @@ def deploy():
         local('pip install django-tastypie')
         local('pip install django-debug-toolbar')
         local('pip install django-haystack')
+        local('pip install django-userena')
         local('pip install pysolr')
         local('python manage.py validate')
         local('python manage.py syncdb')
