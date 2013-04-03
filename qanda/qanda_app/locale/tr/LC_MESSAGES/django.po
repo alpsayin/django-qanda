@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-03 04:29+0300\n"
+"POT-Creation-Date: 2013-04-03 18:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,85 +18,89 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: models.py:189
+#: forms.py:24 models.py:304
+msgid "This question is closed by the administrators. "
+msgstr "Bu soru site yöneticileri tarafından kapatılmıştır. "
+
+#: models.py:191
 msgid "User"
 msgstr "Kullanıcı"
 
-#: models.py:190
+#: models.py:192
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: models.py:311
+#: models.py:313
 msgid "Question"
 msgstr "Soru"
 
-#: models.py:312
+#: models.py:314
 msgid "Questions"
 msgstr "Sorular"
 
-#: models.py:427 templates/qanda/new_answer.html:14
+#: models.py:429 templates/qanda/new_answer.html:14
 msgid "Answer"
 msgstr "Cevap"
 
-#: models.py:428 templates/qanda/question.html:121
+#: models.py:430 templates/qanda/question.html:125
 #: templates/qanda/question_listing_base.html:12
 msgid "Answers"
 msgstr "Cevaplar"
 
-#: models.py:462 templates/qanda/reply.html:13
+#: models.py:464 templates/qanda/reply.html:13
 msgid "Reply"
 msgstr "Yorum"
 
-#: models.py:463
+#: models.py:465
 msgid "Replies"
 msgstr "Yorumlar"
 
-#: models.py:475
+#: models.py:477
 msgid "Category"
 msgstr "Kategori"
 
-#: models.py:476 templates/qanda/category_list.html:5
+#: models.py:478 templates/qanda/category_list.html:5
 #: templates/qanda/category_list.html:18 templates/qanda/navbar.html:19
 msgid "Categories"
 msgstr "Kategoriler"
 
-#: models.py:490
+#: models.py:492
 msgid "User Relationship"
 msgstr "Kullanıcı İlişkisi"
 
-#: models.py:491
+#: models.py:493
 msgid "User Relationships"
 msgstr "Kullanıcı İlişkileri"
 
-#: models.py:516
+#: models.py:518
 msgid "Question/User Relationship"
 msgstr "Soru/Kullanıcı İlişkisi"
 
-#: models.py:517
+#: models.py:519
 msgid "Question/User Relationships"
 msgstr "Soru/Kullanıcı İlişkileri"
 
-#: models.py:538
+#: models.py:540
 msgid "Answer/User Relationship"
 msgstr "Cevap/Kullanıcı İlişkisi"
 
-#: models.py:539
+#: models.py:541
 msgid "Answer/User Relationships"
 msgstr "Cevap/Kullanıcı İlişkileri"
 
-#: models.py:544
+#: models.py:546
 msgid "Question Subscription"
 msgstr "Soru Takibi"
 
-#: models.py:545
+#: models.py:547
 msgid "Question Subscriptions"
 msgstr "Soru Takipleri"
 
-#: models.py:550
+#: models.py:552
 msgid "Answer Subscription"
 msgstr "Cevap Takibi"
 
-#: models.py:551
+#: models.py:553
 msgid "Answer Subscriptions"
 msgstr "Cevap Takipleri"
 
@@ -148,7 +152,7 @@ msgstr "Geri"
 msgid "Next"
 msgstr "İleri"
 
-#: templates/qanda/edit_question.html:5 templates/qanda/question.html:45
+#: templates/qanda/edit_question.html:5 templates/qanda/question.html:49
 msgid "Edit Question"
 msgstr "Soru Değiştir"
 
@@ -177,19 +181,18 @@ msgid "Error in Question Text"
 msgstr "Soru Metninde Hata"
 
 #: templates/qanda/edit_question.html:71 templates/qanda/navbar.html:18
-#: templates/qanda/new_question.html:71 templates/qanda/question.html:96
+#: templates/qanda/new_question.html:71 templates/qanda/question.html:100
 #: templates/qanda/tag_list.html:18
 msgid "Tags"
 msgstr "Etiketler"
 
 #: templates/qanda/edit_question.html:76 templates/qanda/new_question.html:76
-#: templates/qanda/reply.html:18
 msgid "Error in Tags"
 msgstr ""
 
 #: templates/qanda/edit_question.html:83 templates/qanda/new_answer.html:26
-#: templates/qanda/new_question.html:83 templates/qanda/relations.html:26
-#: templates/qanda/reply.html:24
+#: templates/qanda/new_question.html:83 templates/qanda/popup.html:27
+#: templates/qanda/relations.html:26 templates/qanda/reply.html:24
 msgid "Submit"
 msgstr "Gönder"
 
@@ -219,7 +222,23 @@ msgstr "Arama"
 
 #: templates/qanda/new_answer.html:19
 msgid "Error in Answer Text"
-msgstr ""
+msgstr "Cevap Metninde Hata"
+
+#: templates/qanda/overlay.html:8
+msgid "This Question is Closed!"
+msgstr "Bu Soru Kapatılmıştır!"
+
+#: templates/qanda/overlay.html:9
+msgid "Click Anywhere to Continue"
+msgstr "Devam etmek için herhangi bir yere tıklayın"
+
+#: templates/qanda/popup.html:16
+msgid "Close the Question with a Message"
+msgstr "Soruyu Sebep Belirterek Kapat"
+
+#: templates/qanda/popup.html:21
+msgid "Error in Close Message"
+msgstr "Soru Kapama Mesajında Hata"
 
 #: templates/qanda/profile.html:19
 #, python-format
@@ -396,103 +415,103 @@ msgstr "Bayraklar"
 msgid "Answer Relations"
 msgstr "Cevap İstatistikleri"
 
-#: templates/qanda/question.html:20 templates/qanda/question.html.py:130
+#: templates/qanda/question.html:24 templates/qanda/question.html.py:134
 msgid "&nbsp;&nbsp;Up&nbsp;&nbsp;&nbsp;"
 msgstr "Yukarı"
 
-#: templates/qanda/question.html:36 templates/qanda/question.html.py:139
+#: templates/qanda/question.html:40 templates/qanda/question.html.py:143
 msgid "Down"
 msgstr "Aşağı&nbsp;"
 
-#: templates/qanda/question.html:40
+#: templates/qanda/question.html:44
 msgid "Category:"
 msgstr "Kategori:"
 
-#: templates/qanda/question.html:40
+#: templates/qanda/question.html:44
 msgid "None"
 msgstr "Hiç biri"
 
-#: templates/qanda/question.html:42
+#: templates/qanda/question.html:46
 #, python-format
 msgid " Views %(viewCount)s "
 msgstr " %(viewCount)s Görüntüleme"
 
-#: templates/qanda/question.html:46
+#: templates/qanda/question.html:50
 msgid "Delete Question"
 msgstr "Soruyu Sil"
 
-#: templates/qanda/question.html:48
+#: templates/qanda/question.html:52
 msgid "Close Question"
 msgstr "Soruyu Kapa"
 
-#: templates/qanda/question.html:59 templates/qanda/question.html.py:166
-#: templates/qanda/question.html:203
+#: templates/qanda/question.html:63 templates/qanda/question.html.py:170
+#: templates/qanda/question.html:207
 #: templates/qanda/question_listing_base.html:36
 msgid "by"
 msgstr "yazar"
 
-#: templates/qanda/question.html:81 templates/qanda/question.html.py:149
+#: templates/qanda/question.html:85 templates/qanda/question.html.py:153
 msgid "Starred"
 msgstr "Yıldızlı"
 
-#: templates/qanda/question.html:83 templates/qanda/question.html.py:151
+#: templates/qanda/question.html:87 templates/qanda/question.html.py:155
 #: templates/qanda/relations.html:24
 msgid "Star"
 msgstr "Yıldız"
 
-#: templates/qanda/question.html:89 templates/qanda/question.html.py:157
+#: templates/qanda/question.html:93 templates/qanda/question.html.py:161
 #: templates/qanda/relations.html:25
 msgid "Flag"
 msgstr "Bildir"
 
-#: templates/qanda/question.html:106
+#: templates/qanda/question.html:110
 msgid "Have you found this question useful?"
 msgstr "Bu soruyu faydalı buldunuz mu?"
 
-#: templates/qanda/question.html:107 templates/qanda/question.html.py:182
+#: templates/qanda/question.html:111 templates/qanda/question.html.py:186
 msgid "Yes"
 msgstr "Evet"
 
-#: templates/qanda/question.html:108 templates/qanda/question.html.py:183
+#: templates/qanda/question.html:112 templates/qanda/question.html.py:187
 msgid "No"
 msgstr "Hayır"
 
-#: templates/qanda/question.html:122
+#: templates/qanda/question.html:126
 #, python-format
 msgid " There is one answer. "
 msgid_plural " There are %(counter)s answers. "
 msgstr[0] "Bu soruya %(counter)s cevap verilmiş. "
 msgstr[1] "Bu soruya %(counter)s cevap verilmiş. "
 
-#: templates/qanda/question.html:168
+#: templates/qanda/question.html:172
 msgid "Delete Answer"
 msgstr "Cevabı Sil"
 
-#: templates/qanda/question.html:181
+#: templates/qanda/question.html:185
 msgid "Have you found this answer useful?"
 msgstr "Bu cevabı faydalı buldunuz mu?"
 
-#: templates/qanda/question.html:191
+#: templates/qanda/question.html:195
 msgid "Comments"
 msgstr "Yorumlar"
 
-#: templates/qanda/question.html:207
+#: templates/qanda/question.html:211
 msgid "Delete comment"
 msgstr "Yorumu Sil"
 
-#: templates/qanda/question.html:222
+#: templates/qanda/question.html:226
 msgid "Click to reply"
 msgstr "Yorum yapmak için tıklayın"
 
-#: templates/qanda/question.html:225
+#: templates/qanda/question.html:229
 msgid "Click to hide reply"
 msgstr "Yorum yazma kutusunu saklamak için tıklayın"
 
-#: templates/qanda/question.html:231
+#: templates/qanda/question.html:235
 msgid "Login to reply"
 msgstr "Yorum yapmak için giriş yapın"
 
-#: templates/qanda/question.html:243
+#: templates/qanda/question.html:247
 msgid "Answer this question"
 msgstr "Bu soruyu cevapla"
 
@@ -558,6 +577,11 @@ msgstr "Kullanışlı Bulunan"
 msgid "Not Useful"
 msgstr "Kullanışlı Bulunmayan"
 
+#: templates/qanda/reply.html:18
+#, fuzzy
+msgid "Error in Reply"
+msgstr "Kategori Hatası"
+
 #: templates/qanda/righthand_tags.html:6
 msgid "Ask a new Question"
 msgstr "Yeni Soru Sor"
@@ -583,7 +607,7 @@ msgid "Tag List"
 msgstr "Etiket Listesi"
 
 #: templates/qanda/tag_list.html:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\t\t\t\t\t\t\t\t\t\t  - used %(counter)s time\n"
@@ -594,10 +618,10 @@ msgid_plural ""
 "\t\t\t\t\t\t\t\t\t\t"
 msgstr[0] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s defa kullanılmış"
+"\t\t\t\t\t\t - %(counter)s defa kullanılmış"
 msgstr[1] ""
 "\n"
-"\t\t\t\t\t\t%(counter)s defa kullanılmış"
+"\t\t\t\t\t\t - %(counter)s defa kullanılmış"
 
 #: templates/qanda/tag_page.html:5 templates/qanda/tag_page.html.py:19
 #, python-format
