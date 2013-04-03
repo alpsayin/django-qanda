@@ -301,7 +301,7 @@ class Question(models.Model):
     viewCount = models.IntegerField(default=0)
     postDate = models.DateTimeField(auto_now_add=True)
     editDate = models.DateTimeField(auto_now=True)
-    closeMessage = models.TextField(blank=True)
+    closeMessage = models.CharField(max_length=511, blank=True, default=_("This question is closed by the administrators. "+getattr(settings, 'ROOT_URL', 'http://127.0.0.1:8000/qanda')))
     closeDate = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField()
     closed = models.BooleanField()
