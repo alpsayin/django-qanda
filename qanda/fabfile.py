@@ -8,7 +8,7 @@ def prepare_deployment(branch_name):
 from fabric.api import lcd
 
 def deploy():
-    with lcd('/Users/alpsayin/Sites/qanda'):
+    with lcd('./qanda'):
         local('git pull /Users/alpsayin/qanda/')
         local('pip install django')
         local('pip install south')
