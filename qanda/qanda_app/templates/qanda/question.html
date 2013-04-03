@@ -7,6 +7,8 @@
 {% endblock %}
 
 {% block body %}
+	
+	{% include "qanda/overlay.html" with visible=question.closed %}
 
 	<div class="container">
 
