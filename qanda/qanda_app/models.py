@@ -7,6 +7,8 @@ from django_notify.models import Subscription, Settings, NotificationType, Notif
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.conf import settings
+
 
 # Create your models here.
 class QandaUserManager(models.Manager):
