@@ -11,7 +11,7 @@ class QandaUserAdmin(admin.ModelAdmin):
     the_tags.short_description = 'Tags'
 
 class QuestionAdmin(admin.ModelAdmin):
-    fields = ['title', 'text', 'author', 'category', 'tags', 'viewCount', 'closeMessage', 'deleted']
+    fields = ['title', 'text', 'author', 'category', 'tags', 'viewCount', 'closeMessage', 'deleted', 'closed']
     list_display = ['pk','title','author', 'category','text', 'the_tags', 'postDate', 'editDate', 'closeDate','closeMessage', 'closed', 'deleted']
     list_filter = ['postDate', 'editDate', 'closeDate','author' ,'category']
 
