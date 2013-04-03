@@ -147,7 +147,9 @@ def close_question_page(request, question_id):
 	user = get_user(request)
 	if user  == question.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
 		print 'function call: close_question'
-	return HttpResponseRedirect(reverse(question_list, args=(0,)))
+		question.closed = True
+		question.save()
+	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
 @login_required
 @assert_qanda_user
