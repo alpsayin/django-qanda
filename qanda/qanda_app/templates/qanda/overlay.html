@@ -2,10 +2,11 @@
 {% load i18n %}
 {% load qanda_extras %}
 	<!-- <div id="overlay" onClick="toggleElementVisibility('#overlay', '', '', 500);"> -->
-	<div id="overlay" onClick="toggleElementVisibility('', '', '', 500);" style="{% if visible %}display:block;{% endif %}">
+	<div id="overlay" onClick="window.location.replace({% url qanda_index %});" style="{% if visible %}display:block;{% endif %}">
 		<div id="overlay-box">
 			<div id="overlay-content">
 				<div id="overlay-title">{% trans "This Question is Closed!" %}</div>
+				<div id="overlay-subtitle">{% trans "Click Anywhere to Continue" %}</div>
 				<div id="overlay-message">{{ question.closeMessage|urlizetrunc:32|url_target_blank }}</div>
 				<div id="overlay-date">{{ question.closeDate }}</div>
 			</div>
