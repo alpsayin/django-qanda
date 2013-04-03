@@ -69,6 +69,7 @@
 	font-size: 10px;
 	font-weight: 400;
 	margin-bottom: 5px;
+	text-decoration: underline;
 }
 
 #overlay-message {
@@ -86,6 +87,10 @@
 #overlay-date {
 	font-size: 12px;
 	font-weight: 400;
+	position: absolute;
+	bottom: 5px;
+	text-align: center;
+	left: 39%;
 }
 
 .votecount-box {
