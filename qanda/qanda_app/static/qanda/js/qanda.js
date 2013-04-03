@@ -32,3 +32,24 @@ function toggleElementVisibility(element, message_display, message_hide, speed)
 		}
 	});
 }
+
+var popup_displayed = 0
+
+$(document).ready(function()
+{
+	$(".container").click(function()
+	{
+		if( popup_displayed == 1)
+		{
+			$("#popup").toggle(function(){ popup_displayed = 0 })
+		}
+	});
+	
+	$(".popup-display").click(function()
+	{
+		if($("#popup").css("display") == "none")
+		{
+			$("#popup").toggle(function(){ popup_displayed = 1 })
+		}
+	});
+});

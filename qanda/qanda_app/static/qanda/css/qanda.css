@@ -1,4 +1,34 @@
 
+#popup{
+	display:none;
+	position: fixed;
+	margin-left: 30%;
+	margin-top: 8%;
+	_position:absolute; /* hack for internet explorer 6*/
+	height:40%;
+	width:40%;
+	background:#FFFFFF;
+	border:2px solid #cecece;
+	z-index:2;
+	padding:12px;
+	font-size:13px;
+}
+
+#popupClose{
+	font-size:22px;
+	line-height:14px;
+	right:6px;
+	top:4px;
+	position:absolute;
+	color:#6fa5fd;
+	font-weight:700;
+	display:block;
+}
+
+#questionCloseForm {
+	width: 100%;
+}
+
 #overlay {
 	display: none;
 	background: rgba(0,0,0,0.4);
@@ -33,13 +63,20 @@
 #overlay-title {
 	font-size: 16px;
 	font-weight: 400;
-	margin-bottom: 10px;
+}
+
+#overlay-subtitle {
+	font-size: 10px;
+	font-weight: 400;
+	margin-bottom: 5px;
 }
 
 #overlay-message {
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: 300;
 	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 #overlay-message a {
@@ -432,4 +469,3 @@
 	font-size: 24px;
 	font-weight: 700;
 }
-

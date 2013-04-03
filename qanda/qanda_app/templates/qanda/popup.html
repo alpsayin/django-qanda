@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load qanda_extras %}	
+
+{% block popup %}
+	<div id="popup">
+		<a id="popupClose" href="#" onClick="toggleElementVisibility('#popup', '', '', 500);">x</a>
+		<form method="post" action="{% url close_question_page question_id=pk %}">
+			{% csrf_token %}
+			{{ question_close_form.non_field_errors }}
+
+			<input type="hidden" name="pk" value="{{ pk }}">
+			<input type="hidden" name="type" value="{{ type }}">	
+			<div class="questionCloseFormTextWrapper">
+		        <label for="id_message">
+		        	<h5>
+		        		{% trans "Close the Question with a Message" %}:
+		        	</h5>
+	        		{% if question_close_form.text.errors %}
+		        		<div class="alert alert-error">
+		        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+				        	<strong>{% trans "Error in Close Message" %}</strong>{{ question_close_form.text.errors }}
+				        </div>
+			        {% endif %}
+		        	{{ question_close_form.message }}
+		        </label>
+			</div>	
+			<input class="btn" type="submit" value="{% trans 'Submit' %}">
+		</form>
+	</div>
+{% endblock %}
