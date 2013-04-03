@@ -33,10 +33,11 @@ NUM_OF_TAGS_PER_PAGE = 70
 def subscribe_question(request, question_id, value):
 	value = value == 'true'
 	question = get_object_or_404(Question, pk=question_id)
-	user = get_user(request)
-	if request.user.is_authenticated():
-		qandaUser = user.QandaUser
-		Question.objects.subscribe_to_question(question, qandaUser, value)
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if request.user.is_authenticated():
+			qandaUser = user.QandaUser
+			Question.objects.subscribe_to_question(question, qandaUser, value)
 	return HttpResponseRedirect(reverse(question_page, args=(question_id,)))
 
 @assert_qanda_user
@@ -45,24 +46,26 @@ def subscribe_answer(request, question_id, answer_id, value):
 	value = value == 'true'
 	answer = get_object_or_404(Answer, pk=answer_id)
 	question = get_object_or_404(Question, pk=question_id)
-	user = get_user(request)
-	if request.user.is_authenticated():
-		if answer in question.answers.all():
-			qandaUser = user.QandaUser
-			Answer.objects.subscribe_to_answer(answer, qandaUser, value)
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if request.user.is_authenticated():
+			if answer in question.answers.all():
+				qandaUser = user.QandaUser
+				Answer.objects.subscribe_to_answer(answer, qandaUser, value)
 	return HttpResponseRedirect(reverse(question_page, args=(question_id,)))
 
 @assert_qanda_user
 @login_required
 def relate_question_single(request, question_id, relation, value):
 	question = get_object_or_404(Question, pk=question_id)
-	user = get_user(request)
-	if request.user.is_authenticated():
-		qandaUser = user.QandaUser
-		relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
-		relations = dict()
-		relations[relation] = value=='true'
-		Question.objects.set_relations(qandaUser, question, relations)
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if request.user.is_authenticated():
+			qandaUser = user.QandaUser
+			relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
+			relations = dict()
+			relations[relation] = value=='true'
+			Question.objects.set_relations(qandaUser, question, relations)
 	return HttpResponseRedirect(reverse(question_page, args=(question_id,)))
 
 @assert_qanda_user
@@ -70,40 +73,42 @@ def relate_question_single(request, question_id, relation, value):
 def relate_answer_single(request, question_id, answer_id, relation, value):
 	answer = get_object_or_404(Answer, pk=answer_id)
 	question = get_object_or_404(Question, pk=question_id)
-	user = get_user(request)
-	if request.user.is_authenticated():
-		if answer in question.answers.all():
-			qandaUser = user.QandaUser
-			relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
-			relations = dict()
-			relations[relation] = value=='true'
-			Answer.objects.set_relations(qandaUser, answer, relations)
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if request.user.is_authenticated():
+			if answer in question.answers.all():
+				qandaUser = user.QandaUser
+				relation_types = ['star', 'flag', 'upvote', 'downvote', 'useful', 'notUseful']
+				relations = dict()
+				relations[relation] = value=='true'
+				Answer.objects.set_relations(qandaUser, answer, relations)
 	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
 
 @assert_qanda_user
 @login_required
 def question_relation_submit(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
-	user = get_user(request)
-	if request.user.is_authenticated():
-		if request.method == 'POST':
-			qandaUser = user.QandaUser
-			if request.POST['type'] == 'question' and request.POST['pk'] == str(question.pk):
-				process_question_relations(request, question, qandaUser)
-			elif request.POST['type'] == 'answer':
-				answer = Answer.objects.get(pk=int(request.POST['pk']))
-				process_answer_relations(request, answer, qandaUser)
-			elif request.POST['type'] == 'new_answer':
-				answer_form = AnswerForm(request.POST)
-				if answer_form.is_valid():
-					process_new_answer(answer_form, question, qandaUser)
-			elif request.POST['type'] == 'new_reply':
-				answer = Answer.objects.get(pk=int(request.POST['pk']))
-				reply_form = ReplyForm(request.POST)
-				if reply_form.is_valid():
-					process_new_reply(reply_form, answer, qandaUser)
-			elif request.POST['type'] == 'new_question':
-				process_new_question(request, qandaUser)
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if request.user.is_authenticated():
+			if request.method == 'POST':
+				qandaUser = user.QandaUser
+				if request.POST['type'] == 'question' and request.POST['pk'] == str(question.pk):
+					process_question_relations(request, question, qandaUser)
+				elif request.POST['type'] == 'answer':
+					answer = Answer.objects.get(pk=int(request.POST['pk']))
+					process_answer_relations(request, answer, qandaUser)
+				elif request.POST['type'] == 'new_answer':
+					answer_form = AnswerForm(request.POST)
+					if answer_form.is_valid():
+						process_new_answer(answer_form, question, qandaUser)
+				elif request.POST['type'] == 'new_reply':
+					answer = Answer.objects.get(pk=int(request.POST['pk']))
+					reply_form = ReplyForm(request.POST)
+					if reply_form.is_valid():
+						process_new_reply(reply_form, answer, qandaUser)
+				elif request.POST['type'] == 'new_question':
+					process_new_question(request, qandaUser)
 
 	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
@@ -111,23 +116,24 @@ def question_relation_submit(request, question_id):
 @login_required
 def subscription_submit(request, **kwargs):
 	question = get_object_or_404(Question, pk=kwargs['question_id'])
-	user = get_user(request)
-	if request.user.is_authenticated():
-		if request.method == 'POST':
-			qandaUser = user.QandaUser
-			if request.POST['type'] == 'question_subscription' and request.POST['pk'] == str(question.pk):
-				if 'subscribed' in request.POST:
-					subscribed = True
-				else:
-					subscribed = False
-				Question.objects.subscribe_to_question(question, qandaUser, subscribed)
-			if request.POST['type'] == 'answer_subscription':
-				answer = get_object_or_404(Answer, pk=request.POST['pk'])
-				if 'subscribed' in request.POST:
-					subscribed = True
-				else:
-					subscribed = False
-				Answer.objects.subscribe_to_answer(answer, qandaUser, subscribed)
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if request.user.is_authenticated():
+			if request.method == 'POST':
+				qandaUser = user.QandaUser
+				if request.POST['type'] == 'question_subscription' and request.POST['pk'] == str(question.pk):
+					if 'subscribed' in request.POST:
+						subscribed = True
+					else:
+						subscribed = False
+					Question.objects.subscribe_to_question(question, qandaUser, subscribed)
+				if request.POST['type'] == 'answer_subscription':
+					answer = get_object_or_404(Answer, pk=request.POST['pk'])
+					if 'subscribed' in request.POST:
+						subscribed = True
+					else:
+						subscribed = False
+					Answer.objects.subscribe_to_answer(answer, qandaUser, subscribed)
 
 	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
@@ -165,29 +171,35 @@ def delete_question(request, question_id):
 @assert_qanda_user
 def edit_answer_page(request, answer_id):
 	answer = get_object_or_404(Answer, pk=answer_id)
-	user = get_user(request)
-	if user  == answer.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
-		print 'function call: edit_question'
+	question = answer.question
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if user  == answer.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+			print 'function call: edit_question'
 	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
 
 @login_required
 @assert_qanda_user
 def delete_answer(request, answer_id):
 	answer = get_object_or_404(Answer, pk=answer_id)
-	user = get_user(request)
-	if user  == answer.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
-		answer.deleted = True
-		answer.save()
+	question = answer.question
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if user  == answer.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+			answer.deleted = True
+			answer.save()
 	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
 
 @login_required
 @assert_qanda_user
 def delete_reply(request, reply_id):
 	reply = get_object_or_404(Reply, pk=reply_id)
-	user = get_user(request)
-	if user  == reply.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
-		reply.deleted = True
-        reply.save()
+	question = reply.answer.question
+	if not question.deleted or not question.closed:
+		user = get_user(request)
+		if user  == reply.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+			reply.deleted = True
+	        reply.save()
 	return HttpResponseRedirect(reverse(question_page, args=(reply.answer.question.pk,)))
 
 
@@ -237,9 +249,9 @@ def question_list(request, question_id, category):
 			pass
 
 	if category:
-		questions = Question.objects.filter(category=category, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(category=category, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	else:
-		questions = Question.objects.filter(pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
@@ -248,18 +260,18 @@ def question_list(request, question_id, category):
 
 	if len(questions) > 0:
 		if category:
-			next_qset = Question.objects.filter(category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(category=category, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		else:
-			next_qset = Question.objects.filter(pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 
 		if next_qset.exists():
 			if next_qset[0].pk > int(question_id):
 				context['next'] = next_qset[0].pk
 
 		if category:
-			prev_qset = Question.objects.filter(category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(category=category, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		else:
-			prev_qset = Question.objects.filter(pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		if prev_qset.exists():
 			context['prev'] = prev_qset[0].pk
 
@@ -285,9 +297,9 @@ def user_starred_questions_list(request, user_id, question_id, category):
 			pass
 
 	if category:
-		questions = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	else:
-		questions = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
@@ -296,17 +308,17 @@ def user_starred_questions_list(request, user_id, question_id, category):
 
 	if len(questions) > 0:
 		if category:
-			next_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		else:
-			next_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		if next_qset.exists():
 			if next_qset[0].pk > int(question_id):
 				context['next'] = next_qset[0].pk
 
 		if category:
-			prev_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, category=category, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		else:
-			prev_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(user_relation__relatedUser=qandaUser, user_relation__star=True, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		if prev_qset.exists():
 			context['prev'] = prev_qset[0].pk
 
@@ -333,9 +345,9 @@ def user_asked_questions_list(request, user_id, question_id, category):
 			pass
 
 	if category:
-		questions = Question.objects.filter(author=qandaUser, category=category, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(author=qandaUser, category=category, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	else:
-		questions = Question.objects.filter(author=qandaUser, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(author=qandaUser, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
@@ -344,17 +356,17 @@ def user_asked_questions_list(request, user_id, question_id, category):
 
 	if len(questions) > 0:
 		if category:
-			next_qset = Question.objects.filter(author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(author=qandaUser, category=category, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		else:
-			next_qset = Question.objects.filter(author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(author=qandaUser, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		if next_qset.exists():
 			if next_qset[0].pk > int(question_id):
 				context['next'] = next_qset[0].pk
 
 		if category:
-			prev_qset = Question.objects.filter(author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		else:
-			prev_qset = Question.objects.filter(author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(author=qandaUser, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		if prev_qset.exists():
 			context['prev'] = prev_qset[0].pk
 
@@ -381,9 +393,9 @@ def user_answered_questions_list(request, user_id, question_id, category):
 			pass
 
 	if category:
-		questions = Question.objects.filter(answers__author=qandaUser, category=category, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(answers__author=qandaUser, category=category, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	else:
-		questions = Question.objects.filter(answers__author=qandaUser, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(answers__author=qandaUser, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
@@ -392,17 +404,17 @@ def user_answered_questions_list(request, user_id, question_id, category):
 
 	if len(questions) > 0:
 		if category:
-			next_qset = Question.objects.filter(answers__author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(answers__author=qandaUser, category=category, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		else:
-			next_qset = Question.objects.filter(answers__author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(answers__author=qandaUser, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		if next_qset.exists():
 			if next_qset[0].pk > int(question_id):
 				context['next'] = next_qset[0].pk
 
 		if category:
-			prev_qset = Question.objects.filter(answers__author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(answers__author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		else:
-			prev_qset = Question.objects.filter(answers__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(answers__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		if prev_qset.exists():
 			context['prev'] = prev_qset[0].pk
 
@@ -429,9 +441,9 @@ def user_replied_questions_list(request, user_id, question_id, category):
 			pass
 
 	if category:
-		questions = Question.objects.filter(answers__replies__author=qandaUser, category=category, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(answers__replies__author=qandaUser, category=category, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	else:
-		questions = Question.objects.filter(answers__replies__author=qandaUser, pk__lte=question_id).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
+		questions = Question.objects.filter(answers__replies__author=qandaUser, pk__lte=question_id, deleted=False).order_by('-postDate')[:NUM_OF_QUESTIONS_PER_PAGE]
 	
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
@@ -440,17 +452,17 @@ def user_replied_questions_list(request, user_id, question_id, category):
 
 	if len(questions) > 0:
 		if category:
-			next_qset = Question.objects.filter(answers__replies__author=qandaUser, category=category, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(answers__replies__author=qandaUser, category=category, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		else:
-			next_qset = Question.objects.filter(answers__replies__author=qandaUser, pk__gte=questions[0].pk+1).order_by('-postDate')[:1]
+			next_qset = Question.objects.filter(answers__replies__author=qandaUser, pk__gte=questions[0].pk+1, deleted=False).order_by('-postDate')[:1]
 		if next_qset.exists():
 			if next_qset[0].pk > int(question_id):
 				context['next'] = next_qset[0].pk
 
 		if category:
-			prev_qset = Question.objects.filter(answers__replies__author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(answers__replies__author=qandaUser, category=category, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		else:
-			prev_qset = Question.objects.filter(answers__replies__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1).order_by('-postDate')[:1]
+			prev_qset = Question.objects.filter(answers__replies__author=qandaUser, pk__lte=questions[len(questions)-1].pk-1, deleted=False).order_by('-postDate')[:1]
 		if prev_qset.exists():
 			context['prev'] = prev_qset[0].pk
 
@@ -515,19 +527,19 @@ def tag_list(request, page):
 def tag_page(request, tag, page):
 	context = {}
 	page = int(page)
-	questions = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[page*(NUM_OF_QUESTIONS_PER_PAGE):(page+1)*NUM_OF_QUESTIONS_PER_PAGE]
+	questions = Question.objects.filter(tags__name__in=[tag], deleted=False).order_by('-postDate')[page*(NUM_OF_QUESTIONS_PER_PAGE):(page+1)*NUM_OF_QUESTIONS_PER_PAGE]
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
 	context['questions'] = questions
 	context['tag'] = tag
 	context['view'] = 'tag_page'
 
-	next_qset = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[(page+1)*NUM_OF_QUESTIONS_PER_PAGE:(page+2)*NUM_OF_QUESTIONS_PER_PAGE]
+	next_qset = Question.objects.filter(tags__name__in=[tag], deleted=False).order_by('-postDate')[(page+1)*NUM_OF_QUESTIONS_PER_PAGE:(page+2)*NUM_OF_QUESTIONS_PER_PAGE]
 	if next_qset.exists():
 		context['next'] = page+1
 
 	if page >= 1:
-		prev_qset = Question.objects.filter(tags__name__in=[tag]).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
+		prev_qset = Question.objects.filter(tags__name__in=[tag], deleted=False).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
 		if prev_qset.exists():
 			context['prev'] = page-1
 
@@ -541,19 +553,19 @@ def categorized_tag_page(request, category, tag, page):
 	context = {}
 	page = int(page)
 	category_id = get_object_or_404(Category, name=category)
-	questions = Question.objects.filter(category=category_id, tags__name__in=[tag]).order_by('-postDate')[page*(NUM_OF_QUESTIONS_PER_PAGE):(page+1)*NUM_OF_QUESTIONS_PER_PAGE]
+	questions = Question.objects.filter(category=category_id, tags__name__in=[tag], deleted=False).order_by('-postDate')[page*(NUM_OF_QUESTIONS_PER_PAGE):(page+1)*NUM_OF_QUESTIONS_PER_PAGE]
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
 	context['questions'] = questions
 	context['tag'] = tag
 	context['view'] = 'tag_page'
 
-	next_qset = Question.objects.filter(category=category_id, tags__name__in=[tag]).order_by('-postDate')[(page+1)*NUM_OF_QUESTIONS_PER_PAGE:(page+2)*NUM_OF_QUESTIONS_PER_PAGE]
+	next_qset = Question.objects.filter(category=category_id, tags__name__in=[tag], deleted=False).order_by('-postDate')[(page+1)*NUM_OF_QUESTIONS_PER_PAGE:(page+2)*NUM_OF_QUESTIONS_PER_PAGE]
 	if next_qset.exists():
 		context['next'] = page+1
 
 	if page >= 1:
-		prev_qset = Question.objects.filter(category=category_id, tags__name__in=[tag]).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
+		prev_qset = Question.objects.filter(category=category_id, tags__name__in=[tag], deleted=False).order_by('-postDate')[(page-1)*NUM_OF_QUESTIONS_PER_PAGE:page*NUM_OF_QUESTIONS_PER_PAGE]
 		if prev_qset.exists():
 			context['prev'] = page-1
 
@@ -565,7 +577,7 @@ def categorized_tag_page(request, category, tag, page):
 @assert_qanda_user
 def most_recent_question(request):
 	try:
-		latest_question = Question.objects.latest('postDate')
+		latest_question = Question.objects.filter(deleted=False).latest('postDate')
 		return HttpResponseRedirect(reverse(question_page, args=(latest_question.pk,)))
 	except:
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
@@ -574,34 +586,37 @@ def most_recent_question(request):
 @login_required
 def edit_question_page(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
-	if not question.author.djangoUser == get_user(request):
-		raise Http404
-	context = {}
-	context['type'] = 'new_question'
+	if not question.deleted or not question.closed:
+		if not question.author.djangoUser == get_user(request):
+			raise Http404
+		context = {}
+		context['type'] = 'new_question'
 
-	if request.method == 'POST':
-		if request.POST['type'] == 'new_question':
-			question_form = QuestionForm(request.POST)
-			context['question_form'] = question_form
-			if question_form.is_valid():
-				qandaUser = get_user(request).QandaUser
-				edited_data = question_form.cleaned_data
-				question.title = edited_data['title']
-				if edited_data['category']:
-					question.category = edited_data['category']
-				question.text = edited_data['text']
-				question.save()
-				question.tags.clear()
-				for tag in edited_data['tags']:
-					question.tags.add(tag)
-				return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+		if request.method == 'POST':
+			if request.POST['type'] == 'new_question':
+				question_form = QuestionForm(request.POST)
+				context['question_form'] = question_form
+				if question_form.is_valid():
+					qandaUser = get_user(request).QandaUser
+					edited_data = question_form.cleaned_data
+					question.title = edited_data['title']
+					if edited_data['category']:
+						question.category = edited_data['category']
+					question.text = edited_data['text']
+					question.save()
+					question.tags.clear()
+					for tag in edited_data['tags']:
+						question.tags.add(tag)
+					return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+		else:
+			context['question_form'] = QuestionForm(instance=question)
+
+		context['view'] = 'new_question_page'
+		context['debug'] = ''
+
+		return render_to_response("qanda/edit_question.html", context, context_instance=RequestContext(request))
 	else:
-		context['question_form'] = QuestionForm(instance=question)
-
-	context['view'] = 'new_question_page'
-	context['debug'] = ''
-
-	return render_to_response("qanda/edit_question.html", context, context_instance=RequestContext(request))
+		return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 
 @assert_qanda_user
 @login_required
@@ -633,60 +648,63 @@ def question_page(request, question_id):
 		context['question_form'] = QuestionForm()
 		return HttpResponseRedirect(reverse(new_question_page, args=()))
 	question = get_object_or_404(Question, pk=question_id)
-	question.numOfVotes = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
-	user = get_user(request)
-	if request.user.is_authenticated():
-		all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
-		if all_relations.count() > 0: 
-			question.relations = all_relations[0]
-			
-	answers = question.answers.filter(deleted=False)
-	for answer in answers:
-		answer.numOfVotes = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, upvote=True).count() - AnswerRelatedUsers.objects.filter(relatedAnswer=answer, downvote=True).count()
-	answers = sorted(answers, key=lambda answer: -answer.numOfVotes)
-
-	if user.is_authenticated():
-		relations = question.user_relation.filter(relatedUser=user.QandaUser)
-		if relations.exists():
-			relations = relations[0]
-			question.relations = relations
+	if not question.deleted:
+		question.numOfVotes = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
+		user = get_user(request)
+		if request.user.is_authenticated():
+			all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
+			if all_relations.count() > 0: 
+				question.relations = all_relations[0]
+				
+		answers = question.answers.filter(deleted=False)
 		for answer in answers:
-			if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
-				answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
+			answer.numOfVotes = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, upvote=True).count() - AnswerRelatedUsers.objects.filter(relatedAnswer=answer, downvote=True).count()
+		answers = sorted(answers, key=lambda answer: -answer.numOfVotes)
 
+		if user.is_authenticated():
+			relations = question.user_relation.filter(relatedUser=user.QandaUser)
+			if relations.exists():
+				relations = relations[0]
+				question.relations = relations
+			for answer in answers:
+				if AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request)).count():
+					answer.relations = AnswerRelatedUsers.objects.filter(relatedAnswer=answer, relatedUser__djangoUser=get_user(request))[0]
+
+				try:
+					subscription = AnswerSubscription.objects.get(settings__user=user, answer=answer)
+					if subscription:
+						answer.subscribed = 'True'
+				except:
+					pass
+
+
+			context['subscription_form'] = SubscriptionForm({'subscribed':False,})
 			try:
-				subscription = AnswerSubscription.objects.get(settings__user=user, answer=answer)
+				subscription = QuestionSubscription.objects.get(settings__user=user, question=question)
 				if subscription:
-					answer.subscribed = 'True'
+					question.subscribed = 'True'
 			except:
 				pass
 
+			context['answer_form'] = AnswerForm()
+			context['reply_form'] = ReplyForm()
 
-		context['subscription_form'] = SubscriptionForm({'subscribed':False,})
+		context['question'] = question
+		context['answers'] = answers
+		context['is_editor'] = user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors'))
+		context['debug'] = ''
+
 		try:
-			subscription = QuestionSubscription.objects.get(settings__user=user, question=question)
-			if subscription:
-				question.subscribed = 'True'
+			if question == Question.objects.filter(deleted=False).latest('pk'):
+				context['view'] = 'last_question_page'
+			else:
+				context['view'] = 'question_page'
 		except:
-			pass
-
-		context['answer_form'] = AnswerForm()
-		context['reply_form'] = ReplyForm()
-
-	context['question'] = question
-	context['answers'] = answers
-	context['is_editor'] = user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors'))
-	context['debug'] = ''
-
-	try:
-		if question == Question.objects.latest('pk'):
-			context['view'] = 'last_question_page'
-		else:
 			context['view'] = 'question_page'
-	except:
-		context['view'] = 'question_page'
 
 
-	Question.objects.increment_view_count(question)
-	return render_to_response('qanda/question.html', context, context_instance=RequestContext(request))
+		Question.objects.increment_view_count(question)
+		return render_to_response('qanda/question.html', context, context_instance=RequestContext(request))
+	else:
+		raise Http404
 
