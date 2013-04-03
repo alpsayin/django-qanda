@@ -6,6 +6,7 @@ from django_notify import models as notify_models
 from django_notify.models import Subscription, Settings, NotificationType, Notification
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 
 # Create your models here.
 class QandaUserManager(models.Manager):
@@ -185,7 +186,9 @@ class QandaUser(models.Model):
         return AnswerRelatedUsers.objects.filter(relatedAnswer__author=self, star=True).count()
 
     class Meta:
-        verbose_name = 'User'
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
+
     def __unicode__(self):
         return u'%s %s' % (self.djangoUser.first_name, self.djangoUser.last_name)
 
@@ -305,7 +308,8 @@ class Question(models.Model):
     #answers - foreign key of Answer
     relatedUsers = models.ManyToManyField(QandaUser, through='QuestionRelatedUsers', related_name='related_questions')
     class Meta:
-        verbose_name = 'Question'
+        verbose_name = _('Question')
+        verbose_name_plural = _('Questions')
 
     def get_absolute_url(self):
         return reverse('qanda_app.views.question_page', args=(self.pk,))
@@ -420,7 +424,8 @@ class Answer(models.Model):
     editDate = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField()
     class Meta:
-        verbose_name = 'Answer'
+        verbose_name = _('Answer')
+        verbose_name_plural = _('Answers')
 
     def get_absolute_url(self):
         return self.question.get_absolute_url()
@@ -454,8 +459,9 @@ class Reply(models.Model):
     editDate = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField()
     class Meta:
-        verbose_name = 'Reply'
-        verbose_name_plural = 'Replies'
+        verbose_name = _('Reply')
+        verbose_name_plural = _('Replies')
+
     def __unicode__(self):
         return u'%d by %s' % (self.pk, self.author.djangoUser)
 
@@ -466,8 +472,9 @@ class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
     about = models.TextField()
     class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
+
     def __unicode__(self):
         return u'%s' % (self.name)
 
@@ -480,7 +487,9 @@ class UserRelations(models.Model):
     star = models.BooleanField()
     flag = models.BooleanField()
     class Meta:
-        verbose_name = 'User Relationship'
+        verbose_name = _('User Relationship')
+        verbose_name_plural = _('User Relationships')
+
     def __unicode__(self):
         return u'%s -> %s : [S:%d, F:%d]' % (self.relater.djangoUser.username, self.related.djangoUser.username, self.star, self.flag)
 
@@ -504,7 +513,8 @@ class QuestionRelatedUsers(models.Model):
     star = models.BooleanField()
     flag = models.BooleanField()
     class Meta:
-        verbose_name = 'Question/User Relationship'
+        verbose_name = _('Question/User Relationship')
+        verbose_name_plural = _('Question/User Relationships')
 
 class AnswerRelatedUsers(models.Model):
     """
@@ -525,17 +535,20 @@ class AnswerRelatedUsers(models.Model):
     star = models.BooleanField()
     flag = models.BooleanField()
     class Meta:
-        verbose_name = 'Answer/User Relationship'
+        verbose_name = _('Answer/User Relationship')
+        verbose_name_plural = _('Answer/User Relationships')
         
 class QuestionSubscription(notify_models.Subscription):
     question = models.ForeignKey(Question, related_name='subscriptions')
     class Meta:
-        verbose_name = 'Question Subscription'
+        verbose_name = _('Question Subscription')
+        verbose_name_plural = _('Question Subscriptions')
     
 class AnswerSubscription(notify_models.Subscription):
     answer = models.ForeignKey(Answer, related_name='subscriptions')
     class Meta:
-        verbose_name = 'Answer Subscription'
+        verbose_name = _('Answer Subscription')
+        verbose_name_plural = _('Answer Subscriptions')
 
 def createAnswerNotifications(sender, **kwargs):
     created = kwargs['created']
