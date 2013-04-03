@@ -9,8 +9,10 @@
 {% block body %}
 	
 	{% include "qanda/overlay.html" with visible=question.closed %}
+	{% include "qanda/popup.html" with pk=question.pk type="close_question"%}
 
 	<div class="container">
+
 
 	    {% include "qanda/navbar.html" %}
 
@@ -47,7 +49,7 @@
 								<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a> 
 								| <a class="delete-question" href="{% url delete_question question_id=question.pk %}">{% trans "Delete Question" %}</a> 
 								{% if is_editor or request.user.is_superuser %}
-								| <a class="close-question" href="{% url close_question_page question_id=question.pk %}">{% trans "Close Question" %}</a>
+								| <a class="close-question popup-display" href="#">{% trans "Close Question" %}</a>
 								{% endif %}
 							</div>
 							{% endif %}

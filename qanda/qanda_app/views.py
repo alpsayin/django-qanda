@@ -9,7 +9,7 @@ from django.template.context import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm
+from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm, QuestionCloseForm
 from taggit.models import Tag
 from django.http import Http404
 from django.conf import settings
@@ -150,12 +150,18 @@ def subscription_submit(request, **kwargs):
 @assert_qanda_user
 def close_question_page(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
-	user = get_user(request)
-	if user  == question.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
-		print 'function call: close_question'
-		question.closed = True
-		question.save()
-	return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+	if not question.deleted:
+		user = get_user(request)
+		if user  == question.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+			if request.method == 'POST':
+				question_close_form = QuestionCloseForm(request.POST)
+				if question_close_form.is_valid():
+					question.closeMessage = question_close_form.cleaned_data['message']
+			question.closed = True
+			question.save()
+		return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
+	else:
+		return HttpResponseRedirect(reverse(question_list, args=(0,)))
 
 @login_required
 @assert_qanda_user
@@ -688,6 +694,7 @@ def question_page(request, question_id):
 
 			context['answer_form'] = AnswerForm()
 			context['reply_form'] = ReplyForm()
+			context['question_close_form'] = QuestionCloseForm()
 
 		context['question'] = question
 		context['answers'] = answers
