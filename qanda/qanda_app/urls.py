@@ -36,7 +36,7 @@ v1_api.register(AnswerResource())
 v1_api.register(ReplyResource())
 
 urlpatterns = patterns('qanda_app',
-    url(r'^$', 'views.index', name='index'),
+    url(r'^$', 'views.index', name='qanda_index'),
     url(r'^qanda-login-redirect/(?P<redirect_url>.+)$', login_redirect, name='login_redirect'),
     url(r'^new/$', new_question_page, name='new_question_page'),
     url(r'^edit/question/(?P<question_id>\d+)/$', edit_question_page, name='edit_question_page'),
