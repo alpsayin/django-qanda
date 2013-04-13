@@ -1,6 +1,7 @@
 #!/bin/sh
 
-pip install django
+source ./env/bin/activate
+pip install django==1.4
 pip install south
 pip install fabric
 # pip install django-taggit
