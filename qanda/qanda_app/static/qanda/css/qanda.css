@@ -474,3 +474,8 @@
 	font-size: 24px;
 	font-weight: 700;
 }
+
+.pagination li {
+	display: inline-block!important;
+	border: none!important;
+}
