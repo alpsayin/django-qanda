@@ -9,7 +9,7 @@ from django.template.context import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm, QuestionCloseForm
+from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm, QuestionCloseForm, CategoryForm
 from taggit.models import Tag
 from django.http import Http404
 from django.conf import settings
@@ -144,6 +144,18 @@ def subscription_submit(request, **kwargs):
 # EDITOR VIEWS
 #
 ##############################################
+
+@login_required
+@assert_qanda_user
+def add_category(request):
+	user = get_user(request)
+	if user.is_superuser or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')).exists():
+		if request.method == 'POST':
+			category_form = CategoryForm(request.POST)
+			if category_form.is_valid():
+				newCategory = category_form.save(commit=False)
+				newCategory.save()
+	return HttpResponseRedirect(reverse(category_list, args=(0,)))
 
 
 @login_required
