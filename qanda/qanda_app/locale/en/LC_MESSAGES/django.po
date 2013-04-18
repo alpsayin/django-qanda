@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-03 18:17+0300\n"
+"POT-Creation-Date: 2013-04-18 15:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,107 +17,135 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:24 models.py:304
+#: forms.py:24 models.py:303
 msgid "This question is closed by the administrators. "
 msgstr ""
 
-#: models.py:191
+#: models.py:190
 msgid "User"
 msgstr ""
 
-#: models.py:192
+#: models.py:191
 msgid "Users"
 msgstr ""
 
-#: models.py:313
+#: models.py:312
 msgid "Question"
 msgstr ""
 
-#: models.py:314
+#: models.py:313
 msgid "Questions"
 msgstr ""
 
-#: models.py:429 templates/qanda/new_answer.html:14
+#: models.py:428 templates/qanda/new_answer.html:14
 msgid "Answer"
 msgstr ""
 
-#: models.py:430 templates/qanda/question.html:125
+#: models.py:429 templates/qanda/question.html:125
 #: templates/qanda/question_listing_base.html:12
 msgid "Answers"
 msgstr ""
 
-#: models.py:464 templates/qanda/reply.html:13
+#: models.py:463 templates/qanda/reply.html:13
 msgid "Reply"
 msgstr ""
 
-#: models.py:465
+#: models.py:464
 msgid "Replies"
 msgstr ""
 
-#: models.py:477
+#: models.py:476
 msgid "Category"
 msgstr ""
 
-#: models.py:478 templates/qanda/category_list.html:5
-#: templates/qanda/category_list.html:18 templates/qanda/navbar.html:19
+#: models.py:477 templates/qanda/category_list.html:5
+#: templates/qanda/category_list.html:20 templates/qanda/navbar.html:19
 msgid "Categories"
 msgstr ""
 
-#: models.py:492
+#: models.py:491
 msgid "User Relationship"
 msgstr ""
 
-#: models.py:493
+#: models.py:492
 msgid "User Relationships"
 msgstr ""
 
-#: models.py:518
+#: models.py:517
 msgid "Question/User Relationship"
 msgstr ""
 
-#: models.py:519
+#: models.py:518
 msgid "Question/User Relationships"
 msgstr ""
 
-#: models.py:540
+#: models.py:539
 msgid "Answer/User Relationship"
 msgstr ""
 
-#: models.py:541
+#: models.py:540
 msgid "Answer/User Relationships"
 msgstr ""
 
-#: models.py:546
+#: models.py:545
 msgid "Question Subscription"
 msgstr ""
 
-#: models.py:547
+#: models.py:546
 msgid "Question Subscriptions"
 msgstr ""
 
-#: models.py:552
+#: models.py:551
 msgid "Answer Subscription"
 msgstr ""
 
-#: models.py:553
+#: models.py:552
 msgid "Answer Subscriptions"
 msgstr ""
 
-#: templates/qanda/category_list.html:21 templates/qanda/tag_list.html:21
+#: templates/qanda/add_category_popup.html:15
+msgid "Category Name"
+msgstr ""
+
+#: templates/qanda/add_category_popup.html:20
+msgid "Error in Category Name"
+msgstr ""
+
+#: templates/qanda/add_category_popup.html:29
+msgid "Category Explanation"
+msgstr ""
+
+#: templates/qanda/add_category_popup.html:34
+msgid "Error in Category Explanation"
+msgstr ""
+
+#: templates/qanda/add_category_popup.html:40
+#: templates/qanda/close_question_popup.html:27
+#: templates/qanda/edit_question.html:83 templates/qanda/new_answer.html:26
+#: templates/qanda/new_question.html:83 templates/qanda/relations.html:26
+#: templates/qanda/reply.html:24
+msgid "Submit"
+msgstr ""
+
+#: templates/qanda/category_list.html:23 templates/qanda/tag_list.html:21
 msgid "in alphabetical order"
 msgstr ""
 
-#: templates/qanda/category_list.html:33 templates/qanda/profile.html:31
+#: templates/qanda/category_list.html:27
+msgid "Add Category"
+msgstr ""
+
+#: templates/qanda/category_list.html:40 templates/qanda/profile.html:31
 msgid "has"
 msgstr ""
 
-#: templates/qanda/category_list.html:33
+#: templates/qanda/category_list.html:40
 msgid "question "
 msgid_plural " questions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/qanda/category_list.html:47 templates/qanda/category_list.html:49
+#: templates/qanda/category_list.html:54 templates/qanda/category_list.html:56
 #: templates/qanda/pagination.html:6 templates/qanda/pagination.html.py:8
 #: templates/qanda/question_list.html:143
 #: templates/qanda/question_list.html:147
@@ -134,7 +162,7 @@ msgstr[1] ""
 msgid "Prev"
 msgstr ""
 
-#: templates/qanda/category_list.html:55 templates/qanda/category_list.html:57
+#: templates/qanda/category_list.html:62 templates/qanda/category_list.html:64
 #: templates/qanda/pagination.html:14 templates/qanda/pagination.html.py:16
 #: templates/qanda/question_list.html:179
 #: templates/qanda/question_list.html:181
@@ -150,6 +178,14 @@ msgstr ""
 #: templates/qanda/tag_list.html.py:61 templates/qanda/tag_page.html:67
 #: templates/qanda/tag_page.html.py:69
 msgid "Next"
+msgstr ""
+
+#: templates/qanda/close_question_popup.html:16
+msgid "Close the Question with a Message"
+msgstr ""
+
+#: templates/qanda/close_question_popup.html:21
+msgid "Error in Close Message"
 msgstr ""
 
 #: templates/qanda/edit_question.html:5 templates/qanda/question.html:49
@@ -190,12 +226,6 @@ msgstr ""
 msgid "Error in Tags"
 msgstr ""
 
-#: templates/qanda/edit_question.html:83 templates/qanda/new_answer.html:26
-#: templates/qanda/new_question.html:83 templates/qanda/popup.html:27
-#: templates/qanda/relations.html:26 templates/qanda/reply.html:24
-msgid "Submit"
-msgstr ""
-
 #: templates/qanda/navbar.html:15
 msgid "Home"
 msgstr ""
@@ -230,14 +260,6 @@ msgstr ""
 
 #: templates/qanda/overlay.html:9
 msgid "Click Anywhere to Continue"
-msgstr ""
-
-#: templates/qanda/popup.html:16
-msgid "Close the Question with a Message"
-msgstr ""
-
-#: templates/qanda/popup.html:21
-msgid "Error in Close Message"
 msgstr ""
 
 #: templates/qanda/profile.html:19
