@@ -9,7 +9,7 @@
 {% block body %}
 	
 	{% include "qanda/overlay.html" with visible=question.closed %}
-	{% include "qanda/popup.html" with pk=question.pk type="close_question"%}
+	{% include "qanda/close_question_popup.html" with pk=question.pk type="close_question"%}
 
 	<div class="container">
 
