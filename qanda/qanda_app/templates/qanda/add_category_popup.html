@@ -1,0 +1,43 @@
+{% load i18n %}
+{% load qanda_extras %}	
+
+{% block popup %}
+	<div id="popup">
+		<a id="popupClose" href="#" onClick="toggleElementVisibility('#popup', '', '', 500);">x</a>
+		<form method="post" action="{% url add_category %}">
+			{% csrf_token %}
+			{{ category_form.non_field_errors }}
+
+			<input type="hidden" name="type" value="{{ type }}">	
+			<div class="categoryNameWrapper">
+		        <label for="id_name">
+					<h4>
+						{% trans "Category Name" %}:
+	        		</h4>
+	        		{% if category_form.name.errors %}
+		        		<div class="alert alert-error">
+		        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+				        	<strong>{% trans "Error in Category Name" %}</strong>{{ category_form.name.errors }}
+				        </div>
+			        {% endif %}
+				</label>
+		        {{ category_form.name }}
+			</div>
+			<div class="questionTitleWrapper">
+		        <label for="id_about">
+					<h4>
+						{% trans "Category Explanation" %}:
+	        		</h4>
+	        		{% if category_form.about.errors %}
+		        		<div class="alert alert-error">
+		        			<button type="button" class="close" data-dismiss="alert">&times;</button>
+				        	<strong>{% trans "Error in Category Explanation" %}</strong>{{ category_form.about.errors }}
+				        </div>
+			        {% endif %}
+				</label>
+		        {{ category_form.about }}
+			</div>
+			<input class="btn" type="submit" value="{% trans 'Submit' %}">
+		</form>
+	</div>
+{% endblock %}

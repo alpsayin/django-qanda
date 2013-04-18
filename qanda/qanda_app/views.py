@@ -512,6 +512,7 @@ def category_list(request, page):
 			context['prev'] = page-1
 
 	context['current_page_number'] = page
+	context['category_form'] = CategoryForm()
 
 	return render_to_response("qanda/category_list.html", context, context_instance=RequestContext(request))
 

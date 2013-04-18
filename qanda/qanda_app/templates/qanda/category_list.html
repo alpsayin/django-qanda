@@ -7,6 +7,8 @@
 
 {% block body %}
 
+	{% include "qanda/add_category_popup.html" with type="add_category"%}
+
 	<div class="container">
 
 	    {% include "qanda/navbar.html" %}
@@ -20,6 +22,11 @@
 		<h5>
 			{% trans "in alphabetical order" %}
 		</h5>
+		{% if is_editor or request.user.is_superuser %}
+		<h5>
+			<a class="add-category popup-display" href="#">{% trans "Add Category" %}</a> 
+		</h5>
+		{% endif %}
 		<div class="row">
 			<div class="span10">
 				<div class="row">
