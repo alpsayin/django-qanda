@@ -164,7 +164,7 @@ def close_question_page(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
 	if not question.deleted:
 		user = get_user(request)
-		if user  == question.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+		if user  == question.author.djangoUser or user.is_superuser or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')).exists():
 			if request.method == 'POST':
 				question_close_form = QuestionCloseForm(request.POST)
 				if question_close_form.is_valid():
@@ -180,7 +180,7 @@ def close_question_page(request, question_id):
 def delete_question(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
 	user = get_user(request)
-	if user  == question.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+	if user  == question.author.djangoUser or user.is_superuser or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')).exists():
 		question.deleted = True
 		question.save()
 	return HttpResponseRedirect(reverse(question_list, args=(0,)))
@@ -192,7 +192,7 @@ def edit_answer_page(request, answer_id):
 	question = answer.question
 	if not question.deleted or not question.closed:
 		user = get_user(request)
-		if user  == answer.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+		if user  == answer.author.djangoUser or user.is_superuser or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')).exists():
 			print 'function call: edit_question'
 	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
 
@@ -203,7 +203,7 @@ def delete_answer(request, answer_id):
 	question = answer.question
 	if not question.deleted or not question.closed:
 		user = get_user(request)
-		if user  == answer.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+		if user  == answer.author.djangoUser or user.is_superuser or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')).exists():
 			answer.deleted = True
 			answer.save()
 	return HttpResponseRedirect(reverse(question_page, args=(answer.question.pk,)))
@@ -215,7 +215,7 @@ def delete_reply(request, reply_id):
 	question = reply.answer.question
 	if not question.deleted or not question.closed:
 		user = get_user(request)
-		if user  == reply.author.djangoUser or user.is_superuser() or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors').exists()	):
+		if user  == reply.author.djangoUser or user.is_superuser or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')).exists():
 			reply.deleted = True
 	        reply.save()
 	return HttpResponseRedirect(reverse(question_page, args=(reply.answer.question.pk,)))
