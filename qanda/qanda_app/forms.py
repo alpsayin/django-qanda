@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Textarea, TextInput, Select
-from models import Question, Answer, Reply
+from models import Question, Answer, Reply, Category
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -23,6 +23,15 @@ class QuestionForm(ModelForm):
 class QuestionCloseForm(forms.Form):
 	message = forms.CharField(max_length=511, widget=Textarea(attrs={'rows': 10, 'id':'questionCloseForm',}), initial=_("This question is closed by the administrators. ")+getattr(settings, 'ROOT_URL', 'http://127.0.0.1:8000/qanda'))
 
+class CategoryForm(ModelForm):
+	class Meta:
+		model = Category
+		fields = ('name', 'about', )
+		widgets = {
+			'name' : TextInput(attrs={'size': 180,  'class':'span6', 'id':'addCategoryName',}),
+			'about' : Textarea(attrs={'rows': 6, 'cols':80, 'class':'span6', 'id':'addCategoryAbout',}),
+		}
+	
 class AnswerForm(ModelForm):
 	class Meta:
 		model = Answer
