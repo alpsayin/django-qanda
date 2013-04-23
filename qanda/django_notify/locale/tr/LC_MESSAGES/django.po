@@ -20,7 +20,7 @@ msgstr ""
 
 #: __init__.py:32
 msgid "You supplied a target_object that's not an instance of a django Model."
-msgstr ""
+msgstr "Hedef objenin türüyle aynı modelde olmayan bir obje verdiniz."
 
 #: models.py:15
 msgid "unique key"
@@ -58,7 +58,7 @@ msgstr "Her türlü objeye kaydolmak için burayı boş bırakın"
 #: models.py:54
 #, python-format
 msgid "Subscription for: %s"
-msgstr "Takip etme durumu: %s"
+msgstr "Takip ediliyor: %s"
 
 #: models.py:59
 msgid "subscription"
