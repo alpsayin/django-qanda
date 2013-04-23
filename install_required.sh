@@ -1,7 +1,7 @@
 #!/bin/sh
 
 source ./env/bin/activate
-pip install django==1.4
+pip install django==1.4.3
 pip install south
 pip install fabric
 # pip install django-taggit
@@ -12,7 +12,6 @@ pip install mysql-python
 pip install django-extensions
 pip install werkzeug
 pip install django-tastypie
-pip install django-debug-toolbar
 pip install django-haystack
 pip install django-userena
 pip install pysolr
