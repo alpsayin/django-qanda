@@ -47,7 +47,7 @@
 							{% if is_editor or request.user.is_superuser or question.author.djangoUser == user %}
 							<div class="span6">
 								<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a> 
-								| <a class="delete-question" href="{% url delete_question question_id=question.pk %}">{% trans "Delete Question" %}</a> 
+								| <a class="delete-question" href="#" onClick="confirmRedirect('{% trans 'Are you sure you want to delete this question?' %}', '{% url delete_question question_id=question.pk %}', '#dontdelete');">{% trans "Delete Question" %}</a> 
 								{% if is_editor or request.user.is_superuser %}
 								| <a class="close-question popup-display" href="#">{% trans "Close Question" %}</a>
 								{% endif %}

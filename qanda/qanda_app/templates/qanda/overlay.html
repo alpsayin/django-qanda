@@ -2,11 +2,19 @@
 {% load i18n %}
 {% load qanda_extras %}
 	<!-- <div id="overlay" onClick="toggleElementVisibility('#overlay', '', '', 500);"> -->
+	{% if is_editor or request.user.is_superuser %}
+	<div id="overlay" onClick="toggleElementVisibility('#overlay', '', '', 500)" style="{% if visible %}display:block;{% endif %}">
+	{% else %}
 	<div id="overlay" onClick="window.location.href = ({% url qanda_index %});" style="{% if visible %}display:block;{% endif %}">
+	{% endif %}
 		<div id="overlay-box">
 			<div id="overlay-content">
 				<div id="overlay-title">{% trans "This Question is Closed!" %}</div>
+				{% if is_editor or request.user.is_superuser %}
+				<div id="overlay-subtitle">{% trans "Click Anywhere to Continue (editors can continue to the question page)" %}</div>
+				{% else %}
 				<div id="overlay-subtitle">{% trans "Click Anywhere to Continue" %}</div>
+				{% endif %}
 				<div id="overlay-message">{{ question.closeMessage|urlizetrunc:32|url_target_blank }}</div>
 				<div id="overlay-date">{{ question.closeDate }}</div>
 			</div>
