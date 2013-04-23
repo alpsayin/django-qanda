@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 15:26+0300\n"
+"POT-Creation-Date: 2013-04-23 20:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,11 +254,17 @@ msgstr "Arama"
 msgid "Error in Answer Text"
 msgstr "Cevap Metninde Hata"
 
-#: templates/qanda/overlay.html:8
+#: templates/qanda/overlay.html:12
 msgid "This Question is Closed!"
 msgstr "Bu Soru Kapatılmıştır!"
 
-#: templates/qanda/overlay.html:9
+#: templates/qanda/overlay.html:14
+msgid "Click Anywhere to Continue (editors can continue to the question page)"
+msgstr ""
+"Devam etmek için herhangi bir yere tıklayın (editörler soru sayfasında "
+"kalacaktır)"
+
+#: templates/qanda/overlay.html:16
 msgid "Click Anywhere to Continue"
 msgstr "Devam etmek için herhangi bir yere tıklayın"
 
@@ -457,6 +463,10 @@ msgstr "Hiç biri"
 #, python-format
 msgid " Views %(viewCount)s "
 msgstr " %(viewCount)s Görüntüleme"
+
+#: templates/qanda/question.html:50
+msgid "Are you sure you want to delete this question?"
+msgstr "Bu soruyu silmek istediğinize emin misiniz?"
 
 #: templates/qanda/question.html:50
 msgid "Delete Question"
