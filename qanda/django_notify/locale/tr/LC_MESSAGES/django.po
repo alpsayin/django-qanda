@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-24 00:58+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: __init__.py:32
+msgid "You supplied a target_object that's not an instance of a django Model."
+msgstr ""
+
+#: models.py:15
+msgid "unique key"
+msgstr "benzersiz anahtar"
+
+#: models.py:17
+msgid "verbose name"
+msgstr "ayrıntı ismi"
+
+#: models.py:26
+msgid "type"
+msgstr "tür"
+
+#: models.py:27
+msgid "types"
+msgstr "türler"
+
+#: models.py:32
+msgid "interval"
+msgstr "aralık"
+
+#: models.py:36
+#, python-format
+msgid "Settings for %s"
+msgstr "%s için Ayarlar"
+
+#: models.py:41 models.py:42
+msgid "settings"
+msgstr "ayarlar"
+
+#: models.py:49
+msgid "Leave this blank to subscribe to any kind of object"
+msgstr "Her türlü objeye kaydolmak için burayı boş bırakın"
+
+#: models.py:54
+#, python-format
+msgid "Subscription for: %s"
+msgstr "Takip etme durumu: %s"
+
+#: models.py:59
+msgid "subscription"
+msgstr "takip"
+
+#: models.py:60
+msgid "subscriptions"
+msgstr "takipler"
+
+#: models.py:66
+msgid "link for notification"
+msgstr "bildirim linki"
+
+#: models.py:71
+msgid "occurrences"
+msgstr "yinelemeler"
+
+#: models.py:72
+msgid ""
+"If the same notification was fired multiple times with no intermediate "
+"notifications"
+msgstr "Eğer aynı bildirim ara-bildirimler olmaksızın birden fazla gönderildiyse"
+
+#: models.py:125
+msgid "notification"
+msgstr "bildirim"
+
+#: models.py:126
+msgid "notifications"
+msgstr "bildirimler"
+
+#: settings.py:23
+msgid "instantly"
+msgstr "anında"
+
+#: settings.py:24
+msgid "daily"
+msgstr "günlük"
+
+#: settings.py:25
+msgid "weekly"
+msgstr "haftalık"
+
+#: views.py:32
+#, python-format
+msgid "%d times"
+msgstr "%d defa"
