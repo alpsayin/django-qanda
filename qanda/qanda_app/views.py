@@ -670,7 +670,7 @@ def question_page(request, question_id):
 	if not question.deleted:
 		question.numOfVotes = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count() - QuestionRelatedUsers.objects.filter(relatedQuestion=question, downvote=True).count()
 		user = get_user(request)
-		if request.user.is_authenticated():
+		if user.is_authenticated():
 			all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
 			if all_relations.count() > 0: 
 				question.relations = all_relations[0]
