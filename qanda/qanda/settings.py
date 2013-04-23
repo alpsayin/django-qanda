@@ -94,7 +94,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -128,7 +128,7 @@ INSTALLED_APPS = (
     'django_extensions', #optional for debugging
     'tastypie', #optional if you want REST Api
     'django_notify', #required
-    'debug_toolbar', #optional for debugging
+    # 'debug_toolbar', #optional for debugging
     'haystack', #optional if you want search
     #userena - #optional for test project
     'userena',
