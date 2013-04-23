@@ -33,6 +33,19 @@ function toggleElementVisibility(element, message_display, message_hide, speed)
 	});
 }
 
+function confirmRedirect(message, redirect_url_true, redirect_url_false)
+{
+	var retVal = confirm(message);
+	if(retVal==true)
+	{
+		window.location.href = redirect_url_true;
+	}
+	else
+	{
+		window.location.href = redirect_url_false;
+	}
+}
+
 var popup_displayed = 0
 
 $(document).ready(function()
