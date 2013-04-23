@@ -5,7 +5,7 @@ pip install django==1.4
 pip install south
 pip install fabric
 # pip install django-taggit
-git clone git://github.com/shacker/django-taggit.git
+git clone git://github.com/alpsayin/django-taggit.git
 python django-taggit/setup.py install
 pip install django-notify
 pip install mysql-python
