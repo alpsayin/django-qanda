@@ -33,7 +33,7 @@
 					<div class="span10">
 						{% for category in categories %}
 									<div class="span3">
-										<a class="tag-list-element" href="{% url categorized_question_list category=category question_id=0 %}">
+										<a class="tag-list-element" href="{% url categorized_question_list category=category.slug question_id=0 %}">
 											"{{ category }}"
 										</a>
 										<span class="tag-list-used">

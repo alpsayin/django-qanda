@@ -65,7 +65,7 @@
 									</li>
 									{% for category in categories %}
 										<li>
-											<a href="{% url categorized_user_asked_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
+											<a href="{% url categorized_user_asked_questions_list user_id=qandaUser.pk category=category.slug question_id='0' %}">{{ category.name }}</a>
 										</li>
 									{% endfor %}
 								</ul>
@@ -76,7 +76,7 @@
 									</li>
 									{% for category in categories %}
 										<li>
-											<a href="{% url categorized_user_answered_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
+											<a href="{% url categorized_user_answered_questions_list user_id=qandaUser.pk category=category.slug question_id='0' %}">{{ category.name }}</a>
 										</li>
 									{% endfor %}
 								</ul>
@@ -87,7 +87,7 @@
 									</li>
 									{% for category in categories %}
 										<li>
-											<a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
+											<a href="{% url categorized_user_replied_questions_list user_id=qandaUser.pk category=category.slug question_id='0' %}">{{ category.name }}</a>
 										</li>
 									{% endfor %}
 								</ul>
@@ -98,7 +98,7 @@
 									</li>
 									{% for category in categories %}
 										<li>
-											<a href="{% url categorized_user_starred_questions_list user_id=qandaUser.pk category=category.name question_id='0' %}">{{ category.name }}</a>
+											<a href="{% url categorized_user_starred_questions_list user_id=qandaUser.pk category=category.slug question_id='0' %}">{{ category.name }}</a>
 										</li>
 									{% endfor %}
 								</ul>
@@ -109,7 +109,7 @@
 									</li>
 									{% for category in categories %}
 										<li>
-											<a href="{% url categorized_question_list category=category.name question_id='0' %}">{{ category.name }}</a>
+											<a href="{% url categorized_question_list category=category.slug question_id='0' %}">{{ category.name }}</a>
 										</li>
 									{% endfor %}
 								</ul>
@@ -162,7 +162,7 @@
 		    		{% endif %}
 	    		{% elif view == 'question_list' %}
 	    			{% if category %}
-		    			<li class=""><a href="{% url categorized_question_list category=category.name question_id=prev %}">{% trans "Prev" %}</a></li>
+		    			<li class=""><a href="{% url categorized_question_list category=category.slug question_id=prev %}">{% trans "Prev" %}</a></li>
 		    		{% else %}
 		    			<li class=""><a href="{% url question_list question_id=prev %}">{% trans "Prev" %}</a></li>
 		    		{% endif %}
