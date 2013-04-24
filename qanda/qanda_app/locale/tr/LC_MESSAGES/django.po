@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 23:32+0300\n"
+"POT-Creation-Date: 2013-04-24 17:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,52 +55,52 @@ msgstr "Yorum"
 msgid "Replies"
 msgstr "Yorumlar"
 
-#: models.py:476
+#: models.py:477
 msgid "Category"
 msgstr "Kategori"
 
-#: models.py:477 templates/qanda/category_list.html:5
+#: models.py:478 templates/qanda/category_list.html:5
 #: templates/qanda/category_list.html:20 templates/qanda/navbar.html:19
 msgid "Categories"
 msgstr "Kategoriler"
 
-#: models.py:491
+#: models.py:492
 msgid "User Relationship"
 msgstr "Kullanıcı İlişkisi"
 
-#: models.py:492
+#: models.py:493
 msgid "User Relationships"
 msgstr "Kullanıcı İlişkileri"
 
-#: models.py:517
+#: models.py:518
 msgid "Question/User Relationship"
 msgstr "Soru/Kullanıcı İlişkisi"
 
-#: models.py:518
+#: models.py:519
 msgid "Question/User Relationships"
 msgstr "Soru/Kullanıcı İlişkileri"
 
-#: models.py:539
+#: models.py:540
 msgid "Answer/User Relationship"
 msgstr "Cevap/Kullanıcı İlişkisi"
 
-#: models.py:540
+#: models.py:541
 msgid "Answer/User Relationships"
 msgstr "Cevap/Kullanıcı İlişkileri"
 
-#: models.py:545
+#: models.py:546
 msgid "Question Subscription"
 msgstr "Soru Takibi"
 
-#: models.py:546
+#: models.py:547
 msgid "Question Subscriptions"
 msgstr "Soru Takipleri"
 
-#: models.py:551
+#: models.py:552
 msgid "Answer Subscription"
 msgstr "Cevap Takibi"
 
-#: models.py:552
+#: models.py:553
 msgid "Answer Subscriptions"
 msgstr "Cevap Takipleri"
 
@@ -261,8 +261,8 @@ msgstr "Bu Soru Kapatılmıştır!"
 #: templates/qanda/overlay.html:14
 msgid "Click Anywhere to Continue (editors can continue to the question page)"
 msgstr ""
-"Devam etmek için herhangi bir yere tıklayın (editörler soru sayfasına "
-"devam edebilir)"
+"Devam etmek için herhangi bir yere tıklayın (editörler soru sayfasına devam "
+"edebilir)"
 
 #: templates/qanda/overlay.html:16
 msgid "Click Anywhere to Continue"
