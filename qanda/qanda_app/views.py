@@ -13,8 +13,10 @@ from forms import QuestionForm, AnswerForm, ReplyForm, SubscriptionForm, Questio
 from taggit.models import Tag
 from django.http import Http404
 from django.conf import settings
+from django.template.defaultfilters import slugify
 from view_helpers import *
 import pprint
+import random
 
 from decorators import assert_qanda_user
 from models import *
@@ -148,12 +150,31 @@ def subscription_submit(request, **kwargs):
 @login_required
 @assert_qanda_user
 def add_category(request):
+	random_slug_chars = ['_', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',]
 	user = get_user(request)
 	if user.is_superuser or user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')).exists():
 		if request.method == 'POST':
 			category_form = CategoryForm(request.POST)
 			if category_form.is_valid():
 				newCategory = category_form.save(commit=False)
+				encodedName = newCategory.name
+				encodedName = encodedName.replace(u'\u0130', u'I')
+				encodedName = encodedName.replace(u'\u0131', u'i')
+				encodedName = encodedName.replace(u'\u00D6', u'O')
+				encodedName = encodedName.replace(u'\u00F6', u'o')
+				encodedName = encodedName.replace(u'\u00DC', u'U')
+				encodedName = encodedName.replace(u'\u00FC', u'u')
+				encodedName = encodedName.replace(u'\u00C7', u'C')
+				encodedName = encodedName.replace(u'\u00E7', u'c')
+				encodedName = encodedName.replace(u'\u011E', u'G')
+				encodedName = encodedName.replace(u'\u011F', u'g')
+				encodedName = encodedName.replace(u'\u015E', u'S')
+				encodedName = encodedName.replace(u'\u015F', u's')
+				temp_slug = slugify(encodedName) 
+				temp_slug = temp_slug.replace('-', '_')
+				while Category.objects.filter(slug=temp_slug).exists():
+					temp_slug = temp_slug + random_slug_chars[random.randint(0, len(random_slug_chars))]
+				newCategory.slug = temp_slug
 				newCategory.save()
 	return HttpResponseRedirect(reverse(category_list, args=(0,)))
 
@@ -254,7 +275,7 @@ def profile_page(request, user_id):
 @assert_qanda_user
 def question_list(request, question_id, category):
 	context = {}
-	category = Category.objects.filter(name=category)
+	category = Category.objects.filter(slug=category)
 	if category.exists():
 		category = category[0]
 	else:
@@ -302,7 +323,7 @@ def question_list(request, question_id, category):
 def user_starred_questions_list(request, user_id, question_id, category):
 	context = {}
 	qandaUser = get_object_or_404(QandaUser, pk=user_id)
-	category = Category.objects.filter(name=category)
+	category = Category.objects.filter(slug=category)
 	if category.exists():
 		category = category[0]
 	else:
@@ -350,7 +371,7 @@ def user_starred_questions_list(request, user_id, question_id, category):
 def user_asked_questions_list(request, user_id, question_id, category):
 	context = {}
 	qandaUser = get_object_or_404(QandaUser, pk=user_id)
-	category = Category.objects.filter(name=category)
+	category = Category.objects.filter(slug=category)
 	if category.exists():
 		category = category[0]
 	else:
@@ -398,7 +419,7 @@ def user_asked_questions_list(request, user_id, question_id, category):
 def user_answered_questions_list(request, user_id, question_id, category):
 	context = {}
 	qandaUser = get_object_or_404(QandaUser, pk=user_id)
-	category = Category.objects.filter(name=category)
+	category = Category.objects.filter(slug=category)
 	if category.exists():
 		category = category[0]
 	else:
@@ -446,7 +467,7 @@ def user_answered_questions_list(request, user_id, question_id, category):
 def user_replied_questions_list(request, user_id, question_id, category):
 	context = {}
 	qandaUser = get_object_or_404(QandaUser, pk=user_id)
-	category = Category.objects.filter(name=category)
+	category = Category.objects.filter(slug=category)
 	if category.exists():
 		category = category[0]
 	else:
@@ -571,7 +592,7 @@ def tag_page(request, tag, page):
 def categorized_tag_page(request, category, tag, page):
 	context = {}
 	page = int(page)
-	category_id = get_object_or_404(Category, name=category)
+	category_id = get_object_or_404(Category, slug=category)
 	questions = Question.objects.filter(category=category_id, tags__name__in=[tag], deleted=False).order_by('-postDate')[page*(NUM_OF_QUESTIONS_PER_PAGE):(page+1)*NUM_OF_QUESTIONS_PER_PAGE]
 	for question in questions:
 		question.voteCount = QuestionRelatedUsers.objects.filter(relatedQuestion=question, upvote=True).count
