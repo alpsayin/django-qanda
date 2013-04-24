@@ -471,6 +471,7 @@ class Category(models.Model):
         A simple model to hold Question categories such as different sectors
     """
     name = models.CharField(max_length=255, unique=True)
+    slug = models.CharField(max_length=255, unique=True)
     about = models.TextField()
     class Meta:
         verbose_name = _("Category")
