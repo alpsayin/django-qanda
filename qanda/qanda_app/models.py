@@ -514,6 +514,7 @@ class QuestionRelatedUsers(models.Model):
     notUseful = models.BooleanField()
     star = models.BooleanField()
     flag = models.BooleanField()
+    seen = models.BooleanField()
     class Meta:
         verbose_name = _('Question/User Relationship')
         verbose_name_plural = _('Question/User Relationships')
