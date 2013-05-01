@@ -61,7 +61,7 @@
 					<div class="row">
 						<div class="span6">
 							{% trans "by" %}: <i><a href="{{ question.author.get_absolute_url }}">{{ question.author.djangoUser }}</a></i> <br />
-							{{ question.postDate }} <br />
+							{% trans "Posted: " %}{{ question.postDate }} {% if question.postDate != question.editDate %}<br /> {% trans "Edited: " %}{{ question.editDate }} {% endif %} <br />
 						</div>
 						<div class="span3">
 							{% include "qanda/subscription.html" with pk=question.pk type="question_subscription" action_link="subscribe/" subscribed=question.subscribed %}
