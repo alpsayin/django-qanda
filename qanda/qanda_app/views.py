@@ -17,6 +17,7 @@ from django.template.defaultfilters import slugify
 from view_helpers import *
 import pprint
 import random
+import datetime
 
 from decorators import assert_qanda_user
 from models import *
@@ -191,6 +192,7 @@ def close_question_page(request, question_id):
 				if question_close_form.is_valid():
 					question.closeMessage = question_close_form.cleaned_data['message']
 			question.closed = True
+			question.closeDate = datetime.datetime.now()
 			question.save()
 		return HttpResponseRedirect(reverse(question_page, args=(question.pk,)))
 	else:
@@ -644,6 +646,7 @@ def edit_question_page(request, question_id):
 					if edited_data['category']:
 						question.category = edited_data['category']
 					question.text = edited_data['text']
+					question.editDate = datetime.datetime.now()
 					question.save()
 					question.tags.clear()
 					for tag in edited_data['tags']:
