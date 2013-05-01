@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 17:42+0300\n"
+"POT-Creation-Date: 2013-05-02 00:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: forms.py:24 models.py:303
+#: forms.py:24 models.py:302
 msgid "This question is closed by the administrators. "
 msgstr ""
 
@@ -29,77 +29,77 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: models.py:312
+#: models.py:311
 msgid "Question"
 msgstr ""
 
-#: models.py:313
+#: models.py:312
 msgid "Questions"
 msgstr ""
 
-#: models.py:428 templates/qanda/new_answer.html:14
+#: models.py:430 templates/qanda/new_answer.html:14
 msgid "Answer"
 msgstr ""
 
-#: models.py:429 templates/qanda/question.html:125
+#: models.py:431 templates/qanda/question.html:125
 #: templates/qanda/question_listing_base.html:12
 msgid "Answers"
 msgstr ""
 
-#: models.py:463 templates/qanda/reply.html:13
+#: models.py:465 templates/qanda/reply.html:13
 msgid "Reply"
 msgstr ""
 
-#: models.py:464
+#: models.py:466
 msgid "Replies"
 msgstr ""
 
-#: models.py:477
+#: models.py:479
 msgid "Category"
 msgstr ""
 
-#: models.py:478 templates/qanda/category_list.html:5
+#: models.py:480 templates/qanda/category_list.html:5
 #: templates/qanda/category_list.html:20 templates/qanda/navbar.html:19
 msgid "Categories"
 msgstr ""
 
-#: models.py:492
+#: models.py:494
 msgid "User Relationship"
 msgstr ""
 
-#: models.py:493
+#: models.py:495
 msgid "User Relationships"
 msgstr ""
 
-#: models.py:518
+#: models.py:521
 msgid "Question/User Relationship"
 msgstr ""
 
-#: models.py:519
+#: models.py:522
 msgid "Question/User Relationships"
 msgstr ""
 
-#: models.py:540
+#: models.py:543
 msgid "Answer/User Relationship"
 msgstr ""
 
-#: models.py:541
+#: models.py:544
 msgid "Answer/User Relationships"
 msgstr ""
 
-#: models.py:546
+#: models.py:549
 msgid "Question Subscription"
 msgstr ""
 
-#: models.py:547
+#: models.py:550
 msgid "Question Subscriptions"
 msgstr ""
 
-#: models.py:552
+#: models.py:555
 msgid "Answer Subscription"
 msgstr ""
 
-#: models.py:553
+#: models.py:556
 msgid "Answer Subscriptions"
 msgstr ""
 
@@ -454,6 +454,14 @@ msgstr ""
 #: templates/qanda/question.html:207
 #: templates/qanda/question_listing_base.html:36
 msgid "by"
+msgstr ""
+
+#: templates/qanda/question.html:64
+msgid "Posted: "
+msgstr ""
+
+#: templates/qanda/question.html:64
+msgid "Edited: "
 msgstr ""
 
 #: templates/qanda/question.html:85 templates/qanda/question.html.py:153
