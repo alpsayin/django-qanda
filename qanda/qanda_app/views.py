@@ -626,8 +626,9 @@ def most_recent_question(request):
 @login_required
 def edit_question_page(request, question_id):
 	question = get_object_or_404(Question, pk=question_id)
+	user = get_user(request)
 	if not question.deleted or not question.closed:
-		if not question.author.djangoUser == get_user(request):
+		if (not user  == question.author.djangoUser) and (not user.is_superuser) and (not user.groups.filter(name=getattr(settings, 'QANDA_EDITORS_GROUP_NAME', 'Editors')).exists()):
 			raise Http404
 		context = {}
 		context['type'] = 'new_question'
