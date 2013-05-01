@@ -694,7 +694,21 @@ def question_page(request, question_id):
 		if user.is_authenticated():
 			all_relations = QuestionRelatedUsers.objects.filter(relatedQuestion=question, relatedUser__djangoUser=get_user(request))
 			if all_relations.count() > 0: 
+				existingRelation = all_relations[0]
 				question.relations = all_relations[0]
+				existingRelation.seen = True
+				existingRelation.save()
+			else:
+				newRelation = QuestionRelatedUsers.objects.create(relatedUser=user.QandaUser, 
+                                                                relatedQuestion=question,
+                                                                upvote=False,
+                                                                downvote=False,
+                                                                useful=False,
+                                                                notUseful=False,
+                                                                star=False,
+                                                                flag=False,
+                                                                seen=True)
+				newRelation.save()
 				
 		answers = question.answers.filter(deleted=False)
 		for answer in answers:
