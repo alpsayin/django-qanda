@@ -757,8 +757,6 @@ def question_page(request, question_id):
 		except:
 			context['view'] = 'question_page'
 
-
-		Question.objects.increment_view_count(question)
 		return render_to_response('qanda/question.html', context, context_instance=RequestContext(request))
 	else:
 		raise Http404

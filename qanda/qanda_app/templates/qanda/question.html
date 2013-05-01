@@ -43,7 +43,7 @@
 						<div class="span8">
 							<h6> {% trans "Category:" %} {% if question.category %}{{ question.category }}{% else %}{% trans "None" %}{% endif %}</h6>
 							<h3> {{ question.title }} </h3> 
-							<h6> {% blocktrans with viewCount=question.viewCount %} Views {{ viewCount }} {% endblocktrans %}</h6>
+							<h6> {% blocktrans with viewCount=question.get_unique_view_count %} Views {{ viewCount }} {% endblocktrans %}</h6>
 							{% if is_editor or request.user.is_superuser or question.author.djangoUser == user %}
 							<div class="span6">
 								<a class="edit-question" href="{% url edit_question_page question_id=question.pk %}">{% trans "Edit Question" %}</a> 
