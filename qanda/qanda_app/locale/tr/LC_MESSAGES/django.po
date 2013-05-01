@@ -198,7 +198,7 @@ msgstr "Başlık"
 
 #: templates/qanda/edit_question.html:31 templates/qanda/new_question.html:31
 msgid "Error in Title"
-msgstr ""
+msgstr "Başlıkta Hata"
 
 #: templates/qanda/edit_question.html:41 templates/qanda/new_question.html:41
 msgid "Question Category"
@@ -224,7 +224,7 @@ msgstr "Etiketler"
 
 #: templates/qanda/edit_question.html:76 templates/qanda/new_question.html:76
 msgid "Error in Tags"
-msgstr ""
+msgstr "Etiketlerde Hata"
 
 #: templates/qanda/navbar.html:15
 msgid "Home"
