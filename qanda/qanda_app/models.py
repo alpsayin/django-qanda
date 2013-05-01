@@ -564,7 +564,7 @@ def createAnswerNotifications(sender, **kwargs):
             Answer.objects.subscribe_to_answer(answer, answer.author, True)
             new_notifications = Notification.create_notifications(key='new_answer',
                                                                 object_id=str(answer.question.pk),
-                                                                message='New answer to '+str(answer.question.title),
+                                                                message=_('New answer to ')+unicode(answer.question.title),
                                                                 url=reverse('qanda_app.views.question_page', kwargs={'question_id':answer.question.pk,}),
                                                                 )
         elif sender == Question:
@@ -581,7 +581,7 @@ def createReplyNotifications(sender, **kwargs):
 
         new_notifications = Notification.create_notifications(key='new_reply', 
                                                             object_id=str(reply.answer.pk),
-                                                            message='New reply to your answer in '+str(reply.answer.question.title),
+                                                            message=_('New reply to your answer in ')+unicode(reply.answer.question.title),
                                                             url=reverse('qanda_app.views.question_page', kwargs={'question_id':reply.answer.question.pk,}),
                                                             )
          
