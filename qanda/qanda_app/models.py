@@ -318,6 +318,9 @@ class Question(models.Model):
     def get_undeleted_answers(self):
         return self.answers.filter(deleted=False)
 
+    def get_unique_view_count(self):
+        return QuestionRelatedUsers.objects.filter(relatedQuestion=self, seen=True).count()
+
     def __unicode__(self):
         return u'%d %s' % (self.pk, self.title)
 
