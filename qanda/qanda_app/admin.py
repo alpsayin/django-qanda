@@ -34,8 +34,8 @@ class UserRelationsAdmin(admin.ModelAdmin):
 	list_display = ['relater', 'related', 'star', 'flag']
 
 class QuestionRelatedUsersAdmin(admin.ModelAdmin):
-	fields = ['relatedUser', 'relatedQuestion', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
-	list_display = ['relatedUser', 'relatedQuestion', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
+	fields = ['relatedUser', 'relatedQuestion', 'seen', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
+	list_display = ['relatedUser', 'relatedQuestion', 'seen', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
 
 class AnswerRelatedUsersAdmin(admin.ModelAdmin):
 	fields = ['relatedUser', 'relatedAnswer', 'upvote', 'downvote', 'useful', 'notUseful', 'star', 'flag']
