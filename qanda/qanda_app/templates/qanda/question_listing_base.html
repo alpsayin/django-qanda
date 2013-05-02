@@ -9,7 +9,7 @@
 						{% trans "Votes" %}<br />{{ question.voteCount }}
 					</div>
 					<div class="span1 answercount-box">
-						{% trans "Answers" %}<br />{{ question.answers.count }}
+						{% trans "Answers" %}<br />{{ question.get_undeleted_answers.count }}
 					</div>	
 					<div class="span1 viewcount-box">
 						{% trans "Views" %}<br />{{ question.get_unique_view_count }}
