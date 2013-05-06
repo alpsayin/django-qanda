@@ -30,7 +30,7 @@
 								</li>
 								{% for category in categories %}
 									<li>
-										<a href="{% url qanda_app.views.categorized_tag_page category=category.name tag=tag page='0' %}">{{ category.name }}</a>
+										<a href="{% url qanda_app.views.categorized_tag_page category=category.slug tag=tag page='0' %}">{{ category.name }}</a>
 									</li>
 								{% endfor %}
 							</ul>
