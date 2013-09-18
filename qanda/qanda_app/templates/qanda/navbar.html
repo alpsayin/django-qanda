@@ -26,13 +26,12 @@
         </ul>
 
         <!-- Search Form -->
-        <form class="navbar-search pull-right" action="/search/" method="GET">
+        <form id="qanda_navbar_search_form" class="navbar-search pull-right" action="/search/" method="GET">
           <div class="controls">
           <div class="input-prepend">
           <span class="add-on">
-            <i class="icon-search"></i>
-            
-            <input type="text" name="q" id="id_q" class="search-query" placeholder="{% trans 'Search' %}"></input>
+            <a href="#" onclick="$('#qanda_navbar_search_form').submit(); return false;" class="pull-left" > <span class="icon-search" style="margin:4px;"></span></a>
+            <input type="text" name="q" id="id_q" style="height: 12px;" class="search-query" placeholder="{% trans 'Search' %}"></input>
           </span>
         </div>
       </div>
