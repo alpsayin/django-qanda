@@ -11,6 +11,7 @@ class QuestionIndex(SearchIndex):
 	tags = CharField(model_attr='tags')
 	answers = CharField(model_attr='answers')
 	replies = CharField()
+	rendered = CharField(use_template=True, indexed=False)
 
 	def get_model(self):
 		return Question

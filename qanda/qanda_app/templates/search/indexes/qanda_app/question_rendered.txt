@@ -1,0 +1,4 @@
+{% load i18n %}
+<tr>
+<td><h4>{% trans "Question" %}: <a href="{{ object.get_absolute_url }}"> {{ object.title }}</a></h4></td>
+</tr>
