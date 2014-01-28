@@ -684,6 +684,7 @@ def new_question_page(request):
 
 	return render_to_response("qanda/new_question.html", context, context_instance=RequestContext(request))
 
+@assert_qanda_user
 def question_page(request, question_id):
 	context = {}
 	if not Question.objects.exists():
