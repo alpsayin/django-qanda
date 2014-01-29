@@ -31,7 +31,11 @@
 								});
 							</script>
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								{% trans "Category Filter" %}
+								{% if category %}
+									{{ category }}
+								{% else %}
+									{% trans "Category Filter" %}
+								{% endif %}
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
