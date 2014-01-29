@@ -49,7 +49,14 @@
 					{% endif %}
 				</span>
 					<div class="pull-right">
-						<div class="btn-group btn-large">
+						<div id="id_categories" class="btn-group btn-large">
+							<script type="text/javascript">
+								$(document).ready(function(){
+									$('#id_categories').click(function(){
+										$('#id_categories').toggleClass('open');
+									});
+								});
+							</script>
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								{% if category %}
 									{{ category }}
