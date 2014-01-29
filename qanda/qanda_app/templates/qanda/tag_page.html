@@ -17,7 +17,10 @@
 			<div class="row">
 				<h2>
 					{% blocktrans with tag=tag %}Questions with "{{ tag }}" tag {% endblocktrans %}
-
+					{% if category %}
+			    		-
+						{{ category }}
+					{% endif %}
 					<div class="pull-right">
 						<div id="id_categories" class="btn-group btn-large">
 							<script type="text/javascript">
