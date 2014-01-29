@@ -547,7 +547,7 @@ def tag_list(request, page):
 	
 	tags = Tag.objects.order_by('name')[page*(NUM_OF_TAGS_PER_PAGE):(page+1)*NUM_OF_TAGS_PER_PAGE]
 	for tag in tags:
-		tag.count = Question.objects.filter(tags__name__in=[tag]).count()
+		tag.count = Question.objects.filter(tags__name__in=[tag], deleted=False).count()
 
 	context['tags'] = tags
 	context['view'] = 'tag_list'
