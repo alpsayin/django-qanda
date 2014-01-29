@@ -613,6 +613,7 @@ def categorized_tag_page(request, category, tag, page):
 
 	context['categories'] = Category.objects.all()
 	context['current_page_number'] = page
+	context['category'] = category_id
 
 	return render_to_response("qanda/tag_page.html", context, context_instance=RequestContext(request))
 
