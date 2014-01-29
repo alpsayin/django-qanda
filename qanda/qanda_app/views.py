@@ -520,7 +520,7 @@ def category_list(request, page):
 	
 	categories = Category.objects.order_by('name')[page*(NUM_OF_TAGS_PER_PAGE):(page+1)*NUM_OF_TAGS_PER_PAGE]
 	for category in categories:
-		category.count = Question.objects.filter(category=category).count()
+		category.count = Question.objects.filter(category=category, deleted=False).count()
 
 	context['categories'] = categories
 	context['view'] = 'category_list'
